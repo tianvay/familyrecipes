@@ -1,0 +1,1005 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Süßkartoffel-Pfanne mit Kräuter-Dip",
+      "description": "Knusprige Süßkartoffeln aus der Pfanne mit einem frischen Kräuter-Dip. Optional kann Hähnchen für eine proteinreiche Variante ergänzt werden.",
+      "image": "assets/images/suesskartoffel-pfanne.webp",
+      "source": "",
+
+      "servings": "",
+      "prepTime": "",
+      "cookTime": "",
+      "totalTime": "",
+      "difficulty": "",
+
+      "tags": [
+        "Pfanne",
+        "Vegetarisch",
+        "Optional Fleisch",
+        "High Protein",
+        "Süßkartoffeln",
+        "Meal Prep",
+        "Wenig Abwasch"
+      ],
+
+      "nutrition": {
+        "calories": "",
+        "protein": "",
+        "carbohydrates": "",
+        "fat": "",
+        "fiber": "",
+        "variants": [
+          {
+            "name": "Vegetarisch",
+            "calories": "~340 kcal",
+            "protein": "~12 g"
+          },
+          {
+            "name": "Mit Hähnchen",
+            "calories": "~490 kcal",
+            "protein": "~40 g"
+          }
+        ]
+      },
+
+      "ingredients": [
+        {
+          "name": "Süßkartoffeln",
+          "amount": "500-600",
+          "unit": "g"
+        },
+        {
+          "name": "Butter",
+          "amount": "1-2",
+          "unit": "EL"
+        },
+        {
+          "name": "Magerquark oder griechischer Joghurt",
+          "amount": "250",
+          "unit": "g"
+        },
+        {
+          "name": "Frische Kräuter",
+          "amount": "",
+          "unit": ""
+        },
+        {
+          "name": "Salz",
+          "amount": "",
+          "unit": ""
+        },
+        {
+          "name": "Schwarzer Pfeffer",
+          "amount": "",
+          "unit": ""
+        },
+        {
+          "name": "Chiliflocken",
+          "amount": "",
+          "unit": ""
+        },
+        {
+          "name": "Hähnchenbrust oder Putenschnitzel (optional)",
+          "amount": "200-250",
+          "unit": "g"
+        },
+        {
+          "name": "Zitrone (optional)",
+          "amount": "1",
+          "unit": "Stück"
+        }
+      ],
+
+      "shoppingList": [
+        {
+          "name": "Süßkartoffeln",
+          "amount": "500-600",
+          "unit": "g"
+        },
+        {
+          "name": "Butter",
+          "amount": "1-2",
+          "unit": "EL"
+        },
+        {
+          "name": "Magerquark oder griechischer Joghurt",
+          "amount": "250",
+          "unit": "g"
+        },
+        {
+          "name": "Frische Kräuter",
+          "amount": "",
+          "unit": ""
+        },
+        {
+          "name": "Salz",
+          "amount": "",
+          "unit": ""
+        },
+        {
+          "name": "Schwarzer Pfeffer",
+          "amount": "",
+          "unit": ""
+        },
+        {
+          "name": "Chiliflocken",
+          "amount": "",
+          "unit": ""
+        },
+        {
+          "name": "Hähnchenbrust oder Putenschnitzel (optional)",
+          "amount": "200-250",
+          "unit": "g"
+        },
+        {
+          "name": "Zitrone (optional)",
+          "amount": "1",
+          "unit": "Stück"
+        }
+      ],
+
+      "instructions": [
+        "Süßkartoffeln schälen und in etwa 1 cm große Würfel schneiden.",
+        "Optional Hähnchen oder Putenschnitzel in Streifen schneiden.",
+        "Kräuter fein hacken.",
+        "Magerquark oder Joghurt mit Kräutern, Zitronensaft, Salz und Pfeffer verrühren.",
+        "Butter in einer Pfanne erhitzen.",
+        "Süßkartoffeln 5–7 Minuten anbraten.",
+        "3–4 EL Wasser hinzufügen und die Pfanne mit einem Deckel verschließen.",
+        "Weitere 5 Minuten dämpfen.",
+        "Deckel entfernen und die Kartoffeln knusprig anbraten.",
+        "Mit Salz, Pfeffer und Chiliflocken würzen.",
+        "Optional das Fleisch in derselben Pfanne separat anbraten.",
+        "Mit dem Kräuter-Dip servieren."
+      ],
+
+      "notes": "",
+      "favorite": false
+    },
+    {
+        "id": 2,
+        "title": "Umami-Kartoffel-Brokkoli-Mix mit Kräuter-Quark-Dip",
+        "description": "Knusprige Kartoffeln und Brokkoli aus dem Airfryer mit cremigem Kräuter-Quark-Dip und einer feinen Umami-Note durch MSG.",
+        "image": "assets/images/umami-kartoffel-brokkoli.webp",
+        "source": "",
+
+        "servings": "",
+        "prepTime": "",
+        "cookTime": "15-20 Minuten",
+        "totalTime": "",
+        "difficulty": "Einfach",
+
+        "tags": [
+            "Airfryer",
+            "Vegetarisch",
+            "High Protein",
+            "Kartoffeln",
+            "Brokkoli",
+            "Meal Prep",
+            "Schnell",
+            "Wenig Abwasch"
+        ],
+
+        "equipment": [
+            "Airfryer",
+            "Schüssel"
+        ],
+
+        "nutrition": {
+            "calories": "",
+            "protein": "",
+            "carbohydrates": "",
+            "fat": "",
+            "fiber": "",
+            "variants": []
+        },
+
+        "ingredients": [
+            {
+            "name": "Kartoffeln (festkochend)",
+            "amount": "400",
+            "unit": "g"
+            },
+            {
+            "name": "Brokkoli",
+            "amount": "300",
+            "unit": "g"
+            },
+            {
+            "name": "Olivenöl",
+            "amount": "2",
+            "unit": "EL"
+            },
+            {
+            "name": "Salz",
+            "amount": "1",
+            "unit": "TL"
+            },
+            {
+            "name": "MSG",
+            "amount": "0.5",
+            "unit": "TL"
+            },
+            {
+            "name": "Knoblauchpulver (optional)",
+            "amount": "",
+            "unit": ""
+            },
+            {
+            "name": "Magerquark",
+            "amount": "250",
+            "unit": "g"
+            },
+            {
+            "name": "Naturjoghurt",
+            "amount": "2",
+            "unit": "EL"
+            },
+            {
+            "name": "TK-8-Kräuter-Mix",
+            "amount": "50",
+            "unit": "g"
+            },
+            {
+            "name": "Zitrone",
+            "amount": "0.5",
+            "unit": "Stück"
+            },
+            {
+            "name": "Schwarzer Pfeffer",
+            "amount": "",
+            "unit": ""
+            }
+        ],
+
+        "shoppingList": [
+            {
+            "name": "Kartoffeln (festkochend)",
+            "amount": "400",
+            "unit": "g"
+            },
+            {
+            "name": "Brokkoli",
+            "amount": "300",
+            "unit": "g"
+            },
+            {
+            "name": "Olivenöl",
+            "amount": "2",
+            "unit": "EL"
+            },
+            {
+            "name": "Salz",
+            "amount": "1",
+            "unit": "TL"
+            },
+            {
+            "name": "MSG",
+            "amount": "0.5",
+            "unit": "TL"
+            },
+            {
+            "name": "Knoblauchpulver (optional)",
+            "amount": "",
+            "unit": ""
+            },
+            {
+            "name": "Magerquark",
+            "amount": "250",
+            "unit": "g"
+            },
+            {
+            "name": "Naturjoghurt",
+            "amount": "2",
+            "unit": "EL"
+            },
+            {
+            "name": "TK-8-Kräuter-Mix",
+            "amount": "50",
+            "unit": "g"
+            },
+            {
+            "name": "Zitrone",
+            "amount": "0.5",
+            "unit": "Stück"
+            },
+            {
+            "name": "Schwarzer Pfeffer",
+            "amount": "",
+            "unit": ""
+            }
+        ],
+
+        "instructions": [
+            "Kartoffeln in etwa 1,5 cm große Spalten schneiden.",
+            "Brokkoli in mundgerechte Röschen teilen.",
+            "Kartoffeln und Brokkoli mit Olivenöl, Salz und optional Knoblauchpulver vermengen.",
+            "Alles in den Airfryer geben.",
+            "Bei 190 °C für 15–20 Minuten garen.",
+            "Nach der Hälfte der Zeit den Korb kräftig schütteln.",
+            "Das heiße Gemüse direkt nach dem Garen mit MSG bestreuen und durchschwenken.",
+            "Magerquark und Naturjoghurt glatt rühren.",
+            "TK-Kräuter unterrühren.",
+            "Mit Zitronensaft, Salz und Pfeffer abschmecken.",
+            "Zusammen mit dem warmen Gemüse servieren."
+        ],
+
+        "notes": "Bei Bedarf etwas Wasser oder Mineralwasser in den Dip geben, damit er cremiger wird.",
+        "favorite": false
+    },
+    {
+        "id": 3,
+        "title": "Gefüllter Airfryer-Burger",
+        "description": "Saftiges Hackfleisch mit Cheddar, Burgersoße und frischem Gemüse, komplett in knusprigem Pizzateig eingeschlossen und im Airfryer gebacken.",
+        "image": "assets/images/gefuellter-airfryer-burger.webp",
+        "source": "",
+
+        "hero": true,
+        "emoji": "🍔",
+        "color": "#B85C38",
+
+        "servings": "4",
+        "prepTime": "20 Minuten",
+        "cookTime": "10-15 Minuten",
+        "totalTime": "30-35 Minuten",
+        "difficulty": "Einfach",
+
+        "tags": [
+            "Airfryer",
+            "Burger",
+            "Hackfleisch",
+            "Cheddar",
+            "Herzhaft"
+        ],
+
+        "diet": [
+            "Fleisch"
+        ],
+
+        "equipment": [
+            "Airfryer",
+            "Pfanne"
+        ],
+
+        "nutrition": {
+            "calories": "",
+            "protein": "",
+            "carbohydrates": "",
+            "fat": "",
+            "fiber": "",
+            "variants": []
+        },
+
+        "ingredients": [
+            {
+            "name": "Hackfleisch",
+            "amount": 400,
+            "amountMax": null,
+            "unit": "g",
+            "optional": false
+            },
+            {
+            "name": "Pizzateig",
+            "amount": 1,
+            "amountMax": null,
+            "unit": "Rolle",
+            "optional": false
+            },
+            {
+            "name": "Burgersoße",
+            "amount": 4,
+            "amountMax": null,
+            "unit": "EL",
+            "optional": false
+            },
+            {
+            "name": "Cheddar",
+            "amount": 4,
+            "amountMax": null,
+            "unit": "Scheiben",
+            "optional": false
+            },
+            {
+            "name": "Gewürzgurken",
+            "amount": 4,
+            "amountMax": 6,
+            "unit": "Stück",
+            "optional": false
+            },
+            {
+            "name": "Tomaten",
+            "amount": "",
+            "amountMax": null,
+            "unit": "",
+            "optional": false
+            },
+            {
+            "name": "Salatblätter",
+            "amount": "",
+            "amountMax": null,
+            "unit": "",
+            "optional": false
+            },
+            {
+            "name": "Ei",
+            "amount": 1,
+            "amountMax": null,
+            "unit": "Stück",
+            "optional": false
+            },
+            {
+            "name": "Sesam",
+            "amount": "",
+            "amountMax": null,
+            "unit": "",
+            "optional": true
+            },
+            {
+            "name": "Salz",
+            "amount": "",
+            "amountMax": null,
+            "unit": "",
+            "optional": false
+            },
+            {
+            "name": "Schwarzer Pfeffer",
+            "amount": "",
+            "amountMax": null,
+            "unit": "",
+            "optional": false
+            }
+        ],
+
+        "shoppingList": [],
+
+        "instructions": [
+            "Hackfleisch mit Salz und Pfeffer würzen und vier Pattys formen.",
+            "Die Pattys kurz in einer Pfanne anbraten.",
+            "Pizzateig in vier gleich große Stücke schneiden.",
+            "Jedes Teigstück mit Burgersoße bestreichen.",
+            "Mit Patty, Cheddar, Gewürzgurken, Tomaten und Salat belegen.",
+            "Den Teig vollständig verschließen.",
+            "Mit der Naht nach unten in den Airfryer legen.",
+            "Mit verquirltem Ei bestreichen.",
+            "Nach Belieben mit Sesam bestreuen.",
+            "Bei 180 °C für 10–15 Minuten goldbraun backen."
+        ],
+
+        "tips": [
+            "Den Teig gut verschließen, damit beim Backen kein Käse austritt.",
+            "Die Pattys nur kurz anbraten, damit sie im Airfryer saftig bleiben."
+        ],
+
+        "variations": [
+            "Mit Bacon ergänzen.",
+            "Mit Jalapeños für mehr Schärfe.",
+            "Vegetarisch mit einem pflanzlichen Burger-Patty."
+        ],
+
+        "gallery": [],
+
+        "notes": "",
+
+        "favorite": false
+    },
+    {
+      "id": 4,
+      "title": "High Protein Cheesecake",
+      "description": "Cremiger Cheesecake auf Skyr-Basis mit viel Protein und wenig Kalorien. Ideal als gesunder Snack oder Dessert.",
+      "image": "assets/images/high-protein-cheesecake.webp",
+      "source": "",
+
+      "hero": true,
+      "emoji": "🍰",
+      "color": "#F5D76E",
+
+      "servings": "8",
+      "prepTime": "10 Minuten",
+      "cookTime": "40-60 Minuten",
+      "totalTime": "50-70 Minuten",
+      "difficulty": "Einfach",
+
+      "tags": [
+        "Dessert",
+        "Backofen",
+        "High Protein",
+        "Meal Prep",
+        "Fitness",
+        "Kalorienarm"
+      ],
+
+      "diet": [
+        "Vegetarisch"
+      ],
+
+      "equipment": [
+        "Backofen",
+        "Schüssel",
+        "Kuchenform"
+      ],
+
+      "nutrition": {
+        "calories": "95 kcal",
+        "protein": "11 g",
+        "carbohydrates": "5 g",
+        "fat": "3 g",
+        "fiber": "",
+        "variants": [
+          {
+            "name": "Gesamter Kuchen",
+            "calories": "780 kcal",
+            "protein": "88 g",
+            "carbohydrates": "40 g",
+            "fat": "24 g"
+          }
+        ]
+      },
+
+      "ingredients": [
+        {
+          "name": "Skyr",
+          "amount": 500,
+          "amountMax": null,
+          "unit": "g",
+          "optional": false
+        },
+        {
+          "name": "Frischkäse (fettreduziert)",
+          "amount": 200,
+          "amountMax": null,
+          "unit": "g",
+          "optional": false
+        },
+        {
+          "name": "Eier",
+          "amount": 2,
+          "amountMax": null,
+          "unit": "Stück",
+          "optional": false
+        },
+        {
+          "name": "Puddingpulver",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "Päckchen",
+          "optional": false
+        },
+        {
+          "name": "Zitronen Flavor Powder",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        }
+      ],
+
+      "shoppingList": [],
+
+      "instructions": [
+        "Alle Zutaten in eine große Schüssel geben.",
+        "Zu einer glatten Masse verrühren.",
+        "Die Masse gleichmäßig in eine Kuchenform füllen.",
+        "Den Backofen auf 180 °C vorheizen.",
+        "Den Cheesecake 40 bis 60 Minuten backen.",
+        "Nach dem Backen vollständig auf Zimmertemperatur abkühlen lassen.",
+        "Vor dem Servieren optional einige Stunden kalt stellen."
+      ],
+
+      "tips": [
+        "Gut gekühlt schmeckt der Cheesecake besonders cremig.",
+        "Für mehr Aroma kann etwas Zitronenabrieb ergänzt werden.",
+        "Die doppelte Rezeptmenge eignet sich für große Springformen."
+      ],
+
+      "variations": [
+        "Mit Beeren servieren.",
+        "Mit Vanille Flavor Powder verfeinern.",
+        "Mit kalorienfreier Schokoladensoße garnieren."
+      ],
+
+      "gallery": [],
+
+      "notes": "Die angegebene Nährwertberechnung gilt sowohl pro 100 g als auch pro Stück bei acht Portionen laut Rezept.",
+
+      "favorite": false
+    },
+    {
+      "id": 5,
+      "title": "Veganes Kartoffelgratin mit Knoblauch und Muskat",
+      "description": "Cremiges Kartoffelgratin mit veganer Sahne und knuspriger Käsealternative. Herzhaft, sättigend und komplett pflanzlich.",
+      "image": "assets/images/veganes-kartoffelgratin.webp",
+      "source": "",
+
+      "hero": false,
+      "emoji": "🥔",
+      "color": "#D8C28A",
+
+      "servings": "",
+      "prepTime": "20 Minuten",
+      "cookTime": "50-60 Minuten",
+      "totalTime": "70-80 Minuten",
+      "difficulty": "Einfach",
+
+      "tags": [
+        "Backofen",
+        "Vegan",
+        "Kartoffeln",
+        "Auflauf",
+        "Comfort Food"
+      ],
+
+      "diet": [
+        "Vegan"
+      ],
+
+      "equipment": [
+        "Backofen",
+        "Auflaufform",
+        "Schüssel",
+        "Gemüsehobel"
+      ],
+
+      "nutrition": {
+        "calories": "",
+        "protein": "",
+        "carbohydrates": "",
+        "fat": "",
+        "fiber": "",
+        "variants": []
+      },
+
+      "ingredients": [
+        {
+          "name": "Kartoffeln (vorwiegend festkochend)",
+          "amount": 1000,
+          "amountMax": null,
+          "unit": "g",
+          "optional": false
+        },
+        {
+          "name": "Vegane Sahne",
+          "amount": 400,
+          "amountMax": null,
+          "unit": "ml",
+          "optional": false
+        },
+        {
+          "name": "Knoblauchzehen",
+          "amount": 2,
+          "amountMax": 3,
+          "unit": "Stück",
+          "optional": false
+        },
+        {
+          "name": "Muskatnuss",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "TL",
+          "optional": false
+        },
+        {
+          "name": "Veganer Reibekäse",
+          "amount": 150,
+          "amountMax": null,
+          "unit": "g",
+          "optional": false
+        },
+        {
+          "name": "Salz",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Schwarzer Pfeffer",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Vegane Margarine oder Öl",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Petersilie oder Thymian",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": true
+        }
+      ],
+
+      "shoppingList": [],
+
+      "instructions": [
+        "Backofen auf 180 °C Ober-/Unterhitze vorheizen.",
+        "Auflaufform leicht einfetten.",
+        "Kartoffeln schälen und in 2–3 mm dünne Scheiben schneiden.",
+        "Vegane Sahne mit Knoblauch, Muskat, Salz und Pfeffer verrühren.",
+        "Kartoffelscheiben fächerartig in die Auflaufform schichten.",
+        "Mit der Sahnemischung gleichmäßig übergießen.",
+        "35–40 Minuten ohne Käse backen.",
+        "Veganen Reibekäse darüber verteilen.",
+        "Weitere 15–20 Minuten goldbraun backen.",
+        "Vor dem Servieren 5–10 Minuten ruhen lassen.",
+        "Optional mit frischen Kräutern garnieren."
+      ],
+
+      "tips": [
+        "Mit einem Gemüsehobel werden die Kartoffelscheiben besonders gleichmäßig.",
+        "Die Sahnesauce darf vor dem Backen ruhig kräftig gewürzt sein.",
+        "Vor dem Anschneiden etwas ruhen lassen, damit das Gratin stabil bleibt."
+      ],
+
+      "variations": [
+        "Mit veganem Räucherkäse überbacken.",
+        "Mit Spinat zwischen den Kartoffelschichten ergänzen.",
+        "Mit veganem Speck verfeinern."
+      ],
+
+      "gallery": [],
+
+      "notes": "",
+
+      "favorite": false
+    },
+    {
+      "id": 6,
+      "title": "High Protein Thunfisch-Hüttenkäse-Wraps",
+      "description": "Proteinreiche Vollkorn-Wraps mit cremigem Hüttenkäse, Thunfisch und knackigem Gemüse. Ideal als schnelles Mittagessen oder Meal Prep.",
+      "image": "assets/images/thunfisch-huettenkaese-wrap.webp",
+      "source": "",
+
+      "hero": true,
+      "emoji": "🌯",
+      "color": "#6CA6C1",
+
+      "servings": "2",
+      "prepTime": "15 Minuten",
+      "cookTime": "0 Minuten",
+      "totalTime": "15 Minuten",
+      "difficulty": "Sehr einfach",
+
+      "tags": [
+        "High Protein",
+        "Meal Prep",
+        "Lunch",
+        "Fisch",
+        "Schnell",
+        "Ohne Backofen"
+      ],
+
+      "diet": [
+        "Pescetarisch"
+      ],
+
+      "equipment": [
+        "Schüssel",
+        "Messer",
+        "Schneidebrett"
+      ],
+
+      "nutrition": {
+        "calories": "",
+        "protein": "",
+        "carbohydrates": "",
+        "fat": "",
+        "fiber": "",
+        "variants": []
+      },
+
+      "ingredients": [
+        {
+          "name": "Hüttenkäse",
+          "amount": 250,
+          "amountMax": null,
+          "unit": "g",
+          "optional": false
+        },
+        {
+          "name": "Thunfisch (im eigenen Saft)",
+          "amount": 150,
+          "amountMax": null,
+          "unit": "g",
+          "optional": false
+        },
+        {
+          "name": "Staudensellerie",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "Stange",
+          "optional": false
+        },
+        {
+          "name": "Rote Zwiebel",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "klein",
+          "optional": false
+        },
+        {
+          "name": "Vollkorn-Wraps",
+          "amount": 2,
+          "amountMax": null,
+          "unit": "Stück",
+          "optional": false
+        },
+        {
+          "name": "Zitronensaft",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "EL",
+          "optional": false
+        },
+        {
+          "name": "Frischer Dill",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "EL",
+          "optional": false
+        },
+        {
+          "name": "Salz",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Schwarzer Pfeffer",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        }
+      ],
+
+      "shoppingList": [],
+
+      "instructions": [
+        "Den Thunfisch gründlich abtropfen lassen.",
+        "Sellerie und Zwiebel fein würfeln.",
+        "Hüttenkäse, Thunfisch, Sellerie, Zwiebel, Zitronensaft und Dill in einer Schüssel vermengen.",
+        "Mit Salz und Pfeffer abschmecken.",
+        "Die Vollkorn-Wraps kurz erwärmen.",
+        "Die Füllung gleichmäßig auf beide Wraps verteilen.",
+        "Fest aufrollen und servieren."
+      ],
+
+      "tips": [
+        "Die Wraps vor dem Rollen kurz erwärmen, damit sie nicht reißen.",
+        "Die Füllung eignet sich auch hervorragend als Salat ohne Wrap."
+      ],
+
+      "variations": [
+        "Mit Gurke ergänzen.",
+        "Mit Avocado verfeinern.",
+        "Mit etwas Chili für mehr Schärfe."
+      ],
+
+      "gallery": [],
+
+      "notes": "",
+
+      "favorite": false
+    },
+    {
+      "id": 7,
+      "title": "Crispy Tofu & Brokkoli",
+      "description": "Knuspriger Natur-Tofu und Brokkoli aus dem Airfryer – proteinreich, ballaststoffreich und perfekt für eine gesunde Ernährung.",
+      "image": "assets/images/crispy-tofu-brokkoli.webp",
+      "source": "",
+
+      "hero": false,
+      "emoji": "🥦",
+      "color": "#5DAA68",
+
+      "servings": "1",
+      "prepTime": "10 Minuten",
+      "cookTime": "12-15 Minuten",
+      "totalTime": "20-25 Minuten",
+      "difficulty": "Sehr einfach",
+
+      "tags": [
+        "Airfryer",
+        "High Protein",
+        "Vegetarisch",
+        "Meal Prep",
+        "Schnell",
+        "Tofu",
+        "Brokkoli"
+      ],
+
+      "diet": [
+        "Vegetarisch"
+      ],
+
+      "equipment": [
+        "Airfryer",
+        "Schüssel"
+      ],
+
+      "nutrition": {
+        "calories": "280 kcal",
+        "protein": "22 g",
+        "carbohydrates": "",
+        "fat": "",
+        "fiber": "",
+        "variants": []
+      },
+
+      "ingredients": [
+        {
+          "name": "Natur-Tofu",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "Block",
+          "optional": false
+        },
+        {
+          "name": "Brokkoli",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "Kopf",
+          "optional": false
+        },
+        {
+          "name": "Sojasauce",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "EL",
+          "optional": false
+        },
+        {
+          "name": "Knoblauchpulver",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Paprikapulver (edelsüß)",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        }
+      ],
+
+      "shoppingList": [],
+
+      "instructions": [
+        "Tofu in etwa 2 cm große Würfel schneiden.",
+        "Brokkoli in mundgerechte Röschen teilen.",
+        "Tofu und Brokkoli mit Sojasauce sowie den Gewürzen vermengen.",
+        "Alles in den Airfryer geben.",
+        "Bei 200 °C für 12–15 Minuten garen.",
+        "Nach der Hälfte der Garzeit den Korb kräftig schütteln.",
+        "Direkt heiß servieren."
+      ],
+
+      "tips": [
+        "Backpapier-Einlagen erleichtern die Reinigung des Airfryers.",
+        "Den Tofu vorher gut ausdrücken, damit er besonders knusprig wird."
+      ],
+
+      "variations": [
+        "Mit Sesam garnieren.",
+        "Mit Sriracha servieren.",
+        "Mit Erdnusssauce kombinieren."
+      ],
+
+      "gallery": [],
+
+      "notes": "",
+
+      "favorite": false
+    }
+  ]
+}
