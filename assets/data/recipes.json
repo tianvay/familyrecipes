@@ -1000,6 +1000,328 @@
       "notes": "",
 
       "favorite": false
+    },
+    {
+      "id": 8,
+      "uuid": "",
+      "title": "Mediterrane Frischkäse-Paprika",
+      "summary": "Gefüllte Paprika aus dem Airfryer mit körnigem Frischkäse.",
+      "description": "Ein schneller, proteinreicher Snack oder eine leichte Hauptmahlzeit. Die Paprika wird mit einer mediterranen Frischkäsefüllung gefüllt und im Airfryer gegart.",
+      "image": "assets/images/mediterrane-frischkaese-paprika.webp",
+      "source": "",
+
+      "hero": false,
+      "emoji": "🫑",
+      "color": "#D94E41",
+
+      "servings": "1",
+      "prepTime": "10 Minuten",
+      "cookTime": "10-12 Minuten",
+      "totalTime": "20-22 Minuten",
+      "difficulty": "Sehr einfach",
+
+      "tags": [
+        "Airfryer",
+        "Vegetarisch",
+        "High Protein",
+        "Paprika",
+        "Schnell",
+        "Low Carb"
+      ],
+
+      "diet": [
+        "Vegetarisch"
+      ],
+
+      "equipment": [
+        "Airfryer",
+        "Schüssel"
+      ],
+
+      "mealPrep": true,
+      "proteinRich": true,
+      "freezable": false,
+      "storage": "",
+      "estimatedCost": "",
+
+      "season": [
+        "Ganzjährig"
+      ],
+
+      "allergens": [
+        "Milch",
+        "Ei"
+      ],
+
+      "nutrition": {
+        "calories": "240 kcal",
+        "protein": "18 g",
+        "carbohydrates": "",
+        "fat": "",
+        "fiber": "",
+        "variants": []
+      },
+
+      "ingredients": [
+        {
+          "name": "Paprika",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "groß",
+          "optional": false
+        },
+        {
+          "name": "Körniger Frischkäse",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Oliven",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Frische Petersilie",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Ei",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "Stück",
+          "optional": false
+        },
+        {
+          "name": "Schwarzer Pfeffer",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        }
+      ],
+
+      "shoppingList": [],
+
+      "instructions": [
+        "Paprika halbieren und entkernen.",
+        "Petersilie hacken.",
+        "Oliven in Ringe schneiden.",
+        "Körnigen Frischkäse mit Ei, Petersilie und Oliven vermengen.",
+        "Mit Pfeffer abschmecken.",
+        "Die Paprikahälften füllen.",
+        "Bei 180 °C für 10–12 Minuten im Airfryer garen."
+      ],
+
+      "tips": [
+        "Gelbe Paprika schmeckt etwas süßer als rote.",
+        "Mit etwas Feta erhält das Gericht eine kräftigere Note."
+      ],
+
+      "variations": [
+        "Mit getrockneten Tomaten ergänzen.",
+        "Mit Chili schärfer würzen.",
+        "Mit Mozzarella überbacken."
+      ],
+
+      "gallery": [],
+
+      "notes": "",
+
+      "favorite": false
+    },
+    {
+      "id": 9,
+      "uuid": "",
+      "title": "Zucchini-Tomaten-Airfryer-Bowl",
+      "summary": "Mediterrane Gemüse-Bowl mit Tofu oder Hähnchen aus dem Airfryer.",
+      "description": "Ein schnelles Airfryer-Gericht mit mediterranem Gemüse. Wahlweise vegetarisch mit Tofu oder proteinreich mit Hähnchen.",
+      "image": "assets/images/zucchini-tomaten-bowl.webp",
+      "source": "",
+
+      "hero": true,
+      "emoji": "🥒",
+      "color": "#6A994E",
+
+      "servings": "2",
+      "prepTime": "15 Minuten",
+      "cookTime": "12-15 Minuten",
+      "totalTime": "30 Minuten",
+      "difficulty": "Einfach",
+
+      "tags": [
+        "Airfryer",
+        "Meal Prep",
+        "Gemüse",
+        "High Protein",
+        "Schnell"
+      ],
+
+      "diet": [
+        "Vegetarisch",
+        "Fleisch"
+      ],
+
+      "equipment": [
+        "Airfryer",
+        "Schüssel",
+        "Schneidebrett"
+      ],
+
+      "mealPrep": true,
+      "proteinRich": true,
+      "freezable": false,
+      "storage": "",
+      "estimatedCost": "",
+
+      "season": [
+        "Sommer",
+        "Ganzjährig"
+      ],
+
+      "allergens": [
+        "Milch",
+        "Soja"
+      ],
+
+      "nutrition": {
+        "calories": "",
+        "protein": "",
+        "carbohydrates": "",
+        "fat": "",
+        "fiber": "",
+        "variants": [
+          {
+            "name": "Vegetarisch (Tofu)",
+            "calories": "~310 kcal",
+            "protein": "~24 g"
+          },
+          {
+            "name": "Mit Hähnchen",
+            "calories": "~380 kcal",
+            "protein": "~42 g"
+          }
+        ]
+      },
+
+      "ingredients": [
+        {
+          "name": "Zucchini",
+          "amount": 2,
+          "amountMax": null,
+          "unit": "mittelgroß",
+          "optional": false
+        },
+        {
+          "name": "Kirschtomaten",
+          "amount": 250,
+          "amountMax": null,
+          "unit": "g",
+          "optional": false
+        },
+        {
+          "name": "Rote Zwiebel",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "Stück",
+          "optional": false
+        },
+        {
+          "name": "Olivenöl",
+          "amount": 1,
+          "amountMax": null,
+          "unit": "EL",
+          "optional": false
+        },
+        {
+          "name": "Italienische Kräuter",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Knoblauchpulver",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Salz",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Schwarzer Pfeffer",
+          "amount": "",
+          "amountMax": null,
+          "unit": "",
+          "optional": false
+        },
+        {
+          "name": "Natur-Tofu",
+          "amount": 200,
+          "amountMax": null,
+          "unit": "g",
+          "optional": true
+        },
+        {
+          "name": "Hähnchenbrustfilet",
+          "amount": 200,
+          "amountMax": null,
+          "unit": "g",
+          "optional": true
+        },
+        {
+          "name": "Feta",
+          "amount": 100,
+          "amountMax": null,
+          "unit": "g",
+          "optional": true
+        }
+      ],
+
+      "shoppingList": [],
+
+      "instructions": [
+        "Zucchini würfeln und die Zwiebel in grobe Spalten schneiden.",
+        "Kirschtomaten ganz lassen.",
+        "Tofu oder Hähnchen in gleich große Stücke schneiden.",
+        "Gemüse mit Olivenöl, italienischen Kräutern, Knoblauch, Salz und Pfeffer vermengen.",
+        "Den Airfryer mit gelochtem Backpapier auslegen.",
+        "Gemüse in die Mitte geben.",
+        "Tofu auf eine Seite oder Hähnchen auf die andere Seite legen.",
+        "Bei 200 °C für 12–15 Minuten garen.",
+        "Nach etwa 8 Minuten alles vorsichtig wenden.",
+        "Optional kurz vor Ende den Feta über die vegetarische Variante bröseln.",
+        "Direkt servieren."
+      ],
+
+      "tips": [
+        "Tofu und Hähnchen getrennt platzieren, damit beide Varianten gleichzeitig zubereitet werden können.",
+        "Die Tomaten erst kurz vor dem Garen salzen, damit sie weniger Flüssigkeit verlieren."
+      ],
+
+      "variations": [
+        "Mit Aubergine ergänzen.",
+        "Mit Mozzarella statt Feta.",
+        "Mit Paprika erweitern."
+      ],
+
+      "gallery": [],
+
+      "notes": "",
+
+      "favorite": false
     }
   ]
 }
