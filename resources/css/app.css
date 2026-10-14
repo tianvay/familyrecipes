@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
+    --font-display: 'Fraunces', ui-serif, Georgia, serif;
+
+    --color-paper: #fbf7f1;
+    --color-paper-deep: #f3ece1;
+    --color-ink: #2b2420;
+    --color-ink-soft: #6b5f57;
+    --color-line: #e6dccd;
+    --color-accent: #c8553d;
+    --color-accent-dark: #a5402b;
+    --color-herb: #4f7a4a;
+}
+
+@layer base {
+    html {
+        -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+        @apply bg-paper text-ink font-sans;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+@layer components {
+    /* Farbfläche, getönt mit der Rezeptfarbe (--recipe wird inline gesetzt) */
+    .recipe-tint {
+        background-color: color-mix(in oklab, var(--recipe) 24%, var(--color-paper));
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+    }
+
+    .btn-primary {
+        @apply bg-accent text-white hover:bg-accent-dark;
+    }
+
+    .btn-ghost {
+        @apply border border-line bg-white/60 text-ink hover:border-ink-soft;
+    }
+
+    .btn-danger {
+        @apply text-accent-dark hover:bg-accent/10;
+    }
+
+    .field-label {
+        @apply mb-1.5 block text-sm font-medium text-ink;
+    }
+
+    .field {
+        @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-soft/60 transition focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none;
+    }
+
+    .field-error {
+        @apply mt-1 text-sm text-accent-dark;
+    }
+
+    .chip {
+        @apply inline-flex items-center rounded-full border border-line bg-white/70 px-3 py-1 text-xs font-medium text-ink-soft transition hover:border-ink-soft hover:text-ink;
+    }
+
+    .chip-active {
+        @apply border-ink bg-ink text-paper hover:text-paper;
+    }
+
+    .card-section {
+        @apply rounded-3xl border border-line bg-white p-6 sm:p-8;
+    }
+}

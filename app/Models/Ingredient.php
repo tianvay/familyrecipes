@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Database\Factories\IngredientFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Ingredient extends Model
+{
+    /** @use HasFactory<IngredientFactory> */
+    use HasFactory;
+
+    public $timestamps = false;
+
+    protected $fillable = ['position', 'amount', 'unit', 'name', 'is_optional'];
+
+    protected function casts(): array
+    {
+        return [
+            'position' => 'integer',
+            'is_optional' => 'boolean',
+        ];
+    }
+
+    public function recipe(): BelongsTo
+    {
+        return $this->belongsTo(Recipe::class);
+    }
+}
