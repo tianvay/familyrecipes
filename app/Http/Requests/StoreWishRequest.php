@@ -5,19 +5,22 @@ namespace App\Http\Requests;
 use App\Models\MealSuggestion;
 use App\Models\Recipe;
 use App\Support\Week;
+use App\Support\WishList;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 
 /**
- * Ein Gericht für die Woche vorschlagen: ein Rezept aus der Sammlung oder ein Freitext.
+ * Sich ein Gericht wünschen: ein Rezept aus der Sammlung oder eine eigene Idee,
+ * gültig ab dieser oder ab nächster Woche – und offen, bis es im Essensplan steht.
  */
-class StoreMealSuggestionRequest extends FormRequest
+class StoreWishRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('create', [MealSuggestion::class, $this->week()]);
+        // Wünschen darf jedes Familienmitglied, auch Kinder.
+        return true;
     }
 
     protected function prepareForValidation(): void
@@ -25,6 +28,7 @@ class StoreMealSuggestionRequest extends FormRequest
         $this->merge([
             'title' => trim((string) $this->input('title')) ?: null,
             'recipe_id' => $this->input('recipe_id') ?: null,
+            'week' => $this->input('week') ?: Week::current()->next()->iso(),
         ]);
     }
 
@@ -36,6 +40,7 @@ class StoreMealSuggestionRequest extends FormRequest
         return [
             'recipe_id' => ['nullable', 'required_without:title', 'prohibits:title', 'integer', Rule::exists(Recipe::class, 'id')],
             'title' => ['nullable', 'required_without:recipe_id', 'string', 'max:100'],
+            'week' => ['required', Rule::in([Week::current()->iso(), Week::current()->next()->iso()])],
             'preferred_day' => ['nullable', 'integer', 'between:1,7'],
             'note' => ['nullable', 'string', 'max:200'],
         ];
@@ -44,9 +49,10 @@ class StoreMealSuggestionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'recipe_id.required_without' => 'Wähle ein Rezept oder gib ein Gericht als Text ein.',
-            'title.required_without' => 'Wähle ein Rezept oder gib ein Gericht als Text ein.',
-            'recipe_id.prohibits' => 'Bitte entweder ein Rezept wählen oder einen Text eingeben, nicht beides.',
+            'recipe_id.required_without' => 'Wähle ein Rezept oder gib eine eigene Idee ein.',
+            'title.required_without' => 'Wähle ein Rezept oder gib eine eigene Idee ein.',
+            'recipe_id.prohibits' => 'Bitte entweder ein Rezept wählen oder eine eigene Idee eingeben, nicht beides.',
+            'week.in' => 'Wünsche sind nur ab dieser oder ab nächster Woche möglich.',
         ];
     }
 
@@ -55,13 +61,14 @@ class StoreMealSuggestionRequest extends FormRequest
         return [
             'recipe_id' => 'Rezept',
             'title' => 'Gericht',
+            'week' => 'Woche',
             'preferred_day' => 'Wunschtag',
             'note' => 'Notiz',
         ];
     }
 
     /**
-     * Dasselbe Gericht kann jede Person pro Woche nur einmal vorschlagen.
+     * Ein Gericht kann jede Person nur einmal offen auf der Wunschliste haben.
      *
      * @return array<int, callable>
      */
@@ -73,14 +80,11 @@ class StoreMealSuggestionRequest extends FormRequest
                     return;
                 }
 
-                $candidate = new MealSuggestion($this->only('recipe_id', 'title'));
-                $alreadySuggested = $this->user()->mealSuggestions()
-                    ->forWeek($this->week())
-                    ->get()
-                    ->contains(fn (MealSuggestion $s) => $s->dishKey() === $candidate->dishKey());
-
-                if ($alreadySuggested) {
-                    $validator->errors()->add($this->filled('recipe_id') ? 'recipe_id' : 'title', 'Das hast du für diese Woche schon vorgeschlagen.');
+                if (WishList::hasOpenWish($this->user(), new MealSuggestion($this->only('recipe_id', 'title')))) {
+                    $validator->errors()->add(
+                        $this->filled('recipe_id') ? 'recipe_id' : 'title',
+                        'Das steht schon auf deiner Wunschliste.',
+                    );
                 }
             },
         ];
@@ -88,6 +92,6 @@ class StoreMealSuggestionRequest extends FormRequest
 
     public function week(): Week
     {
-        return $this->route('week');
+        return Week::fromIso($this->validated('week'));
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\MealPlanEntry;
-use App\Models\MealSuggestion;
 use App\Support\Week;
+use App\Support\WishList;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -25,14 +25,16 @@ class HomeController extends Controller
             ->get()
             ->keyBy(fn (MealPlanEntry $entry) => $entry->date->toDateString());
 
+        $openWishes = WishList::upTo()->open();
+
         return view('home', [
             'greeting' => $this->greeting(),
             'today' => $today,
             'upcoming' => $upcoming,
             'nextWeek' => $nextWeek,
             'nextWeekPlanned' => MealPlanEntry::query()->forWeek($nextWeek)->count(),
-            'nextWeekSuggestions' => MealSuggestion::query()->forWeek($nextWeek)->count(),
-            'ownSuggestionsNextWeek' => $request->user()->mealSuggestions()->forWeek($nextWeek)->count(),
+            'openWishes' => $openWishes->count(),
+            'ownOpenWishes' => $openWishes->where('user_id', $request->user()->id)->count(),
         ]);
     }
 

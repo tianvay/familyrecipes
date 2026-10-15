@@ -1,12 +1,12 @@
 <x-layouts.app :title="'Essensplan festlegen ' . $week->label()">
     @php
-        // Freitext-Vorschläge nach Titel, um vorhandene Einträge wieder dem Vorschlag zuzuordnen
-        $textSuggestionChoice = $suggestionGroups
+        // Freitext-Wünsche nach Titel, um vorhandene Einträge wieder dem Wunsch zuzuordnen
+        $textSuggestionChoice = $wishGroups
             ->whereNull('recipe')
             ->mapWithKeys(fn (array $group) => [mb_strtolower($group['title']) => $group['choice']]);
 
         // Wunschtage: Tag => Liste „Gericht (Name)“
-        $wishes = $suggestionGroups->flatMap(fn (array $group) => $group['suggestions']
+        $wishes = $wishGroups->flatMap(fn (array $group) => $group['suggestions']
             ->whereNotNull('preferred_day')
             ->map(fn ($s) => ['day' => $s->preferred_day, 'text' => $group['title'].' ('.($s->user?->name ?? 'ehemalig').')']))
             ->groupBy('day');
@@ -58,11 +58,11 @@
                         <div class="min-w-0 flex-1 space-y-2">
                             <select id="day-{{ $day }}" name="days[{{ $day }}][choice]" x-model="choice" class="field">
                                 <option value="">— kein Gericht —</option>
-                                @if ($suggestionGroups->isNotEmpty())
-                                    <optgroup label="Vorschläge der Familie">
-                                        @foreach ($suggestionGroups as $group)
+                                @if ($wishGroups->isNotEmpty())
+                                    <optgroup label="Wünsche der Familie">
+                                        @foreach ($wishGroups as $group)
                                             <option value="{{ $group['choice'] }}">
-                                                {{ $group['recipe']?->emoji ?: '✏️' }} {{ $group['title'] }} ({{ $group['suggestions']->count() }}× · {{ $group['suggestions']->map(fn ($s) => $s->user?->name ?? 'ehemalig')->join(', ') }}){{ $group['recipe'] ? ' · zuletzt '.$lastEatenLabel($group['recipe']->id) : '' }}
+                                                {{ $group['plannedOn'] ? '✓ ' : '' }}{{ $group['recipe']?->emoji ?: '✏️' }} {{ $group['title'] }} ({{ $group['suggestions']->count() }}× · {{ $group['suggestions']->map(fn ($s) => $s->user?->name ?? 'ehemalig')->join(', ') }}){{ $group['recipe'] ? ' · zuletzt '.$lastEatenLabel($group['recipe']->id) : '' }}
                                             </option>
                                         @endforeach
                                     </optgroup>
@@ -109,9 +109,9 @@
         </form>
 
         <aside class="lg:sticky lg:top-24 lg:self-start">
-            <h2 class="mb-1 font-display text-2xl font-semibold">Vorschläge</h2>
-            <p class="mb-4 text-sm text-ink-soft">Alles, was sich die Familie für diese Woche wünscht.</p>
-            @include('meal-plan.partials.suggestions', ['compact' => true])
+            <h2 class="mb-1 font-display text-2xl font-semibold">Wünsche</h2>
+            <p class="mb-4 text-sm text-ink-soft">Offene Wünsche der Familie – auch ältere, die noch nicht dran waren.</p>
+            @include('wishes.partials.groups', ['groups' => $wishGroups, 'empty' => 'Gerade gibt es keine offenen Wünsche.', 'compact' => true])
         </aside>
     </div>
 </x-layouts.app>

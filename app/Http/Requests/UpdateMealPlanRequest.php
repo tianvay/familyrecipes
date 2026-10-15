@@ -14,7 +14,7 @@ use Illuminate\Validation\Validator;
  * Den Wochenplan festlegen. Pro Tag (1 = Montag … 7 = Sonntag) eine Auswahl:
  *  - ""      kein Gericht
  *  - "r{id}" Rezept aus der Sammlung
- *  - "s{id}" Freitext-Vorschlag dieser Woche übernehmen
+ *  - "s{id}" Freitext-Wunsch übernehmen (ab dieser Woche oder früher gewünscht)
  *  - "t"     eigener Freitext aus days[n][title]
  */
 class UpdateMealPlanRequest extends FormRequest
@@ -94,8 +94,9 @@ class UpdateMealPlanRequest extends FormRequest
             ->whereKey($this->idsWithPrefix($choices, 'r'))
             ->pluck('title', 'id');
 
+        // Freitext-Wünsche bleiben über Wochen offen – alle bis zu dieser Woche zählen
         $suggestions = MealSuggestion::query()
-            ->forWeek($this->week())
+            ->whereDate('week_start', '<=', $this->week()->start->toDateString())
             ->whereNull('recipe_id')
             ->whereKey($this->idsWithPrefix($choices, 's'))
             ->pluck('title', 'id');

@@ -80,111 +80,10 @@ class MealPlanTest extends TestCase
             ->assertSee('Kartoffelsuppe')
             ->assertSee('Diese Woche ist vorbei')
             ->assertDontSee('Plan festlegen')
-            ->assertDontSee('Gericht vorschlagen');
+            ->assertDontSee('Etwas wünschen');
 
         $this->get('/essensplan/2026-W40/planen')->assertForbidden();
         $this->put('/essensplan/2026-W40', ['days' => [1 => ['choice' => '']]])->assertForbidden();
-    }
-
-    // --- Vorschlagen ---------------------------------------------------------
-
-    public function test_children_can_suggest_a_recipe_for_next_week(): void
-    {
-        $child = User::factory()->child()->create(['name' => 'Lena']);
-        $recipe = Recipe::factory()->create(['title' => 'Pfannkuchen']);
-
-        $this->actingAs($child)
-            ->post(route('meal-suggestions.store', self::NEXT_WEEK), [
-                'recipe_id' => $recipe->id,
-                'preferred_day' => 5,
-                'note' => 'Bitte mit Apfelmus',
-            ])
-            ->assertRedirect(route('meal-plan.show', self::NEXT_WEEK).'#vorschlaege');
-
-        $suggestion = MealSuggestion::sole();
-        $this->assertTrue($suggestion->user->is($child));
-        $this->assertSame('Pfannkuchen', $suggestion->title);
-        $this->assertSame('2026-10-19', $suggestion->week_start->toDateString());
-
-        $this->get(route('meal-plan.show', self::NEXT_WEEK))
-            ->assertSeeInOrder(['Pfannkuchen', '1×', 'Lena', 'am liebsten Freitag', 'Bitte mit Apfelmus']);
-    }
-
-    public function test_free_text_can_be_suggested(): void
-    {
-        $this->actingAs(User::factory()->child()->create())
-            ->post(route('meal-suggestions.store', self::THIS_WEEK), ['title' => '  Pizza bestellen '])
-            ->assertSessionHasNoErrors();
-
-        $this->assertDatabaseHas('meal_suggestions', ['title' => 'Pizza bestellen', 'recipe_id' => null]);
-    }
-
-    public function test_recipe_or_text_is_required(): void
-    {
-        $this->actingAs(User::factory()->create())
-            ->post(route('meal-suggestions.store', self::NEXT_WEEK), ['preferred_day' => 2])
-            ->assertSessionHasErrors(['recipe_id', 'title']);
-    }
-
-    public function test_the_same_dish_can_only_be_suggested_once_per_person_and_week(): void
-    {
-        $lena = User::factory()->child()->create();
-        $max = User::factory()->child()->create();
-        $recipe = Recipe::factory()->create();
-
-        $this->actingAs($lena)->post(route('meal-suggestions.store', self::NEXT_WEEK), ['recipe_id' => $recipe->id]);
-        $this->post(route('meal-suggestions.store', self::NEXT_WEEK), ['recipe_id' => $recipe->id])
-            ->assertSessionHasErrors('recipe_id');
-
-        $this->post(route('meal-suggestions.store', self::NEXT_WEEK), ['title' => 'Pizza bestellen']);
-        $this->post(route('meal-suggestions.store', self::NEXT_WEEK), ['title' => 'PIZZA BESTELLEN'])
-            ->assertSessionHasErrors('title');
-
-        // Andere Personen und andere Wochen sind kein Duplikat
-        $this->actingAs($max)->post(route('meal-suggestions.store', self::NEXT_WEEK), ['recipe_id' => $recipe->id])
-            ->assertSessionHasNoErrors();
-        $this->actingAs($lena)->post(route('meal-suggestions.store', self::THIS_WEEK), ['recipe_id' => $recipe->id])
-            ->assertSessionHasNoErrors();
-
-        $this->assertDatabaseCount('meal_suggestions', 4);
-    }
-
-    public function test_suggestions_are_only_possible_for_this_and_next_week(): void
-    {
-        $this->actingAs(User::factory()->create());
-
-        $this->post('/essensplan/2026-W41/vorschlaege', ['title' => 'Suppe'])->assertForbidden();
-        $this->post('/essensplan/2026-W44/vorschlaege', ['title' => 'Suppe'])->assertForbidden();
-
-        $this->assertDatabaseCount('meal_suggestions', 0);
-    }
-
-    public function test_own_suggestions_can_be_withdrawn(): void
-    {
-        $child = User::factory()->child()->create();
-        $own = MealSuggestion::factory()->for($child)->create();
-        $foreign = MealSuggestion::factory()->create();
-
-        $this->actingAs($child);
-        $this->delete(route('meal-suggestions.destroy', $foreign))->assertForbidden();
-        $this->delete(route('meal-suggestions.destroy', $own))->assertRedirect();
-
-        $this->assertModelMissing($own);
-        $this->assertModelExists($foreign);
-    }
-
-    public function test_adults_can_remove_any_suggestion_but_not_from_past_weeks(): void
-    {
-        $adult = User::factory()->create();
-        $open = MealSuggestion::factory()->create();
-        $past = MealSuggestion::factory()->forWeek(Week::fromIso('2026-W40'))->create();
-
-        $this->actingAs($adult);
-        $this->delete(route('meal-suggestions.destroy', $open))->assertRedirect();
-        $this->delete(route('meal-suggestions.destroy', $past))->assertForbidden();
-
-        $this->assertModelMissing($open);
-        $this->assertModelExists($past);
     }
 
     // --- Plan festlegen ------------------------------------------------------
@@ -200,7 +99,7 @@ class MealPlanTest extends TestCase
         $this->assertDatabaseCount('meal_plan_entries', 0);
     }
 
-    public function test_planning_page_shows_all_suggestions(): void
+    public function test_planning_page_shows_all_wishes(): void
     {
         $recipe = Recipe::factory()->create(['title' => 'Lasagne']);
         MealSuggestion::factory()->forRecipe($recipe)->for(User::factory()->child()->create(['name' => 'Lena']))->create();
@@ -209,7 +108,7 @@ class MealPlanTest extends TestCase
         $this->actingAs(User::factory()->create())
             ->get(route('meal-plan.edit', self::NEXT_WEEK))
             ->assertOk()
-            ->assertSee('Vorschläge der Familie')
+            ->assertSee('Wünsche der Familie')
             ->assertSee('Lasagne (2× · Lena, Max)')
             ->assertSee('Wunsch für diesen Tag: Lasagne (Max)');
     }
@@ -274,7 +173,8 @@ class MealPlanTest extends TestCase
 
     public function test_invalid_choices_are_rejected(): void
     {
-        $foreignWeekSuggestion = MealSuggestion::factory()->forWeek(Week::fromIso(self::THIS_WEEK))->create();
+        // Ein Freitext-Wunsch erst ab übernächster Woche passt nicht in den Plan für nächste Woche
+        $foreignWeekSuggestion = MealSuggestion::factory()->forWeek(Week::fromIso('2026-W44'))->create();
 
         $this->actingAs(User::factory()->create())
             ->put(route('meal-plan.update', self::NEXT_WEEK), ['days' => [
@@ -335,15 +235,5 @@ class MealPlanTest extends TestCase
         $this->actingAs(User::factory()->create())
             ->get(route('meal-plan.show', self::NEXT_WEEK))
             ->assertSee('Gulasch');
-    }
-
-    public function test_recipe_page_offers_quick_suggestion(): void
-    {
-        $recipe = Recipe::factory()->complete()->create();
-
-        $this->actingAs(User::factory()->child()->create())
-            ->get(route('recipes.show', $recipe))
-            ->assertSee(route('meal-suggestions.store', self::THIS_WEEK))
-            ->assertSee(route('meal-suggestions.store', self::NEXT_WEEK));
     }
 }

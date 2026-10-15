@@ -50,7 +50,7 @@
                     @can('plan-meals', App\Support\Week::current())
                         <a href="{{ route('meal-plan.edit', App\Support\Week::current()) }}" class="btn btn-primary">Plan festlegen</a>
                     @else
-                        <a href="{{ route('meal-plan.show') }}#vorschlaege" class="btn btn-primary">Etwas vorschlagen</a>
+                        <a href="{{ route('wishes.index') }}" class="btn btn-primary">⭐ Etwas wünschen</a>
                     @endcan
                 </article>
             @endif
@@ -64,23 +64,23 @@
             </section>
 
             {{-- Nächste Woche --}}
-            @if ($today->dayOfWeekIso >= 4 || $nextWeekPlanned > 0)
-                <section class="rounded-3xl border border-line bg-white p-5" aria-labelledby="naechste-woche">
-                    <h2 id="naechste-woche" class="mb-1 text-sm font-semibold tracking-widest text-ink-soft uppercase">Nächste Woche</h2>
-                    <p class="mb-4 text-sm">
-                        {{ $nextWeekPlanned }} von 7 Tagen geplant · {{ $nextWeekSuggestions }} {{ $nextWeekSuggestions === 1 ? 'Vorschlag' : 'Vorschläge' }}
-                        @if ($ownSuggestionsNextWeek > 0)
-                            <span class="text-ink-soft">(davon {{ $ownSuggestionsNextWeek }} von dir)</span>
-                        @endif
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <a href="{{ route('meal-plan.show', $nextWeek) }}#vorschlaege" class="btn btn-ghost">Vorschlagen</a>
-                        @can('plan-meals', $nextWeek)
-                            <a href="{{ route('meal-plan.edit', $nextWeek) }}" class="btn btn-ghost">Plan festlegen</a>
-                        @endcan
-                    </div>
-                </section>
-            @endif
+            {{-- Wunschliste --}}
+            <section class="rounded-3xl border border-line bg-white p-5" aria-labelledby="wunschliste">
+                <h2 id="wunschliste" class="mb-1 text-sm font-semibold tracking-widest text-ink-soft uppercase">Wunschliste</h2>
+                <p class="mb-1 text-sm">
+                    {{ $openWishes }} {{ $openWishes === 1 ? 'offener Wunsch' : 'offene Wünsche' }}
+                    @if ($ownOpenWishes > 0)
+                        <span class="text-ink-soft">(davon {{ $ownOpenWishes }} von dir)</span>
+                    @endif
+                </p>
+                <p class="mb-4 text-xs text-ink-soft">Nächste Woche: {{ $nextWeekPlanned }} von 7 Tagen geplant</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="{{ route('wishes.index') }}" class="btn btn-primary">⭐ Etwas wünschen</a>
+                    @can('plan-meals', $nextWeek)
+                        <a href="{{ route('meal-plan.edit', $nextWeek) }}" class="btn btn-ghost">Nächste Woche planen</a>
+                    @endcan
+                </div>
+            </section>
         </div>
     </div>
 

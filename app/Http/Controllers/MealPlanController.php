@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Actions\SaveMealPlan;
 use App\Http\Requests\UpdateMealPlanRequest;
 use App\Models\MealPlanEntry;
-use App\Models\MealSuggestion;
 use App\Models\Recipe;
 use App\Support\LastEaten;
 use App\Support\Week;
+use App\Support\WishList;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
@@ -26,8 +26,7 @@ class MealPlanController extends Controller
         return view('meal-plan.show', [
             'week' => $week,
             'entries' => $this->entriesByDay($week),
-            'suggestionGroups' => $this->suggestionGroups($week),
-            'recipes' => Recipe::query()->orderBy('title')->get(['id', 'title', 'emoji']),
+            'wishGroups' => $this->wishGroups($week),
         ]);
     }
 
@@ -49,7 +48,7 @@ class MealPlanController extends Controller
         return view('meal-plan.edit', [
             'week' => $week,
             'entries' => $this->entriesByDay($week),
-            'suggestionGroups' => $this->suggestionGroups($week),
+            'wishGroups' => $this->wishGroups($week),
             'recipes' => $recipes,
             'lastEaten' => $lastEaten,
             'longAgo' => $longAgo,
@@ -76,31 +75,14 @@ class MealPlanController extends Controller
     }
 
     /**
-     * Vorschläge der Woche, gleiche Gerichte zusammengefasst und nach Beliebtheit sortiert.
+     * Wünsche, die für diese Woche gelten: noch offen oder in dieser Woche eingeplant.
      *
-     * @return Collection<int, array{key: string, title: string, recipe: Recipe|null, choice: string, suggestions: Collection<int, MealSuggestion>}>
+     * @return Collection<int, array<string, mixed>>
      */
-    private function suggestionGroups(Week $week): Collection
+    private function wishGroups(Week $week): Collection
     {
-        return MealSuggestion::query()
-            ->forWeek($week)
-            ->with(['recipe:id,title,slug,emoji,color', 'user:id,name'])
-            ->oldest('id')
-            ->get()
-            ->groupBy(fn (MealSuggestion $suggestion) => $suggestion->dishKey())
-            ->map(function (Collection $suggestions, string $key) {
-                $first = $suggestions->first();
+        $wishList = WishList::upTo($week);
 
-                return [
-                    'key' => $key,
-                    'title' => $first->recipe?->title ?? $first->title,
-                    'recipe' => $first->recipe,
-                    // Wert für die Auswahl im Planungsformular
-                    'choice' => $first->recipe_id ? "r{$first->recipe_id}" : "s{$first->id}",
-                    'suggestions' => $suggestions,
-                ];
-            })
-            ->sortByDesc(fn (array $group) => $group['suggestions']->count())
-            ->values();
+        return $wishList->group($wishList->relevantFor($week));
     }
 }

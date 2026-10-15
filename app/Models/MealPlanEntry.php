@@ -56,6 +56,14 @@ class MealPlanEntry extends Model
     }
 
     /**
+     * Gleiche Gerichte erkennen – passend zu MealSuggestion::dishKey().
+     */
+    public function dishKey(): string
+    {
+        return $this->recipe_id ? "r{$this->recipe_id}" : 't:'.mb_strtolower(trim($this->title));
+    }
+
+    /**
      * Aktueller Rezepttitel, sonst die gespeicherte Kopie bzw. der Freitext.
      */
     public function displayTitle(): string

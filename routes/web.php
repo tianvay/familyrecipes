@@ -6,7 +6,6 @@ use App\Http\Controllers\CookingModeController;
 use App\Http\Controllers\FamilyFavoritesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MealPlanController;
-use App\Http\Controllers\MealSuggestionController;
 use App\Http\Controllers\PantryItemController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeHistoryController;
@@ -15,6 +14,7 @@ use App\Http\Controllers\RevisionLogController;
 use App\Http\Controllers\ShoppingListController;
 use App\Http\Controllers\ToggleFavoriteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -48,8 +48,11 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('essensplan/{week?}', [MealPlanController::class, 'show'])->name('meal-plan.show');
     Route::get('essensplan/{week}/planen', [MealPlanController::class, 'edit'])->name('meal-plan.edit');
     Route::put('essensplan/{week}', [MealPlanController::class, 'update'])->name('meal-plan.update');
-    Route::post('essensplan/{week}/vorschlaege', [MealSuggestionController::class, 'store'])->name('meal-suggestions.store');
-    Route::delete('vorschlaege/{suggestion}', [MealSuggestionController::class, 'destroy'])->name('meal-suggestions.destroy');
+
+    // Wunschliste: wünschen darf jeder; Wünsche bleiben offen, bis sie im Essensplan stehen.
+    Route::get('wuensche', [WishController::class, 'index'])->name('wishes.index');
+    Route::post('wuensche', [WishController::class, 'store'])->name('wishes.store');
+    Route::delete('wuensche/{suggestion}', [WishController::class, 'destroy'])->name('wishes.destroy');
 
     // Einkaufsliste aus dem Essensplan (nur Erwachsene, Prüfung im Controller).
     Route::get('einkaufsliste', ShoppingListController::class)->name('shopping-list.show');

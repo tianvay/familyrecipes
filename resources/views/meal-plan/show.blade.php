@@ -16,7 +16,7 @@
 
     @if (! $week->isOpen() && $week->start->isPast())
         <p class="mb-6 rounded-2xl bg-paper-deep px-5 py-3 text-sm text-ink-soft">
-            Diese Woche ist vorbei – Plan und Vorschläge sind nur noch zum Nachlesen da.
+            Diese Woche ist vorbei – der Plan ist nur noch zum Nachlesen da.
         </p>
     @endif
 
@@ -65,69 +65,18 @@
             @endforeach
         </ol>
 
-        {{-- Vorschläge --}}
-        <section id="vorschlaege" class="scroll-mt-24 space-y-6">
-            <div>
-                <h2 class="mb-1 font-display text-2xl font-semibold">Vorschläge</h2>
-                <p class="mb-4 text-sm text-ink-soft">Was möchte die Familie in KW {{ $week->number() }} essen?</p>
-                @include('meal-plan.partials.suggestions')
+        {{-- Wünsche --}}
+        <section id="wuensche" class="scroll-mt-24 space-y-4">
+            <div class="flex flex-wrap items-end justify-between gap-3">
+                <div>
+                    <h2 class="mb-1 font-display text-2xl font-semibold">Wünsche</h2>
+                    <p class="text-sm text-ink-soft">Offen oder in KW {{ $week->number() }} eingeplant.</p>
+                </div>
+                @if ($week->isOpen())
+                    <a href="{{ route('wishes.index', ['woche' => $week->iso()]) }}" class="btn btn-ghost">＋ Etwas wünschen</a>
+                @endif
             </div>
-
-            @can('create', [App\Models\MealSuggestion::class, $week])
-                <form method="POST" action="{{ route('meal-suggestions.store', $week) }}" class="card-section space-y-4"
-                      x-data="{ mode: @js(old('title') ? 'text' : 'recipe') }">
-                    @csrf
-                    <h3 class="font-display text-xl font-semibold">Gericht vorschlagen</h3>
-
-                    <div class="flex gap-1 rounded-full bg-paper-deep p-1 text-sm font-medium" role="tablist">
-                        <button type="button" role="tab" @click="mode = 'recipe'" :aria-selected="mode === 'recipe'"
-                                :class="mode === 'recipe' ? 'bg-white shadow-sm text-ink' : 'text-ink-soft'"
-                                class="flex-1 rounded-full px-3 py-1.5 whitespace-nowrap transition">Rezept</button>
-                        <button type="button" role="tab" @click="mode = 'text'" :aria-selected="mode === 'text'"
-                                :class="mode === 'text' ? 'bg-white shadow-sm text-ink' : 'text-ink-soft'"
-                                class="flex-1 rounded-full px-3 py-1.5 whitespace-nowrap transition">Eigene Idee</button>
-                    </div>
-
-                    <div x-show="mode === 'recipe'">
-                        <label for="recipe_id" class="field-label">Rezept</label>
-                        <select id="recipe_id" name="recipe_id" class="field" :disabled="mode !== 'recipe'">
-                            <option value="">Bitte wählen …</option>
-                            @foreach ($recipes as $recipe)
-                                <option value="{{ $recipe->id }}" @selected((int) old('recipe_id') === $recipe->id)>
-                                    {{ $recipe->emoji }} {{ $recipe->title }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('recipe_id') <p class="field-error">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div x-show="mode === 'text'" x-cloak>
-                        <label for="title" class="field-label">Gericht</label>
-                        <input id="title" name="title" value="{{ old('title') }}" maxlength="100" class="field"
-                               placeholder="z. B. Pizza bestellen, Reste, Essen bei Oma" :disabled="mode !== 'text'">
-                        @error('title') <p class="field-error">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div class="grid gap-4 sm:grid-cols-2">
-                        <div>
-                            <label for="preferred_day" class="field-label">Wunschtag <span class="font-normal text-ink-soft">(optional)</span></label>
-                            <select id="preferred_day" name="preferred_day" class="field">
-                                <option value="">egal</option>
-                                @foreach (range(1, 7) as $day)
-                                    <option value="{{ $day }}" @selected((int) old('preferred_day') === $day)>{{ App\Support\Week::dayName($day) }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <label for="note" class="field-label">Notiz <span class="font-normal text-ink-soft">(optional)</span></label>
-                            <input id="note" name="note" value="{{ old('note') }}" maxlength="200" class="field" placeholder="z. B. Lena hat Geburtstag">
-                            @error('note') <p class="field-error">{{ $message }}</p> @enderror
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-full">Vorschlagen</button>
-                </form>
-            @endcan
+            @include('wishes.partials.groups', ['groups' => $wishGroups, 'empty' => 'Gerade gibt es keine offenen Wünsche.'])
         </section>
     </div>
 </x-layouts.app>

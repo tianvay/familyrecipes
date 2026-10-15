@@ -45,7 +45,7 @@ class HomeTest extends TestCase
             ->assertDontSee('Gestern-Essen');
     }
 
-    public function test_empty_day_offers_planning_to_adults_and_suggesting_to_children(): void
+    public function test_empty_day_offers_planning_to_adults_and_wishing_to_children(): void
     {
         $this->actingAs(User::factory()->create())
             ->get('/')
@@ -54,11 +54,12 @@ class HomeTest extends TestCase
 
         $this->actingAs(User::factory()->child()->create())
             ->get('/')
-            ->assertSee('Etwas vorschlagen')
-            ->assertDontSee(route('meal-plan.edit', '2026-W42'));
+            ->assertSee('⭐ Etwas wünschen')
+            ->assertDontSee(route('meal-plan.edit', '2026-W42'))
+            ->assertDontSee(route('meal-plan.edit', '2026-W43'));
     }
 
-    public function test_next_week_status_from_thursday_on(): void
+    public function test_wish_list_status_is_always_shown(): void
     {
         $child = User::factory()->child()->create();
         MealPlanEntry::factory()->create(['date' => '2026-10-19', 'title' => 'Suppe']);
@@ -67,9 +68,8 @@ class HomeTest extends TestCase
 
         $this->actingAs($child)
             ->get('/')
-            ->assertSee('Nächste Woche')
-            ->assertSee('1 von 7 Tagen geplant · 2 Vorschläge')
-            ->assertSee('(davon 1 von dir)');
+            ->assertSeeInOrder(['Wunschliste', '2 offene Wünsche', '(davon 1 von dir)'])
+            ->assertSee('Nächste Woche: 1 von 7 Tagen geplant');
     }
 
     public function test_shopping_list_tile_only_for_adults(): void

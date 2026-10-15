@@ -96,7 +96,7 @@ einblenden und abhaken. Code: `app/Support/CookingSteps.php`, `resources/js/cook
 
 Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.
 
-| Rolle | Rezepte ansehen, Favoriten, Essen vorschlagen | Rezepte ändern, Essensplan festlegen | Accounts, Familie, Änderungsprotokoll |
+| Rolle | Rezepte ansehen, Favoriten, Essen wünschen | Rezepte ändern, Essensplan festlegen | Accounts, Familie, Änderungsprotokoll |
 | --- | :---: | :---: | :---: |
 | Familienoberhaupt | ✓ | ✓ | ✓ |
 | Erwachsen | ✓ | ✓ | – |
@@ -116,19 +116,30 @@ konkreten Änderungen (Felder alt → neu, hinzugefügte/entfernte Zutaten, Schr
 - Einträge bleiben lesbar, auch wenn Rezept oder Account später gelöscht werden.
 - Seeder und Import erscheinen als „System“.
 
+## Wunschliste
+
+Unter „Wünsche“ (Menü, Startseite, „⭐ Wünschen“ auf jeder Rezeptseite) kann sich jedes Familienmitglied
+ein Rezept oder eine eigene Idee wünschen – **ab dieser oder ab nächster Woche**, optional mit Wunschtag und Notiz.
+
+- Ein Wunsch bleibt **offen, bis das Gericht im Essensplan steht** (an einem Tag ab der gewünschten Woche),
+  egal wie viele Wochen das dauert. „Erfüllt“ wird aus dem Plan berechnet: Wird das Gericht wieder
+  ausgeplant, ist der Wunsch wieder offen (`app/Support/WishList.php`).
+- Eingeplante Wünsche erscheinen eine Woche lang unter „Eingeplant 🎉“ und bleiben als Historie gespeichert.
+- Jede Person hat ein Gericht nur einmal offen auf der Liste; eigene offene Wünsche lassen sich zurückziehen,
+  Erwachsene können offene Wünsche entfernen.
+- Rezeptauswahl für viele Rezepte: Suchfeld (findet „Käse“ auch mit „kase“) und „♥ Nur meine Favoriten“.
+
 ## Essensplan
 
 Unter „Essensplan“ (Woche = Montag bis Sonntag, Adresse z. B. `/essensplan/2026-W43`):
 
-- **Vorschlagen** (alle): ein Rezept oder eine eigene Idee als Freitext, optional mit Wunschtag und Notiz.
-  Auch direkt auf jeder Rezeptseite über „📅 Vorschlagen“. Jede Person kann ein Gericht pro Woche einmal vorschlagen
-  und eigene Vorschläge zurückziehen.
-- **Festlegen** (Erwachsene): „Plan festlegen“ zeigt alle Vorschläge mit Anzahl, Namen und Wunschtagen.
+- Jede Woche zeigt die Wünsche, die noch offen oder in dieser Woche eingeplant sind (✓).
+- **Festlegen** (Erwachsene): „Plan festlegen“ zeigt alle offenen Wünsche mit Anzahl, Namen und Wunschtagen.
   Pro Tag ein Gericht, jedes Gericht höchstens zweimal pro Woche.
-- Vorschlagen und Planen geht für diese und nächste Woche; ältere Wochen bleiben als Historie lesbar.
+- Planen geht für diese und nächste Woche; ältere Wochen bleiben als Historie lesbar.
 - Beim Planen steht an jedem Rezept, wann es es zuletzt gab; oben gibt es die Gruppe „Lange nicht gegessen“
   (seit mindestens drei Wochen oder noch nie). Auch die Rezeptseite zeigt „Zuletzt gegessen“.
-- Vorschläge und Pläne werden dauerhaft aufbewahrt (Grundlage für spätere Auswertungen) und bleiben
+- Wünsche und Pläne werden dauerhaft aufbewahrt (Grundlage für spätere Auswertungen) und bleiben
   auch nach dem Löschen eines Rezepts oder Accounts erhalten.
 
 ## Einkaufsliste

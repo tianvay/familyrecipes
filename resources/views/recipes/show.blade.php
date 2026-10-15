@@ -34,19 +34,20 @@
                         </button>
                     </form>
 
-                    {{-- Schnell für den Essensplan vorschlagen --}}
+                    {{-- Schnell auf die Wunschliste setzen --}}
                     <div class="relative" x-data="{ open: false }" @click.outside="open = false">
-                        <button type="button" class="btn btn-ghost" @click="open = ! open" :aria-expanded="open">📅 Vorschlagen</button>
+                        <button type="button" class="btn btn-ghost" @click="open = ! open" :aria-expanded="open">⭐ Wünschen</button>
                         <div x-cloak x-show="open" x-transition.origin.top.left
-                             class="absolute left-0 z-10 mt-2 w-56 overflow-hidden rounded-2xl border border-line bg-white py-2 text-sm shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]">
-                            <p class="px-4 pb-1 text-xs text-ink-soft">Für den Essensplan vorschlagen:</p>
-                            @foreach ([App\Support\Week::current(), App\Support\Week::current()->next()] as $suggestWeek)
-                                <form method="POST" action="{{ route('meal-suggestions.store', $suggestWeek) }}">
+                             class="absolute left-0 z-10 mt-2 w-60 overflow-hidden rounded-2xl border border-line bg-white py-2 text-sm shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]">
+                            <p class="px-4 pb-1 text-xs text-ink-soft">Auf die Wunschliste setzen:</p>
+                            @foreach ([App\Support\Week::current(), App\Support\Week::current()->next()] as $wishWeek)
+                                <form method="POST" action="{{ route('wishes.store') }}">
                                     @csrf
                                     <input type="hidden" name="recipe_id" value="{{ $recipe->id }}">
+                                    <input type="hidden" name="week" value="{{ $wishWeek->iso() }}">
                                     <button type="submit" class="block w-full px-4 py-2 text-left hover:bg-paper">
-                                        {{ $suggestWeek->relativeName() }}
-                                        <span class="text-xs text-ink-soft">(KW {{ $suggestWeek->number() }})</span>
+                                        ab {{ $wishWeek->relativeName() === 'Diese Woche' ? 'dieser Woche' : 'nächster Woche' }}
+                                        <span class="text-xs text-ink-soft">(KW {{ $wishWeek->number() }})</span>
                                     </button>
                                 </form>
                             @endforeach
