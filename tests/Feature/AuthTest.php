@@ -29,6 +29,34 @@ class AuthTest extends TestCase
         $this->get(route('login'))->assertOk()->assertSee('Anmelden');
     }
 
+    public function test_stay_logged_in_is_checked_by_default(): void
+    {
+        $this->get(route('login'))
+            ->assertSee('<input type="checkbox" name="remember" value="1" checked', false);
+    }
+
+    public function test_unchecked_stay_logged_in_is_kept_after_a_typo(): void
+    {
+        User::factory()->create(['username' => 'anna']);
+
+        $this->from(route('login'))
+            ->post(route('login'), ['username' => 'anna', 'password' => 'falsch'])
+            ->assertRedirect(route('login'));
+
+        $this->get(route('login'))
+            ->assertDontSee('<input type="checkbox" name="remember" value="1" checked', false);
+    }
+
+    public function test_stay_logged_in_sets_the_remember_cookie(): void
+    {
+        $user = User::factory()->create(['username' => 'anna']);
+
+        $response = $this->post(route('login'), ['username' => 'anna', 'password' => 'password', 'remember' => '1']);
+
+        $response->assertCookie(auth()->guard('web')->getRecallerName());
+        $this->assertNotNull($user->fresh()->remember_token);
+    }
+
     public function test_member_can_log_in_with_username_case_insensitively(): void
     {
         $user = User::factory()->create(['username' => 'anna']);

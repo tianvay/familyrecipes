@@ -21,7 +21,8 @@
         </div>
 
         <label class="flex items-center gap-2 text-sm text-ink-soft">
-            <input type="checkbox" name="remember" value="1" @checked(old('remember')) class="size-4 accent-accent">
+            {{-- Standardmäßig an: Familien-App auf dem eigenen Gerät; nach Fehleingabe bleibt die eigene Wahl erhalten --}}
+            <input type="checkbox" name="remember" value="1" @checked($errors->any() ? old('remember') : true) class="size-4 accent-accent">
             Angemeldet bleiben
         </label>
 
