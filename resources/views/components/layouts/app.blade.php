@@ -37,6 +37,11 @@
                 <a href="{{ route('meal-plan.show') }}" @class([$navLink, $navActive => request()->routeIs('meal-plan.*')])>
                     Essensplan
                 </a>
+                @can('view-shopping-list')
+                    <a href="{{ route('shopping-list.show') }}" @class([$navLink, $navActive => request()->routeIs('shopping-list.*')])>
+                        Einkaufsliste
+                    </a>
+                @endcan
                 @can('view-family-favorites')
                     <a href="{{ route('family.favorites') }}" @class([$navLink, $navActive => request()->routeIs('family.*')])>
                         Familie
@@ -71,6 +76,9 @@
                             <a href="{{ route('recipes.index') }}" class="block px-4 py-2 hover:bg-paper">Alle Rezepte</a>
                             <a href="{{ route('recipes.index', ['favoriten' => 1]) }}" class="block px-4 py-2 hover:bg-paper">Meine Favoriten</a>
                             <a href="{{ route('meal-plan.show') }}" class="block px-4 py-2 hover:bg-paper">Essensplan</a>
+                            @can('view-shopping-list')
+                                <a href="{{ route('shopping-list.show') }}" class="block px-4 py-2 hover:bg-paper">Einkaufsliste</a>
+                            @endcan
                             @can('view-family-favorites')
                                 <a href="{{ route('family.favorites') }}" class="block px-4 py-2 hover:bg-paper">Familie</a>
                             @endcan

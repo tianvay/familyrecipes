@@ -42,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
         // Essensplan festlegen: nur Erwachsene, nur für diese und nächste Woche.
         Gate::define('plan-meals', fn (User $user, Week $week) => $user->role->canPlanMeals() && $week->isOpen());
 
+        // Einkaufsliste: für alle, die den Plan festlegen (Erwachsene).
+        Gate::define('view-shopping-list', fn (User $user) => $user->role->canPlanMeals());
+
         Route::bind('week', fn (string $value) => Week::fromRouteKey($value));
     }
 }

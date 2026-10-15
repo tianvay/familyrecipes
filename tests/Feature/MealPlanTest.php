@@ -47,6 +47,19 @@ class MealPlanTest extends TestCase
             ->assertDontSee('Plan festlegen');
     }
 
+    public function test_sunday_belongs_to_the_week(): void
+    {
+        MealPlanEntry::factory()->create(['date' => '2026-10-18', 'title' => 'Sonntagsbraten']);
+        MealPlanEntry::factory()->create(['date' => '2026-10-19', 'title' => 'Montagssuppe']);
+
+        $this->assertSame(['Sonntagsbraten'], MealPlanEntry::query()->forWeek(Week::fromIso(self::THIS_WEEK))->pluck('title')->all());
+
+        $this->actingAs(User::factory()->create())
+            ->get(route('meal-plan.show'))
+            ->assertSeeInOrder(['Sonntag', 'Sonntagsbraten'])
+            ->assertDontSee('Montagssuppe');
+    }
+
     public function test_invalid_weeks_return_404(): void
     {
         $this->actingAs(User::factory()->create());

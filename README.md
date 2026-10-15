@@ -92,6 +92,17 @@ Unter „Essensplan“ (Woche = Montag bis Sonntag, Adresse z. B. `/essensplan/2
 - Vorschläge und Pläne werden dauerhaft aufbewahrt (Grundlage für spätere Auswertungen) und bleiben
   auch nach dem Löschen eines Rezepts oder Accounts erhalten.
 
+## Einkaufsliste
+
+Unter „Einkaufsliste“ (nur Erwachsene) entsteht automatisch eine Liste aus dem Essensplan:
+alle Zutaten der Gerichte von **heute bis Sonntag** der laufenden Woche; vergangene Tage zählen nicht.
+
+- Gleiche Zutaten mit gleicher Einheit werden addiert (auch Bereiche wie „500–600 g“ und Kommazahlen),
+  doppelt geplante Gerichte zählen doppelt. Bei jeder Zeile steht, für welche Gerichte und Tage sie gebraucht wird.
+- Zutaten, die in allen Gerichten optional sind, stehen getrennt unter „Optional“.
+- Freitext-Gerichte (z. B. „Pizza bestellen“) haben keine Zutaten und erscheinen nur als Hinweis.
+- Logik: `app/Support/ShoppingList.php`, Mengen: `app/Support/Quantity.php`.
+
 ## Aufbau
 
 | Bereich | Ort |

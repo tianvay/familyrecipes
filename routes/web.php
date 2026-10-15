@@ -8,6 +8,7 @@ use App\Http\Controllers\MealSuggestionController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeHistoryController;
 use App\Http\Controllers\RevisionLogController;
+use App\Http\Controllers\ShoppingListController;
 use App\Http\Controllers\ToggleFavoriteController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,9 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::put('essensplan/{week}', [MealPlanController::class, 'update'])->name('meal-plan.update');
     Route::post('essensplan/{week}/vorschlaege', [MealSuggestionController::class, 'store'])->name('meal-suggestions.store');
     Route::delete('vorschlaege/{suggestion}', [MealSuggestionController::class, 'destroy'])->name('meal-suggestions.destroy');
+
+    // Einkaufsliste aus dem Essensplan (nur Erwachsene, Prüfung im Controller).
+    Route::get('einkaufsliste', ShoppingListController::class)->name('shopping-list.show');
 
     Route::get('konto', [AccountController::class, 'edit'])->name('account.edit');
     Route::put('konto/passwort', [AccountController::class, 'updatePassword'])->name('account.password');

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Support\Week;
+use Carbon\CarbonInterface;
 use Database\Factories\MealPlanEntryFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -40,7 +41,18 @@ class MealPlanEntry extends Model
     #[Scope]
     protected function forWeek(Builder $query, Week $week): void
     {
-        $query->whereBetween('date', [$week->start->toDateString(), $week->end()->toDateString()]);
+        $query->betweenDates($week->start, $week->end());
+    }
+
+    /**
+     * whereDate statt whereBetween: vergleicht nur das Datum, auch wenn die Datenbank
+     * (z. B. SQLite) den Wert als „Y-m-d H:i:s“ speichert.
+     */
+    #[Scope]
+    protected function betweenDates(Builder $query, CarbonInterface $from, CarbonInterface $to): void
+    {
+        $query->whereDate('date', '>=', $from->toDateString())
+            ->whereDate('date', '<=', $to->toDateString());
     }
 
     /**
