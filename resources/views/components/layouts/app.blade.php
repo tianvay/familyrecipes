@@ -34,6 +34,9 @@
                    @class([$navLink, $navActive => request()->routeIs('recipes.index') && request()->boolean('favoriten')])>
                     Meine Favoriten
                 </a>
+                <a href="{{ route('meal-plan.show') }}" @class([$navLink, $navActive => request()->routeIs('meal-plan.*')])>
+                    Essensplan
+                </a>
                 @can('view-family-favorites')
                     <a href="{{ route('family.favorites') }}" @class([$navLink, $navActive => request()->routeIs('family.*')])>
                         Familie
@@ -67,6 +70,7 @@
                         <div class="border-b border-line py-1 md:hidden">
                             <a href="{{ route('recipes.index') }}" class="block px-4 py-2 hover:bg-paper">Alle Rezepte</a>
                             <a href="{{ route('recipes.index', ['favoriten' => 1]) }}" class="block px-4 py-2 hover:bg-paper">Meine Favoriten</a>
+                            <a href="{{ route('meal-plan.show') }}" class="block px-4 py-2 hover:bg-paper">Essensplan</a>
                             @can('view-family-favorites')
                                 <a href="{{ route('family.favorites') }}" class="block px-4 py-2 hover:bg-paper">Familie</a>
                             @endcan

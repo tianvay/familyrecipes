@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Support\Week;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -37,5 +38,10 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('view-family-favorites', fn (User $user) => $user->isAdmin());
         Gate::define('view-revision-log', fn (User $user) => $user->isAdmin());
+
+        // Essensplan festlegen: nur Erwachsene, nur für diese und nächste Woche.
+        Gate::define('plan-meals', fn (User $user, Week $week) => $user->role->canPlanMeals() && $week->isOpen());
+
+        Route::bind('week', fn (string $value) => Week::fromRouteKey($value));
     }
 }

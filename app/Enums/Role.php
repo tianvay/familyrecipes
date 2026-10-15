@@ -25,12 +25,20 @@ enum Role: string
     {
         return match ($this) {
             self::Admin => 'Darf alles: Rezepte ändern, Accounts verwalten, Familien-Übersicht und Änderungsprotokoll sehen.',
-            self::Adult => 'Darf Rezepte anlegen, bearbeiten und löschen.',
-            self::Child => 'Darf Rezepte ansehen und eigene Favoriten markieren.',
+            self::Adult => 'Darf Rezepte anlegen, bearbeiten und löschen und den Essensplan festlegen.',
+            self::Child => 'Darf Rezepte ansehen, eigene Favoriten markieren und Gerichte für den Essensplan vorschlagen.',
         };
     }
 
     public function canEditRecipes(): bool
+    {
+        return $this !== self::Child;
+    }
+
+    /**
+     * Den Essensplan festlegen dürfen nur Erwachsene; vorschlagen darf jeder.
+     */
+    public function canPlanMeals(): bool
     {
         return $this !== self::Child;
     }

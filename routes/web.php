@@ -3,6 +3,8 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FamilyFavoritesController;
+use App\Http\Controllers\MealPlanController;
+use App\Http\Controllers\MealSuggestionController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeHistoryController;
 use App\Http\Controllers\RevisionLogController;
@@ -30,6 +32,14 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
 
     Route::patch('rezepte/{recipe}/favorit', ToggleFavoriteController::class)->name('recipes.favorite');
     Route::get('rezepte/{recipe}/verlauf', RecipeHistoryController::class)->name('recipes.history');
+
+    // Essensplan: ansehen und vorschlagen darf jeder, festlegen nur Erwachsene ({week} = „2026-W43“).
+    Route::pattern('week', '\d{4}-W\d{2}');
+    Route::get('essensplan/{week?}', [MealPlanController::class, 'show'])->name('meal-plan.show');
+    Route::get('essensplan/{week}/planen', [MealPlanController::class, 'edit'])->name('meal-plan.edit');
+    Route::put('essensplan/{week}', [MealPlanController::class, 'update'])->name('meal-plan.update');
+    Route::post('essensplan/{week}/vorschlaege', [MealSuggestionController::class, 'store'])->name('meal-suggestions.store');
+    Route::delete('vorschlaege/{suggestion}', [MealSuggestionController::class, 'destroy'])->name('meal-suggestions.destroy');
 
     Route::get('konto', [AccountController::class, 'edit'])->name('account.edit');
     Route::put('konto/passwort', [AccountController::class, 'updatePassword'])->name('account.password');

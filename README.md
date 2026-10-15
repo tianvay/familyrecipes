@@ -59,7 +59,7 @@ Die Tests laufen unabhängig davon gegen eine SQLite-In-Memory-Datenbank (`phpun
 
 Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.
 
-| Rolle | Rezepte ansehen & Favoriten | Rezepte anlegen/ändern/löschen | Accounts, Familie, Änderungsprotokoll |
+| Rolle | Rezepte ansehen, Favoriten, Essen vorschlagen | Rezepte ändern, Essensplan festlegen | Accounts, Familie, Änderungsprotokoll |
 | --- | :---: | :---: | :---: |
 | Familienoberhaupt | ✓ | ✓ | ✓ |
 | Erwachsen | ✓ | ✓ | – |
@@ -79,12 +79,26 @@ konkreten Änderungen (Felder alt → neu, hinzugefügte/entfernte Zutaten, Schr
 - Einträge bleiben lesbar, auch wenn Rezept oder Account später gelöscht werden.
 - Seeder und Import erscheinen als „System“.
 
+## Essensplan
+
+Unter „Essensplan“ (Woche = Montag bis Sonntag, Adresse z. B. `/essensplan/2026-W43`):
+
+- **Vorschlagen** (alle): ein Rezept oder eine eigene Idee als Freitext, optional mit Wunschtag und Notiz.
+  Auch direkt auf jeder Rezeptseite über „📅 Vorschlagen“. Jede Person kann ein Gericht pro Woche einmal vorschlagen
+  und eigene Vorschläge zurückziehen.
+- **Festlegen** (Erwachsene): „Plan festlegen“ zeigt alle Vorschläge mit Anzahl, Namen und Wunschtagen.
+  Pro Tag ein Gericht, jedes Gericht höchstens zweimal pro Woche.
+- Vorschlagen und Planen geht für diese und nächste Woche; ältere Wochen bleiben als Historie lesbar.
+- Vorschläge und Pläne werden dauerhaft aufbewahrt (Grundlage für spätere Auswertungen) und bleiben
+  auch nach dem Löschen eines Rezepts oder Accounts erhalten.
+
 ## Aufbau
 
 | Bereich | Ort |
 | --- | --- |
-| Models | `app/Models` – `Recipe`, `Ingredient`, `Step`, `Tag`, `User`, `RecipeRevision` |
+| Models | `app/Models` – `Recipe`, `Ingredient`, `Step`, `Tag`, `User`, `RecipeRevision`, `MealSuggestion`, `MealPlanEntry` |
 | Enums | `app/Enums` – `Difficulty`, `Role`, `RevisionAction` |
+| Kalenderwoche | `app/Support/Week.php` (ISO-Woche, offen = diese und nächste Woche) |
 | Speichern/Löschen inkl. Protokoll | `app/Actions/SaveRecipe.php`, `app/Actions/DeleteRecipe.php` |
 | Validierung | `app/Http/Requests` |
 | Berechtigungen | `app/Policies` (`RecipePolicy`, `UserPolicy`), Gates `view-family-favorites` und `view-revision-log` in `AppServiceProvider` |
