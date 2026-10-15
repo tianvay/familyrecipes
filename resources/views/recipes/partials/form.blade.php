@@ -191,11 +191,6 @@
                     @error('protein') <p class="field-error">{{ $message }}</p> @enderror
                 </div>
             </div>
-
-            <label class="flex items-center gap-3 text-sm font-medium">
-                <input type="checkbox" name="is_favorite" value="1" @checked(old('is_favorite', $recipe->is_favorite)) class="size-4 accent-accent">
-                Als Favorit markieren
-            </label>
         </section>
 
         <section class="card-section space-y-5"

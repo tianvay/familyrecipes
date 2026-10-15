@@ -28,4 +28,14 @@ class Ingredient extends Model
     {
         return $this->belongsTo(Recipe::class);
     }
+
+    /**
+     * Einzeilige Darstellung, z. B. „200 g Feta (optional)“.
+     */
+    public function label(): string
+    {
+        $label = implode(' ', array_filter([$this->amount, $this->unit, $this->name], 'filled'));
+
+        return $this->is_optional ? "{$label} (optional)" : $label;
+    }
 }

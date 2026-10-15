@@ -95,7 +95,6 @@ class ImportRecipes extends Command
             'protein' => $this->toInt($nutrition['protein'] ?? null) ?? $this->toInt($variants[0]['protein'] ?? null),
             'source' => $this->blankToNull($raw['source'] ?? null),
             'notes' => $this->blankToNull($raw['notes'] ?? null),
-            'is_favorite' => (bool) ($raw['favorite'] ?? false),
             'tags' => array_values(array_filter($raw['tags'] ?? [], 'filled')),
             'ingredients' => array_map($this->ingredient(...), $raw['ingredients'] ?? []),
             'steps' => array_values(array_filter($raw['instructions'] ?? [], 'filled')),

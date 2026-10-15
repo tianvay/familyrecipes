@@ -13,37 +13,86 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen">
-    <header class="border-b border-line/70 bg-paper/90 backdrop-blur sticky top-0 z-20">
-        <div class="mx-auto flex max-w-6xl items-center gap-6 px-4 py-4 sm:px-6">
+    @php
+        $navLink = 'rounded-full px-3 py-1.5 hover:text-ink';
+        $navActive = 'text-ink bg-paper-deep';
+    @endphp
+
+    <header class="sticky top-0 z-20 border-b border-line/70 bg-paper/90 backdrop-blur">
+        <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-4 sm:gap-6 sm:px-6">
             <a href="{{ route('recipes.index') }}" class="flex items-center gap-2.5">
                 <span class="grid size-9 place-items-center rounded-full bg-accent text-lg text-white" aria-hidden="true">🍳</span>
-                <span class="font-display text-xl font-semibold tracking-tight">Rezeptbuch</span>
+                <span class="hidden font-display text-xl font-semibold tracking-tight sm:inline">Rezeptbuch</span>
             </a>
 
-            <nav class="hidden items-center gap-1 text-sm font-medium text-ink-soft sm:flex">
+            <nav class="hidden items-center gap-1 text-sm font-medium text-ink-soft md:flex">
                 <a href="{{ route('recipes.index') }}"
-                   @class(['rounded-full px-3 py-1.5 hover:text-ink', 'text-ink bg-paper-deep' => request()->routeIs('recipes.index') && ! request()->boolean('favoriten')])>
+                   @class([$navLink, $navActive => request()->routeIs('recipes.index') && ! request()->boolean('favoriten')])>
                     Alle Rezepte
                 </a>
                 <a href="{{ route('recipes.index', ['favoriten' => 1]) }}"
-                   @class(['rounded-full px-3 py-1.5 hover:text-ink', 'text-ink bg-paper-deep' => request()->boolean('favoriten')])>
-                    Favoriten
+                   @class([$navLink, $navActive => request()->routeIs('recipes.index') && request()->boolean('favoriten')])>
+                    Meine Favoriten
                 </a>
+                @can('view-family-favorites')
+                    <a href="{{ route('family.favorites') }}" @class([$navLink, $navActive => request()->routeIs('family.*')])>
+                        Familie
+                    </a>
+                @endcan
             </nav>
 
-            <a href="{{ route('recipes.create') }}" class="btn btn-primary ml-auto">
-                <span aria-hidden="true">＋</span> Neues Rezept
-            </a>
+            <div class="ml-auto flex items-center gap-4 sm:gap-6">
+                @can('create', App\Models\Recipe::class)
+                    <a href="{{ route('recipes.create') }}" class="btn btn-primary">
+                        <span aria-hidden="true">＋</span> <span class="hidden sm:inline">Neues Rezept</span><span class="sm:hidden">Neu</span>
+                    </a>
+                @endcan
+
+                {{-- Benutzermenü --}}
+                <div class="relative" x-data="{ open: false }" @click.outside="open = false" @keydown.escape.window="open = false">
+                    <button type="button" @click="open = ! open" :aria-expanded="open"
+                            class="grid size-10 place-items-center rounded-full border border-line bg-white font-display text-sm font-semibold text-ink hover:border-ink-soft"
+                            aria-label="Menü für {{ auth()->user()->name }}">
+                        {{ auth()->user()->initials() }}
+                    </button>
+
+                    <div x-cloak x-show="open" x-transition.origin.top.right
+                         class="absolute right-0 mt-2 w-60 overflow-hidden rounded-2xl border border-line bg-white py-2 text-sm shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]">
+                        <div class="border-b border-line px-4 pt-1 pb-3">
+                            <p class="font-semibold">{{ auth()->user()->name }}</p>
+                            <p class="text-xs text-ink-soft">{{ '@'.auth()->user()->username }} · {{ auth()->user()->role->label() }}</p>
+                        </div>
+
+                        {{-- Auf kleinen Bildschirmen steht die Navigation hier --}}
+                        <div class="border-b border-line py-1 md:hidden">
+                            <a href="{{ route('recipes.index') }}" class="block px-4 py-2 hover:bg-paper">Alle Rezepte</a>
+                            <a href="{{ route('recipes.index', ['favoriten' => 1]) }}" class="block px-4 py-2 hover:bg-paper">Meine Favoriten</a>
+                            @can('view-family-favorites')
+                                <a href="{{ route('family.favorites') }}" class="block px-4 py-2 hover:bg-paper">Familie</a>
+                            @endcan
+                        </div>
+
+                        <div class="py-1">
+                            <a href="{{ route('account.edit') }}" class="block px-4 py-2 hover:bg-paper">Mein Konto</a>
+                            @can('viewAny', App\Models\User::class)
+                                <a href="{{ route('users.index') }}" class="block px-4 py-2 hover:bg-paper">Benutzer verwalten</a>
+                            @endcan
+                            @can('view-revision-log')
+                                <a href="{{ route('revisions.index') }}" class="block px-4 py-2 hover:bg-paper">Änderungsprotokoll</a>
+                            @endcan
+                        </div>
+
+                        <form method="POST" action="{{ route('logout') }}" class="border-t border-line pt-1">
+                            @csrf
+                            <button type="submit" class="block w-full px-4 py-2 text-left text-accent-dark hover:bg-paper">Abmelden</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
-    @if (session('status'))
-        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition.opacity
-             class="fixed bottom-6 left-1/2 z-30 -translate-x-1/2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-paper shadow-lg"
-             role="status">
-            {{ session('status') }}
-        </div>
-    @endif
+    <x-flash />
 
     <main class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         {{ $slot }}

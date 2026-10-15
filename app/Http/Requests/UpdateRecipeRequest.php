@@ -3,10 +3,12 @@
 namespace App\Http\Requests;
 
 /**
- * Gleiche Regeln wie beim Anlegen – eigene Klasse, damit sich die
- * Autorisierung später (z. B. per Policy) getrennt anpassen lässt.
+ * Gleiche Regeln wie beim Anlegen, aber eigene Autorisierung.
  */
 class UpdateRecipeRequest extends StoreRecipeRequest
 {
-    //
+    public function authorize(): bool
+    {
+        return $this->user()->can('update', $this->route('recipe'));
+    }
 }

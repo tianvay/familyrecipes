@@ -5,6 +5,7 @@
  * Für weitere Regeln: https://github.com/Laravel-Lang/lang oder hier ergänzen.
  */
 return [
+    'alpha_dash' => ':Attribute darf nur Buchstaben, Zahlen, Binde- und Unterstriche enthalten.',
     'array' => ':Attribute muss eine Liste sein.',
     'between' => [
         'numeric' => ':Attribute muss zwischen :min und :max liegen.',
@@ -13,6 +14,8 @@ return [
         'file' => ':Attribute muss zwischen :min und :max Kilobytes groß sein.',
     ],
     'boolean' => ':Attribute muss wahr oder falsch sein.',
+    'confirmed' => ':Attribute stimmt nicht mit der Wiederholung überein.',
+    'current_password' => 'Das Passwort ist falsch.',
     'enum' => 'Der gewählte Wert für :attribute ist ungültig.',
     'hex_color' => ':Attribute muss eine gültige Hex-Farbe sein.',
     'image' => ':Attribute muss ein Bild sein.',
@@ -31,6 +34,7 @@ return [
     ],
     'required' => ':Attribute ist ein Pflichtfeld.',
     'string' => ':Attribute muss ein Text sein.',
+    'unique' => ':Attribute ist bereits vergeben.',
     'uploaded' => ':Attribute konnte nicht hochgeladen werden.',
 
     'custom' => [],

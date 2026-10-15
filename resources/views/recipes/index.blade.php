@@ -1,8 +1,8 @@
-<x-layouts.app :title="request()->boolean('favoriten') ? 'Favoriten' : 'Alle Rezepte'">
+<x-layouts.app :title="request()->boolean('favoriten') ? 'Meine Favoriten' : 'Alle Rezepte'">
     <section class="mb-10 max-w-2xl">
-        <p class="mb-2 text-sm font-semibold tracking-widest text-accent uppercase">Meine Küche</p>
+        <p class="mb-2 text-sm font-semibold tracking-widest text-accent uppercase">Hallo {{ auth()->user()->name }}</p>
         <h1 class="font-display text-4xl leading-tight font-semibold tracking-tight sm:text-5xl">
-            {{ request()->boolean('favoriten') ? 'Lieblingsrezepte' : 'Alle Lieblingsrezepte an einem Ort.' }}
+            {{ request()->boolean('favoriten') ? 'Meine Lieblingsrezepte' : 'Alle Lieblingsrezepte an einem Ort.' }}
         </h1>
     </section>
 
@@ -53,13 +53,15 @@
                 @if (request()->hasAny(['q', 'tag', 'favoriten']))
                     <a href="{{ route('recipes.index') }}" class="btn btn-ghost">Filter zurücksetzen</a>
                 @endif
-                <a href="{{ route('recipes.create') }}" class="btn btn-primary">Rezept anlegen</a>
+                @can('create', App\Models\Recipe::class)
+                    <a href="{{ route('recipes.create') }}" class="btn btn-primary">Rezept anlegen</a>
+                @endcan
             </div>
         </div>
     @else
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($recipes as $recipe)
-                <x-recipe-card :recipe="$recipe" />
+                <x-recipe-card :recipe="$recipe" :favorite="$recipe->is_favorite" />
             @endforeach
         </div>
 

@@ -28,13 +28,7 @@ class RecipeFactory extends Factory
             'calories' => fake()->numberBetween(150, 900),
             'protein' => fake()->numberBetween(5, 50),
             'tips' => [fake()->sentence()],
-            'is_favorite' => false,
         ];
-    }
-
-    public function favorite(): static
-    {
-        return $this->state(['is_favorite' => true]);
     }
 
     /**

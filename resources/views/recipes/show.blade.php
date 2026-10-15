@@ -25,19 +25,31 @@
                     <form method="POST" action="{{ route('recipes.favorite', $recipe) }}">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" class="btn btn-ghost" aria-pressed="{{ $recipe->is_favorite ? 'true' : 'false' }}">
-                            <span @class(['text-accent' => $recipe->is_favorite])>{{ $recipe->is_favorite ? '♥' : '♡' }}</span>
-                            {{ $recipe->is_favorite ? 'Favorit' : 'Merken' }}
+                        <button type="submit" class="btn btn-ghost" aria-pressed="{{ $isFavorite ? 'true' : 'false' }}">
+                            <span @class(['text-accent' => $isFavorite])>{{ $isFavorite ? '♥' : '♡' }}</span>
+                            {{ $isFavorite ? 'Mein Favorit' : 'Merken' }}
                         </button>
                     </form>
-                    <a href="{{ route('recipes.edit', $recipe) }}" class="btn btn-ghost">Bearbeiten</a>
-                    <form method="POST" action="{{ route('recipes.destroy', $recipe) }}"
-                          onsubmit="return confirm('Dieses Rezept wirklich löschen?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Löschen</button>
-                    </form>
+                    @can('update', $recipe)
+                        <a href="{{ route('recipes.edit', $recipe) }}" class="btn btn-ghost">Bearbeiten</a>
+                    @endcan
+                    @can('delete', $recipe)
+                        <form method="POST" action="{{ route('recipes.destroy', $recipe) }}"
+                              onsubmit="return confirm('Dieses Rezept wirklich löschen?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Löschen</button>
+                        </form>
+                    @endcan
                 </div>
+
+                <p class="text-xs text-ink-soft">
+                    @if ($revision = $recipe->latestRevision)
+                        Zuletzt {{ $revision->action->verb() }} von {{ $revision->authorName() }}
+                        {{ $revision->created_at->diffForHumans() }} ·
+                    @endif
+                    <a href="{{ route('recipes.history', $recipe) }}" class="underline decoration-line underline-offset-2 hover:text-ink">Verlauf ansehen</a>
+                </p>
             </div>
 
             <div class="relative min-h-64">

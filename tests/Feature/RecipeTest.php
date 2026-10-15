@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Recipe;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -13,11 +14,15 @@ class RecipeTest extends TestCase
 {
     use RefreshDatabase;
 
+    private User $user;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->withoutVite();
+        $this->user = User::factory()->create();
+        $this->actingAs($this->user);
     }
 
     public function test_home_redirects_to_recipe_index(): void
@@ -54,7 +59,7 @@ class RecipeTest extends TestCase
     {
         $tag = Tag::factory()->create(['name' => 'Vegan']);
         Recipe::factory()->hasAttached($tag)->create(['title' => 'Tofu-Bowl']);
-        Recipe::factory()->favorite()->create(['title' => 'Gulasch']);
+        $this->user->favoriteRecipes()->attach(Recipe::factory()->create(['title' => 'Gulasch']));
 
         $this->get(route('recipes.index', ['tag' => $tag->slug]))
             ->assertSee('Tofu-Bowl')
@@ -154,13 +159,27 @@ class RecipeTest extends TestCase
 
     public function test_favorite_can_be_toggled(): void
     {
-        $recipe = Recipe::factory()->create(['is_favorite' => false]);
+        $recipe = Recipe::factory()->create();
 
         $this->patch(route('recipes.favorite', $recipe))->assertRedirect();
-        $this->assertTrue($recipe->fresh()->is_favorite);
+        $this->assertTrue($this->user->hasFavorited($recipe));
 
         $this->patch(route('recipes.favorite', $recipe));
-        $this->assertFalse($recipe->fresh()->is_favorite);
+        $this->assertFalse($this->user->hasFavorited($recipe));
+    }
+
+    public function test_favorites_are_separate_per_family_member(): void
+    {
+        $recipe = Recipe::factory()->create(['title' => 'Gulasch']);
+        $sibling = User::factory()->create();
+        $sibling->favoriteRecipes()->attach($recipe);
+
+        $this->get(route('recipes.index', ['favoriten' => 1]))->assertDontSee('Gulasch');
+        $this->get(route('recipes.show', $recipe))->assertSee('Merken');
+
+        $this->actingAs($sibling)
+            ->get(route('recipes.index', ['favoriten' => 1]))
+            ->assertSee('Gulasch');
     }
 
     public function test_slugs_are_unique(): void

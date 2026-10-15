@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\Difficulty;
+use App\Models\Recipe;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -11,8 +12,7 @@ class StoreRecipeRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Noch keine Benutzerverwaltung – sobald es Auth gibt, hier eine Policy prüfen.
-        return true;
+        return $this->user()->can('create', Recipe::class);
     }
 
     /**
@@ -38,7 +38,6 @@ class StoreRecipeRequest extends FormRequest
             'steps' => $steps,
             'tags' => $this->splitList($this->input('tags'), ','),
             'tips' => $this->splitList($this->input('tips'), "\n"),
-            'is_favorite' => $this->boolean('is_favorite'),
             'remove_image' => $this->boolean('remove_image'),
         ]);
     }
@@ -64,7 +63,6 @@ class StoreRecipeRequest extends FormRequest
             'protein' => ['nullable', 'integer', 'between:0,1000'],
             'source' => ['nullable', 'string', 'max:255'],
             'notes' => ['nullable', 'string', 'max:5000'],
-            'is_favorite' => ['boolean'],
 
             'tags' => ['array', 'max:20'],
             'tags.*' => ['string', 'max:50'],

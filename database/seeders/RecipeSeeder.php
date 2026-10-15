@@ -37,7 +37,6 @@ class RecipeSeeder extends Seeder
                 'difficulty' => Difficulty::Easy,
                 'calories' => 340,
                 'protein' => 12,
-                'is_favorite' => true,
                 'tags' => ['Pfanne', 'Vegetarisch', 'High Protein', 'Meal Prep', 'Wenig Abwasch'],
                 'ingredients' => [
                     ['amount' => '500–600', 'unit' => 'g', 'name' => 'Süßkartoffeln'],

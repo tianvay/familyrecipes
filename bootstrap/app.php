@@ -11,7 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Benannte Routen statt "/", damit ein Unterpfad (XAMPP: /rezeptbuch) erhalten bleibt
+        $middleware->redirectGuestsTo(fn () => route('login'));
+        $middleware->redirectUsersTo(fn () => route('recipes.index'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -53,7 +53,6 @@ class ImportRecipesTest extends TestCase
         $this->assertSame(Difficulty::VeryEasy, $recipe->difficulty);
         $this->assertSame(240, $recipe->calories);
         $this->assertSame(18, $recipe->protein);
-        $this->assertTrue($recipe->is_favorite);
         $this->assertSame(['Airfryer', 'Schnell'], $recipe->tags->pluck('name')->all());
         $this->assertSame(['Paprika füllen.', 'Garen.'], $recipe->steps->pluck('body')->all());
         $this->assertSame(

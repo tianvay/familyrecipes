@@ -1,4 +1,4 @@
-@props(['recipe'])
+@props(['recipe', 'favorite' => false])
 
 <article class="group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]"
          style="--recipe: {{ $recipe->accent_color }}">
@@ -11,7 +11,7 @@
             </span>
         @endif
 
-        @if ($recipe->is_favorite)
+        @if ($favorite)
             <span class="absolute top-3 right-3 grid size-8 place-items-center rounded-full bg-white/90 text-accent shadow-sm" title="Favorit">♥</span>
         @endif
     </div>

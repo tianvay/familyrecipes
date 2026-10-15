@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Difficulty;
+use App\Enums\RevisionAction;
 use Database\Factories\RecipeFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 class Recipe extends Model
@@ -35,7 +36,6 @@ class Recipe extends Model
         'source',
         'tips',
         'notes',
-        'is_favorite',
     ];
 
     protected function casts(): array
@@ -43,7 +43,6 @@ class Recipe extends Model
         return [
             'difficulty' => Difficulty::class,
             'tips' => 'array',
-            'is_favorite' => 'boolean',
             'servings' => 'integer',
             'prep_minutes' => 'integer',
             'cook_minutes' => 'integer',
@@ -92,6 +91,74 @@ class Recipe extends Model
     }
 
     /**
+     * Familienmitglieder, die das Rezept als Favorit markiert haben.
+     */
+    public function favoritedBy(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+    }
+
+    public function revisions(): HasMany
+    {
+        return $this->hasMany(RecipeRevision::class)->latest('id');
+    }
+
+    public function latestRevision(): HasOne
+    {
+        return $this->hasOne(RecipeRevision::class)->latestOfMany();
+    }
+
+    /**
+     * Schreibt einen Eintrag ins Änderungsprotokoll. Titel und Name werden kopiert,
+     * damit der Eintrag auch nach dem Löschen lesbar bleibt.
+     *
+     * @param  list<array<string, mixed>>|null  $changes
+     */
+    public function recordRevision(RevisionAction $action, ?User $user, ?array $changes = null): RecipeRevision
+    {
+        return $this->revisions()->create([
+            'recipe_title' => $this->title,
+            'user_id' => $user?->getKey(),
+            'user_name' => $user?->name,
+            'action' => $action,
+            'changes' => $changes,
+        ]);
+    }
+
+    /**
+     * Lesbarer Stand des Rezepts für das Änderungsprotokoll.
+     *
+     * @return array<string, mixed>
+     */
+    public function auditSnapshot(): array
+    {
+        $this->load(['ingredients', 'steps', 'tags']);
+
+        $withUnit = fn (?int $value, string $unit) => $value === null ? null : "{$value} {$unit}";
+
+        return [
+            'title' => $this->title,
+            'summary' => $this->summary,
+            'description' => $this->description,
+            'emoji' => $this->emoji,
+            'color' => $this->color,
+            'image' => $this->image_path,
+            'servings' => $this->servings,
+            'prep_minutes' => $withUnit($this->prep_minutes, 'Min.'),
+            'cook_minutes' => $withUnit($this->cook_minutes, 'Min.'),
+            'difficulty' => $this->difficulty?->label(),
+            'calories' => $withUnit($this->calories, 'kcal'),
+            'protein' => $withUnit($this->protein, 'g'),
+            'source' => $this->source,
+            'notes' => $this->notes,
+            'tags' => $this->tags->pluck('name')->sort()->values()->all(),
+            'ingredients' => $this->ingredients->map->label()->all(),
+            'steps' => $this->steps->pluck('body')->all(),
+            'tips' => $this->tips ?? [],
+        ];
+    }
+
+    /**
      * Volltextsuche über Titel, Kurzbeschreibung und Zutaten.
      */
     #[Scope]
@@ -119,9 +186,18 @@ class Recipe extends Model
     }
 
     #[Scope]
-    protected function favorites(Builder $query): void
+    protected function favoriteOf(Builder $query, User $user): void
     {
-        $query->where('is_favorite', true);
+        $query->whereHas('favoritedBy', fn (Builder $q) => $q->whereKey($user->getKey()));
+    }
+
+    /**
+     * Ergänzt das Attribut is_favorite für die angegebene Person.
+     */
+    #[Scope]
+    protected function withFavoriteFlag(Builder $query, User $user): void
+    {
+        $query->withExists(['favoritedBy as is_favorite' => fn (Builder $q) => $q->whereKey($user->getKey())]);
     }
 
     protected function totalMinutes(): Attribute

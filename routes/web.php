@@ -1,14 +1,45 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FamilyFavoritesController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\RecipeHistoryController;
+use App\Http\Controllers\RevisionLogController;
 use App\Http\Controllers\ToggleFavoriteController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// to_route() statt Route::redirect(), damit ein Unterpfad (XAMPP: /rezeptbuch) erhalten bleibt
-Route::get('/', fn () => to_route('recipes.index'));
+Route::middleware('guest')->group(function () {
+    Route::get('login', [LoginController::class, 'create'])->name('login');
+    Route::post('login', [LoginController::class, 'store']);
+});
 
-Route::resource('rezepte', RecipeController::class)
-    ->names('recipes')
-    ->parameters(['rezepte' => 'recipe']);
+// auth.session beendet Sitzungen, sobald sich das Passwort des Accounts ändert
+// (z. B. wenn das Familienoberhaupt ein Passwort zurücksetzt).
+Route::middleware(['auth', 'auth.session'])->group(function () {
+    Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
-Route::patch('rezepte/{recipe}/favorit', ToggleFavoriteController::class)->name('recipes.favorite');
+    // to_route() statt Route::redirect(), damit ein Unterpfad (XAMPP: /rezeptbuch) erhalten bleibt
+    Route::get('/', fn () => to_route('recipes.index'));
+
+    // Schreibrechte für Rezepte regelt die RecipePolicy (Kinder dürfen nur lesen).
+    Route::resource('rezepte', RecipeController::class)
+        ->names('recipes')
+        ->parameters(['rezepte' => 'recipe']);
+
+    Route::patch('rezepte/{recipe}/favorit', ToggleFavoriteController::class)->name('recipes.favorite');
+    Route::get('rezepte/{recipe}/verlauf', RecipeHistoryController::class)->name('recipes.history');
+
+    Route::get('konto', [AccountController::class, 'edit'])->name('account.edit');
+    Route::put('konto/passwort', [AccountController::class, 'updatePassword'])->name('account.password');
+
+    // Nur für Admins – Berechtigung prüfen Policy bzw. Gate in den Controllern.
+    Route::get('familie', FamilyFavoritesController::class)->name('family.favorites');
+    Route::get('aenderungen', RevisionLogController::class)->name('revisions.index');
+
+    Route::resource('benutzer', UserController::class)
+        ->except('show')
+        ->names('users')
+        ->parameters(['benutzer' => 'user']);
+});
