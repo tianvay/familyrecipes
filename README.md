@@ -36,7 +36,23 @@ Entwicklung (Server, Queue, Logs und Vite gleichzeitig):
 composer run dev
 ```
 
-Danach unter http://localhost:8000 erreichbar; über XAMPP unter `http://<Rechner-IP>:8080/rezeptbuch`.
+Danach unter http://localhost:8000 erreichbar.
+
+### Betrieb über XAMPP
+
+Apache liefert das Rezeptbuch über einen eigenen VirtualHost auf **Port 80** aus
+(`C:\xampp\apache\conf\extra\httpd-vhosts.conf`, dazu `Listen 80` in `httpd.conf`).
+Damit ist es im Heimnetz unter `http://192.168.178.64` bzw. `http://fredrgb.fritz.box` erreichbar.
+
+Damit andere Geräte (z. B. iPad) zugreifen dürfen, braucht Windows eine Firewall-Freigabe für Port 80
+im privaten Netzwerk (PowerShell als Administrator):
+
+```powershell
+New-NetFirewallRule -DisplayName "Rezeptbuch (Apache, Heimnetz)" -Direction Inbound -Action Allow `
+  -Program "C:\xampp\apache\bin\httpd.exe" -Protocol TCP -LocalPort 80 -Profile Private -RemoteAddress LocalSubnet
+```
+
+In der FRITZ!Box sollte dem Rechner immer dieselbe IP-Adresse zugewiesen werden.
 Die Tests laufen unabhängig davon gegen eine SQLite-In-Memory-Datenbank (`phpunit.xml`).
 
 ## Benutzer & Rollen
