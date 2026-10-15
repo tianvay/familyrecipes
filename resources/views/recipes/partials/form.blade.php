@@ -194,15 +194,14 @@
         </section>
 
         <section class="card-section space-y-5"
-                 x-data="{ emoji: @js(old('emoji', $recipe->emoji) ?: '🍽️'), color: @js(old('color', $recipe->color) ?: '#C8553D') }">
+                 x-data="recipeAppearance({ emoji: @js(old('emoji', $recipe->emoji) ?: '🍽️'), color: @js(old('color', $recipe->color) ?: '#C8553D'), imageUrl: @js($recipe->image_url) })">
             <h2 class="font-display text-xl font-semibold">Aussehen</h2>
 
-            <div class="recipe-tint grid aspect-[4/3] place-items-center overflow-hidden rounded-2xl text-7xl" :style="`--recipe: ${color}`">
-                @if ($recipe->image_url)
-                    <img src="{{ $recipe->image_url }}" alt="" class="size-full object-cover">
-                @else
-                    <span x-text="emoji" aria-hidden="true"></span>
-                @endif
+            <div class="recipe-tint relative grid aspect-[4/3] place-items-center overflow-hidden rounded-2xl text-7xl" :style="`--recipe: ${color}`">
+                <img x-show="preview" :src="preview" alt="" class="absolute inset-0 size-full object-cover"
+                     @if ($recipe->image_url) src="{{ $recipe->image_url }}" @else x-cloak @endif>
+                <span x-show="! preview" x-text="emoji" aria-hidden="true">{{ $recipe->image_url ? '' : (old('emoji', $recipe->emoji) ?: '🍽️') }}</span>
+                <span x-cloak x-show="processing" class="absolute inset-0 grid place-items-center bg-white/70 text-sm font-semibold text-ink">Foto wird verkleinert …</span>
             </div>
 
             <div class="grid grid-cols-[1fr_auto] gap-4">
@@ -220,8 +219,10 @@
 
             <div>
                 <label for="image" class="field-label">Foto</label>
-                <input id="image" type="file" name="image" accept="image/*"
+                <input id="image" type="file" name="image" accept="image/*" @change="onFileChange($event)"
                        class="block w-full text-sm text-ink-soft file:mr-3 file:rounded-full file:border-0 file:bg-paper-deep file:px-4 file:py-2 file:text-sm file:font-semibold file:text-ink hover:file:bg-line">
+                <p class="mt-1 text-xs text-ink-soft" x-show="! info">Am iPhone/iPad direkt mit der Kamera möglich – große Fotos werden automatisch verkleinert.</p>
+                <p class="mt-1 text-xs text-herb" x-cloak x-show="info" x-text="info"></p>
                 @error('image') <p class="field-error">{{ $message }}</p> @enderror
 
                 @if ($recipe->image_path)

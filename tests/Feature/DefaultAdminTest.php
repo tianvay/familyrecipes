@@ -23,7 +23,7 @@ class DefaultAdminTest extends TestCase
     public function test_default_admin_can_log_in_with_admin_and_test(): void
     {
         $this->post(route('login'), ['username' => 'Admin', 'password' => 'Test'])
-            ->assertRedirect(route('recipes.index'));
+            ->assertRedirect(route('home'));
 
         $this->assertAuthenticatedAs(User::firstWhere('username', 'admin'));
     }

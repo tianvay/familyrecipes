@@ -55,6 +55,23 @@ New-NetFirewallRule -DisplayName "Rezeptbuch (Apache, Heimnetz)" -Direction Inbo
 In der FRITZ!Box sollte dem Rechner immer dieselbe IP-Adresse zugewiesen werden.
 Die Tests laufen unabhängig davon gegen eine SQLite-In-Memory-Datenbank (`phpunit.xml`).
 
+### Auf iPhone/iPad als App
+
+In Safari `http://192.168.178.64` öffnen → Teilen-Symbol → **„Zum Home-Bildschirm“**. Das Rezeptbuch
+erscheint dann mit eigenem Icon und startet im Vollbild ohne Safari-Leisten
+(`public/manifest.json`, Icons in `public/`, neu erzeugen mit `python -I resources/icons/generate.py`).
+
+## Startseite
+
+Nach dem Anmelden zeigt die Startseite „Heute gibt's …“ (mit Rezept-Link), das Gericht von morgen,
+die nächsten Tage, den Stand der nächsten Woche (geplante Tage, Vorschläge) und Schnellzugriffe.
+
+## Fotos
+
+Fotos werden vor dem Hochladen im Browser auf höchstens 1600 px verkleinert und als JPEG gespeichert
+(iPhone-Fotos: typischerweise mehrere MB → unter 1 MB). Kann ein Gerät das nicht, nimmt der Server
+Originale bis 12 MB an. Am iPhone/iPad kann man direkt mit der Kamera fotografieren.
+
 ## Benutzer & Rollen
 
 Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.

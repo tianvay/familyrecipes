@@ -25,11 +25,6 @@ class RecipeTest extends TestCase
         $this->actingAs($this->user);
     }
 
-    public function test_home_redirects_to_recipe_index(): void
-    {
-        $this->get('/')->assertRedirect(route('recipes.index'));
-    }
-
     public function test_index_lists_recipes(): void
     {
         Recipe::factory()->create(['title' => 'Linsensuppe']);
@@ -110,6 +105,22 @@ class RecipeTest extends TestCase
         $this->assertEqualsCanonicalizing(['Herbst', 'Vegan'], $recipe->tags->pluck('name')->all());
         $this->assertSame(['Mit Kürbiskernöl servieren.'], $recipe->tips);
         Storage::disk('public')->assertExists($recipe->image_path);
+    }
+
+    public function test_large_phone_photos_are_accepted_up_to_12_mb(): void
+    {
+        Storage::fake('public');
+
+        $this->post(route('recipes.store'), [
+            ...$this->validPayload(),
+            'image' => UploadedFile::fake()->create('iphone.jpg', 8 * 1024, 'image/jpeg'),
+        ])->assertSessionDoesntHaveErrors('image');
+
+        $this->post(route('recipes.store'), [
+            ...$this->validPayload(),
+            'title' => 'Zu groß',
+            'image' => UploadedFile::fake()->create('riesig.jpg', 13 * 1024, 'image/jpeg'),
+        ])->assertSessionHasErrors('image');
     }
 
     public function test_empty_rows_are_ignored_and_required_fields_validated(): void

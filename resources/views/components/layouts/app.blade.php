@@ -3,14 +3,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ? "{$title} · " : '' }}{{ config('app.name') }}</title>
-
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=fraunces:500,600,700|inter:400,500,600" rel="stylesheet">
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @include('partials.head', ['title' => $title])
 </head>
 <body class="min-h-screen">
     @php
@@ -20,19 +13,22 @@
 
     <header class="sticky top-0 z-20 border-b border-line/70 bg-paper/90 backdrop-blur">
         <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-4 sm:gap-6 sm:px-6">
-            <a href="{{ route('recipes.index') }}" class="flex items-center gap-2.5">
+            <a href="{{ route('home') }}" class="flex items-center gap-2.5" aria-label="Startseite">
                 <span class="grid size-9 place-items-center rounded-full bg-accent text-lg text-white" aria-hidden="true">🍳</span>
                 <span class="hidden font-display text-xl font-semibold tracking-tight sm:inline">Rezeptbuch</span>
             </a>
 
-            <nav class="hidden items-center gap-1 text-sm font-medium text-ink-soft md:flex">
+            <nav class="hidden items-center gap-1 text-sm font-medium whitespace-nowrap text-ink-soft lg:flex">
+                <a href="{{ route('home') }}" @class([$navLink, $navActive => request()->routeIs('home')])>
+                    Heute
+                </a>
                 <a href="{{ route('recipes.index') }}"
                    @class([$navLink, $navActive => request()->routeIs('recipes.index') && ! request()->boolean('favoriten')])>
-                    Alle Rezepte
+                    Rezepte
                 </a>
                 <a href="{{ route('recipes.index', ['favoriten' => 1]) }}"
                    @class([$navLink, $navActive => request()->routeIs('recipes.index') && request()->boolean('favoriten')])>
-                    Meine Favoriten
+                    Favoriten
                 </a>
                 <a href="{{ route('meal-plan.show') }}" @class([$navLink, $navActive => request()->routeIs('meal-plan.*')])>
                     Essensplan
@@ -51,7 +47,7 @@
 
             <div class="ml-auto flex items-center gap-4 sm:gap-6">
                 @can('create', App\Models\Recipe::class)
-                    <a href="{{ route('recipes.create') }}" class="btn btn-primary">
+                    <a href="{{ route('recipes.create') }}" class="btn btn-primary whitespace-nowrap">
                         <span aria-hidden="true">＋</span> <span class="hidden sm:inline">Neues Rezept</span><span class="sm:hidden">Neu</span>
                     </a>
                 @endcan
@@ -72,7 +68,8 @@
                         </div>
 
                         {{-- Auf kleinen Bildschirmen steht die Navigation hier --}}
-                        <div class="border-b border-line py-1 md:hidden">
+                        <div class="border-b border-line py-1 lg:hidden">
+                            <a href="{{ route('home') }}" class="block px-4 py-2 hover:bg-paper">Heute</a>
                             <a href="{{ route('recipes.index') }}" class="block px-4 py-2 hover:bg-paper">Alle Rezepte</a>
                             <a href="{{ route('recipes.index', ['favoriten' => 1]) }}" class="block px-4 py-2 hover:bg-paper">Meine Favoriten</a>
                             <a href="{{ route('meal-plan.show') }}" class="block px-4 py-2 hover:bg-paper">Essensplan</a>

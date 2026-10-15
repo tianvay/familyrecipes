@@ -53,7 +53,7 @@ class StoreRecipeRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:5000'],
             'emoji' => ['nullable', 'string', 'max:16'],
             'color' => ['nullable', 'hex_color'],
-            'image' => ['nullable', 'image', 'max:4096'],
+            'image' => ['nullable', 'image', 'max:12288'], // 12 MB: Fallback, falls das Gerät das Foto nicht vorab verkleinern kann
             'remove_image' => ['boolean'],
             'servings' => ['nullable', 'integer', 'between:1,100'],
             'prep_minutes' => ['nullable', 'integer', 'between:0,1440'],

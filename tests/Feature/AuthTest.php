@@ -34,7 +34,7 @@ class AuthTest extends TestCase
         $user = User::factory()->create(['username' => 'anna']);
 
         $this->post(route('login'), ['username' => ' Anna ', 'password' => 'password'])
-            ->assertRedirect(route('recipes.index'));
+            ->assertRedirect(route('home'));
 
         $this->assertAuthenticatedAs($user);
     }
@@ -68,7 +68,7 @@ class AuthTest extends TestCase
     {
         $this->actingAs(User::factory()->create())
             ->get(route('login'))
-            ->assertRedirect(route('recipes.index'));
+            ->assertRedirect(route('home'));
     }
 
     public function test_member_can_log_out(): void

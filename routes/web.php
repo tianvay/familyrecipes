@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FamilyFavoritesController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MealPlanController;
 use App\Http\Controllers\MealSuggestionController;
 use App\Http\Controllers\RecipeController;
@@ -23,8 +24,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
-    // to_route() statt Route::redirect(), damit ein Unterpfad (XAMPP: /rezeptbuch) erhalten bleibt
-    Route::get('/', fn () => to_route('recipes.index'));
+    // Startseite: „Heute gibt's …“
+    Route::get('/', HomeController::class)->name('home');
 
     // Schreibrechte für Rezepte regelt die RecipePolicy (Kinder dürfen nur lesen).
     Route::resource('rezepte', RecipeController::class)
