@@ -33,6 +33,14 @@ final class ShoppingListItem
     }
 
     /**
+     * Kompakte Zeile für den Export, z. B. „500 g Kirschtomaten“ oder „Salz“.
+     */
+    public function exportLine(): string
+    {
+        return trim($this->amountLabel().' '.$this->name);
+    }
+
+    /**
      * z. B. „Lasagne (Mo, Fr), Gemüsesuppe (Mi)“
      */
     public function sourceLabel(): string

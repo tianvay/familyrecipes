@@ -103,6 +103,12 @@ alle Zutaten der Gerichte von **heute bis Sonntag** der laufenden Woche; vergang
 - Freitext-Gerichte (z. B. „Pizza bestellen“) haben keine Zutaten und erscheinen nur als Hinweis.
 - Logik: `app/Support/ShoppingList.php`, Mengen: `app/Support/Quantity.php`.
 
+**Teilen** (für den Supermarkt): Der Knopf „Teilen“ öffnet – wo der Browser es erlaubt – das
+Teilen-Menü des Geräts (Notizen, WhatsApp, Erinnerungen …). Das geht nur über HTTPS; im Heimnetz
+per `http://` erscheint stattdessen ein eigenes Menü: Text kopieren, per WhatsApp, per E-Mail oder als
+Textdatei speichern. Abgehakte Zutaten (z. B. schon im Haus) werden beim Teilen weggelassen.
+Frontend: `resources/js/shopping-list.js`.
+
 ## Aufbau
 
 | Bereich | Ort |

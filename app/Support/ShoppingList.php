@@ -55,6 +55,50 @@ final class ShoppingList
     }
 
     /**
+     * Pflicht-Zutaten und optionale Zutaten als getrennte Abschnitte.
+     * Schlüssel der Items sind stabile IDs („i0“, „i1“ …) für Abhaken und Export.
+     *
+     * @return list<array{heading: string|null, items: Collection<string, ShoppingListItem>}>
+     */
+    public function sections(): array
+    {
+        $items = $this->items->keyBy(fn (ShoppingListItem $item, int $index) => "i{$index}");
+
+        return array_values(array_filter([
+            ['heading' => null, 'items' => $items->reject->optional],
+            ['heading' => 'Optional', 'items' => $items->filter->optional],
+        ], fn (array $section) => $section['items']->isNotEmpty()));
+    }
+
+    /**
+     * Daten für „Teilen“: daraus setzt das Frontend den Text zusammen und lässt
+     * abgehakte Zutaten weg (siehe resources/js/shopping-list.js).
+     *
+     * @return array{title: string, period: string, sections: list<array{heading: string|null, items: list<array{id: string, line: string}>}>, meals: string, filename: string}
+     */
+    public function export(): array
+    {
+        $week = Week::containing($this->from);
+        $day = fn (CarbonImmutable $date) => mb_substr(Week::dayName($date->dayOfWeekIso), 0, 2).' '.$date->format('d.m.');
+
+        return [
+            'title' => "Einkaufsliste KW {$week->number()}",
+            'period' => $this->from->isSameDay($this->to) ? $day($this->from) : $day($this->from).' – '.$day($this->to),
+            'sections' => array_map(fn (array $section) => [
+                'heading' => $section['heading'],
+                'items' => $section['items']
+                    ->map(fn (ShoppingListItem $item, string $id) => ['id' => $id, 'line' => $item->exportLine()])
+                    ->values()
+                    ->all(),
+            ], $this->sections()),
+            'meals' => 'Gerichte: '.$this->meals
+                ->map(fn (MealPlanEntry $meal) => mb_substr(Week::dayName($meal->date->dayOfWeekIso), 0, 2).' '.$meal->displayTitle())
+                ->join(', '),
+            'filename' => "einkaufsliste-kw{$week->number()}.txt",
+        ];
+    }
+
+    /**
      * Gleiche Zutaten (Name + Einheit, ohne Groß-/Kleinschreibung) werden zusammengezählt.
      * Mengen, die keine Zahl sind („eine Prise“), bleiben eigene Zeilen.
      *

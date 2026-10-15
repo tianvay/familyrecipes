@@ -128,6 +128,51 @@ class ShoppingListTest extends TestCase
             ->assertSeeInOrder(['Berücksichtigte Gerichte', 'Linsensuppe', 'Pizza bestellen', 'kein Rezept – keine Zutaten']);
     }
 
+    public function test_export_contains_compact_lines_sections_and_meals(): void
+    {
+        $this->plan('2026-10-14', $this->recipe('Linsensuppe', [['200', 'g', 'Rote Linsen'], ['', '', 'Salz'], ['1', 'Stück', 'Zitrone', true]]));
+        MealPlanEntry::factory()->create(['date' => '2026-10-16', 'title' => 'Pizza bestellen']);
+
+        $export = ShoppingList::forRestOfWeek()->export();
+
+        $this->assertSame('Einkaufsliste KW 42', $export['title']);
+        $this->assertSame('Mi 14.10. – So 18.10.', $export['period']);
+        $this->assertSame('einkaufsliste-kw42.txt', $export['filename']);
+        $this->assertSame('Gerichte: Mi Linsensuppe, Fr Pizza bestellen', $export['meals']);
+
+        $this->assertSame([
+            ['heading' => null, 'items' => [
+                ['id' => 'i0', 'line' => '200 g Rote Linsen'],
+                ['id' => 'i1', 'line' => 'Salz'],
+            ]],
+            ['heading' => 'Optional', 'items' => [
+                ['id' => 'i2', 'line' => '1 Stück Zitrone'],
+            ]],
+        ], $export['sections']);
+    }
+
+    public function test_checkbox_ids_match_the_export(): void
+    {
+        $this->plan('2026-10-14', $this->recipe('Linsensuppe', [['200', 'g', 'Rote Linsen'], ['1', 'Stück', 'Zitrone', true]]));
+
+        $this->actingAs(User::factory()->create())
+            ->get(route('shopping-list.show'))
+            ->assertSee('x-data="shoppingList(', false)
+            ->assertSee('value="i0" x-model="done"', false)
+            ->assertSee('value="i1" x-model="done"', false)
+            ->assertSee('Teilen');
+    }
+
+    public function test_share_button_is_hidden_when_there_is_nothing_to_buy(): void
+    {
+        MealPlanEntry::factory()->create(['date' => '2026-10-16', 'title' => 'Pizza bestellen']);
+
+        $this->actingAs(User::factory()->create())
+            ->get(route('shopping-list.show'))
+            ->assertSee('keine Zutaten einzukaufen')
+            ->assertDontSee('Per WhatsApp senden');
+    }
+
     public function test_empty_state_when_nothing_is_planned(): void
     {
         MealPlanEntry::factory()->create(['date' => '2026-10-12', 'title' => 'Schon gegessen']);
