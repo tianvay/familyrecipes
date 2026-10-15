@@ -1,9 +1,14 @@
 <x-layouts.app :title="request()->boolean('favoriten') ? 'Meine Favoriten' : 'Alle Rezepte'">
-    <section class="mb-10 max-w-2xl">
-        <p class="mb-2 text-sm font-semibold tracking-widest text-accent uppercase">Hallo {{ auth()->user()->name }}</p>
-        <h1 class="font-display text-4xl leading-tight font-semibold tracking-tight sm:text-5xl">
-            {{ request()->boolean('favoriten') ? 'Meine Lieblingsrezepte' : 'Alle Lieblingsrezepte an einem Ort.' }}
-        </h1>
+    <section class="mb-10 flex flex-wrap items-end justify-between gap-4">
+        <div class="max-w-2xl">
+            <p class="mb-2 text-sm font-semibold tracking-widest text-accent uppercase">Hallo {{ auth()->user()->name }}</p>
+            <h1 class="font-display text-4xl leading-tight font-semibold tracking-tight sm:text-5xl">
+                {{ request()->boolean('favoriten') ? 'Meine Lieblingsrezepte' : 'Alle Lieblingsrezepte an einem Ort.' }}
+            </h1>
+        </div>
+        @can('create', App\Models\Recipe::class)
+            <a href="{{ route('recipes.import') }}" class="btn btn-ghost">🔗 Aus Link importieren</a>
+        @endcan
     </section>
 
     <form method="GET" action="{{ route('recipes.index') }}" class="mb-6" role="search">

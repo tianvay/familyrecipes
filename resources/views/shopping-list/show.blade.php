@@ -86,7 +86,7 @@
                         <div class="mb-4 flex items-baseline justify-between gap-4">
                             <h2 class="font-display text-2xl font-semibold">Zutaten</h2>
                             <p class="text-sm text-ink-soft" aria-live="polite">
-                                <span x-text="done.length">0</span> von {{ $list->items->count() }} abgehakt
+                                <span x-text="done.length">0</span> von {{ $list->itemsToBuy()->count() }} abgehakt
                             </p>
                         </div>
                         <p class="mb-4 text-xs text-ink-soft">Tipp: Hake ab, was schon im Haus ist – beim Teilen wird es weggelassen.</p>
@@ -98,9 +98,8 @@
 
                             <ul class="divide-y divide-line overflow-hidden rounded-3xl border border-line bg-white">
                                 @foreach ($section['items'] as $id => $item)
-                                    <li>
-                                        <label class="flex cursor-pointer items-start gap-4 px-5 py-3.5 transition hover:bg-paper"
-                                               :class="done.includes('{{ $id }}') && 'opacity-40'">
+                                    <li class="flex items-start transition hover:bg-paper" :class="done.includes('{{ $id }}') && 'opacity-40'">
+                                        <label class="flex min-w-0 flex-1 cursor-pointer items-start gap-4 py-3.5 pl-5">
                                             <input type="checkbox" value="{{ $id }}" x-model="done" aria-label="{{ $item->exportLine() }}" class="mt-1 size-5 shrink-0 rounded accent-accent">
                                             <span class="w-24 shrink-0 pt-0.5 font-semibold tabular-nums"
                                                   :class="done.includes('{{ $id }}') && 'line-through'">{{ $item->amountLabel() }}</span>
@@ -109,10 +108,50 @@
                                                 <span class="block text-xs text-ink-soft">für {{ $item->sourceLabel() }}</span>
                                             </span>
                                         </label>
+                                        <form method="POST" action="{{ route('pantry-items.store') }}" class="shrink-0 py-3 pr-4 pl-2">
+                                            @csrf
+                                            <input type="hidden" name="name" value="{{ $item->name }}">
+                                            <button type="submit" class="rounded-full px-2.5 py-1 text-xs font-medium text-ink-soft hover:bg-paper-deep hover:text-ink"
+                                                    title="„{{ $item->name }}“ haben wir immer da – nicht mehr auf die Liste setzen">
+                                                immer da
+                                            </button>
+                                        </form>
                                     </li>
                                 @endforeach
                             </ul>
                         @endforeach
+
+                        @if ($list->itemsToBuy()->isEmpty())
+                            <p class="rounded-3xl border border-dashed border-line px-6 py-8 text-center text-ink-soft">
+                                Alles, was gebraucht wird, ist immer da – nichts einzukaufen.
+                            </p>
+                        @endif
+                    @endif
+
+                    {{-- Haben wir immer da --}}
+                    @if ($list->pantryItems()->isNotEmpty())
+                        <details class="group mt-8 rounded-3xl border border-line bg-white">
+                            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold">
+                                <span>🏠 Haben wir immer da ({{ $list->pantryItems()->count() }})</span>
+                                <span class="text-ink-soft transition group-open:rotate-180" aria-hidden="true">⌄</span>
+                            </summary>
+                            <p class="px-5 pb-2 text-xs text-ink-soft">Wird nicht geteilt. Falls etwas doch aus ist: „doch einkaufen“.</p>
+                            <ul class="divide-y divide-line border-t border-line">
+                                @foreach ($list->pantryItems() as $item)
+                                    <li class="flex items-center justify-between gap-4 px-5 py-3">
+                                        <span class="min-w-0">
+                                            <span class="block font-medium">{{ $item->name }}</span>
+                                            <span class="block text-xs text-ink-soft">{{ trim($item->amountLabel().' · für '.$item->sourceLabel(), ' ·') }}</span>
+                                        </span>
+                                        <form method="POST" action="{{ route('pantry-items.destroy', $item->pantryItemId) }}" class="shrink-0">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-ghost py-1.5! text-xs">doch einkaufen</button>
+                                        </form>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </details>
                     @endif
                 </section>
 

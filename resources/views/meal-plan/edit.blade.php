@@ -20,6 +20,8 @@
                 default => $textSuggestionChoice->get(mb_strtolower($entry->title), 't'),
             };
         };
+
+        $lastEatenLabel = fn (int $recipeId): string => App\Support\LastEaten::label($lastEaten->get($recipeId));
     @endphp
 
     <a href="{{ route('meal-plan.show', $week) }}" class="mb-6 inline-flex items-center gap-1 text-sm font-medium text-ink-soft hover:text-ink">
@@ -60,14 +62,21 @@
                                     <optgroup label="Vorschläge der Familie">
                                         @foreach ($suggestionGroups as $group)
                                             <option value="{{ $group['choice'] }}">
-                                                {{ $group['recipe']?->emoji ?: '✏️' }} {{ $group['title'] }} ({{ $group['suggestions']->count() }}× · {{ $group['suggestions']->map(fn ($s) => $s->user?->name ?? 'ehemalig')->join(', ') }})
+                                                {{ $group['recipe']?->emoji ?: '✏️' }} {{ $group['title'] }} ({{ $group['suggestions']->count() }}× · {{ $group['suggestions']->map(fn ($s) => $s->user?->name ?? 'ehemalig')->join(', ') }}){{ $group['recipe'] ? ' · zuletzt '.$lastEatenLabel($group['recipe']->id) : '' }}
                                             </option>
+                                        @endforeach
+                                    </optgroup>
+                                @endif
+                                @if ($longAgo->isNotEmpty())
+                                    <optgroup label="Lange nicht gegessen">
+                                        @foreach ($longAgo as $recipe)
+                                            <option value="r{{ $recipe->id }}">{{ $recipe->emoji }} {{ $recipe->title }} · zuletzt {{ $lastEatenLabel($recipe->id) }}</option>
                                         @endforeach
                                     </optgroup>
                                 @endif
                                 <optgroup label="Alle Rezepte">
                                     @foreach ($recipes as $recipe)
-                                        <option value="r{{ $recipe->id }}">{{ $recipe->emoji }} {{ $recipe->title }}</option>
+                                        <option value="r{{ $recipe->id }}">{{ $recipe->emoji }} {{ $recipe->title }} · zuletzt {{ $lastEatenLabel($recipe->id) }}</option>
                                     @endforeach
                                 </optgroup>
                                 <optgroup label="Sonstiges">

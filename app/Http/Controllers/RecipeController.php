@@ -9,6 +9,7 @@ use App\Http\Requests\StoreRecipeRequest;
 use App\Http\Requests\UpdateRecipeRequest;
 use App\Models\Recipe;
 use App\Models\Tag;
+use App\Support\LastEaten;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -68,6 +69,7 @@ class RecipeController extends Controller
         return view('recipes.show', [
             'recipe' => $recipe,
             'isFavorite' => $request->user()->hasFavorited($recipe),
+            'lastEaten' => LastEaten::forRecipe($recipe->id),
         ]);
     }
 

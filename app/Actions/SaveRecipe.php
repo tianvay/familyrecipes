@@ -27,17 +27,23 @@ class SaveRecipe
     {
         $oldImage = $recipe->image_path;
 
+        $imported = $data['imported_image'] ?? null;
+
         if ($image) {
             $data['image_path'] = $image->store('recipes', 'public');
         } elseif ($data['remove_image'] ?? false) {
             $data['image_path'] = null;
+        } elseif ($imported && Storage::disk('public')->exists($imported)) {
+            // Foto aus dem Import-Zwischenspeicher übernehmen
+            $data['image_path'] = 'recipes/'.basename($imported);
+            Storage::disk('public')->move($imported, $data['image_path']);
         }
 
         DB::transaction(function () use ($recipe, $data, $actor) {
             $isNew = ! $recipe->exists;
             $before = $isNew ? [] : $recipe->auditSnapshot();
 
-            $recipe->fill(Arr::except($data, ['ingredients', 'steps', 'tags', 'image', 'remove_image']))->save();
+            $recipe->fill(Arr::except($data, ['ingredients', 'steps', 'tags', 'image', 'remove_image', 'imported_image']))->save();
 
             $recipe->ingredients()->delete();
             $recipe->ingredients()->createMany(

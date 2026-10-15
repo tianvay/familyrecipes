@@ -55,6 +55,8 @@ class StoreRecipeRequest extends FormRequest
             'color' => ['nullable', 'hex_color'],
             'image' => ['nullable', 'image', 'max:12288'], // 12 MB: Fallback, falls das Gerät das Foto nicht vorab verkleinern kann
             'remove_image' => ['boolean'],
+            // Foto aus dem Import (liegt bereits in storage/app/public/imports)
+            'imported_image' => ['nullable', 'string', 'regex:/^imports\/[a-f0-9\-]{36}\.(jpg|png|webp)$/'],
             'servings' => ['nullable', 'integer', 'between:1,100'],
             'prep_minutes' => ['nullable', 'integer', 'between:0,1440'],
             'cook_minutes' => ['nullable', 'integer', 'between:0,1440'],

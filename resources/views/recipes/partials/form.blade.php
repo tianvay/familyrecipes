@@ -193,14 +193,19 @@
             </div>
         </section>
 
+        @php
+            // Foto aus dem Import (noch im Zwischenspeicher) hat Vorrang vor dem bisherigen Foto
+            $importedImage = old('imported_image');
+            $imageUrl = $importedImage ? asset('storage/'.$importedImage) : $recipe->image_url;
+        @endphp
         <section class="card-section space-y-5"
-                 x-data="recipeAppearance({ emoji: @js(old('emoji', $recipe->emoji) ?: '🍽️'), color: @js(old('color', $recipe->color) ?: '#C8553D'), imageUrl: @js($recipe->image_url) })">
+                 x-data="recipeAppearance({ emoji: @js(old('emoji', $recipe->emoji) ?: '🍽️'), color: @js(old('color', $recipe->color) ?: '#C8553D'), imageUrl: @js($imageUrl) })">
             <h2 class="font-display text-xl font-semibold">Aussehen</h2>
 
             <div class="recipe-tint relative grid aspect-[4/3] place-items-center overflow-hidden rounded-2xl text-7xl" :style="`--recipe: ${color}`">
                 <img x-show="preview" :src="preview" alt="" class="absolute inset-0 size-full object-cover"
-                     @if ($recipe->image_url) src="{{ $recipe->image_url }}" @else x-cloak @endif>
-                <span x-show="! preview" x-text="emoji" aria-hidden="true">{{ $recipe->image_url ? '' : (old('emoji', $recipe->emoji) ?: '🍽️') }}</span>
+                     @if ($imageUrl) src="{{ $imageUrl }}" @else x-cloak @endif>
+                <span x-show="! preview" x-text="emoji" aria-hidden="true">{{ $imageUrl ? '' : (old('emoji', $recipe->emoji) ?: '🍽️') }}</span>
                 <span x-cloak x-show="processing" class="absolute inset-0 grid place-items-center bg-white/70 text-sm font-semibold text-ink">Foto wird verkleinert …</span>
             </div>
 
@@ -225,10 +230,15 @@
                 <p class="mt-1 text-xs text-herb" x-cloak x-show="info" x-text="info"></p>
                 @error('image') <p class="field-error">{{ $message }}</p> @enderror
 
-                @if ($recipe->image_path)
+                @if ($importedImage)
+                    <input type="hidden" name="imported_image" value="{{ $importedImage }}">
+                    <p class="mt-2 text-xs text-herb">Foto aus dem Import wird übernommen.</p>
+                @endif
+
+                @if ($recipe->image_path || $importedImage)
                     <label class="mt-3 flex items-center gap-2 text-sm text-ink-soft">
-                        <input type="checkbox" name="remove_image" value="1" class="size-4 accent-accent">
-                        Aktuelles Foto entfernen
+                        <input type="checkbox" name="remove_image" value="1" @checked(old('remove_image')) class="size-4 accent-accent">
+                        {{ $importedImage ? 'Importiertes Foto nicht übernehmen' : 'Aktuelles Foto entfernen' }}
                     </label>
                 @endif
             </div>

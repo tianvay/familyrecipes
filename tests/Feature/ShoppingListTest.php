@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Ingredient;
 use App\Models\MealPlanEntry;
+use App\Models\PantryItem;
 use App\Models\Recipe;
 use App\Models\User;
 use App\Support\ShoppingList;
@@ -171,6 +172,49 @@ class ShoppingListTest extends TestCase
             ->get(route('shopping-list.show'))
             ->assertSee('keine Zutaten einzukaufen')
             ->assertDontSee('Per WhatsApp senden');
+    }
+
+    public function test_pantry_items_are_listed_separately_and_not_shared(): void
+    {
+        $this->plan('2026-10-14', $this->recipe('Linsensuppe', [['200', 'g', 'Rote Linsen'], ['1', 'TL', 'Salz'], ['', '', 'Pfeffer']]));
+        PantryItem::create(['name' => 'salz']); // Groß-/Kleinschreibung egal
+
+        $list = ShoppingList::forRestOfWeek();
+
+        $this->assertSame(['Pfeffer', 'Rote Linsen'], $list->itemsToBuy()->pluck('name')->values()->all());
+        $this->assertSame(['Salz'], $list->pantryItems()->pluck('name')->values()->all());
+        $this->assertStringNotContainsString('Salz', json_encode($list->export()));
+
+        $this->actingAs(User::factory()->create())
+            ->get(route('shopping-list.show'))
+            ->assertSee('0</span> von 2 abgehakt', false)
+            ->assertSeeInOrder(['Haben wir immer da (1)', 'Salz', 'doch einkaufen']);
+    }
+
+    public function test_adults_can_mark_and_unmark_pantry_items(): void
+    {
+        $this->actingAs(User::factory()->create());
+
+        $this->post(route('pantry-items.store'), ['name' => ' Olivenöl '])->assertRedirect();
+        $this->post(route('pantry-items.store'), ['name' => 'OLIVENÖL'])->assertRedirect(); // kein Duplikat
+
+        $item = PantryItem::sole();
+        $this->assertSame('Olivenöl', $item->name);
+        $this->assertSame('olivenöl', $item->key);
+
+        $this->delete(route('pantry-items.destroy', $item))->assertRedirect();
+        $this->assertModelMissing($item);
+    }
+
+    public function test_children_cannot_change_pantry_items(): void
+    {
+        $item = PantryItem::create(['name' => 'Salz']);
+
+        $this->actingAs(User::factory()->child()->create());
+        $this->post(route('pantry-items.store'), ['name' => 'Zucker'])->assertForbidden();
+        $this->delete(route('pantry-items.destroy', $item))->assertForbidden();
+
+        $this->assertDatabaseCount('pantry_items', 1);
     }
 
     public function test_empty_state_when_nothing_is_planned(): void

@@ -72,6 +72,26 @@ Fotos werden vor dem Hochladen im Browser auf höchstens 1600 px verkleinert und
 (iPhone-Fotos: typischerweise mehrere MB → unter 1 MB). Kann ein Gerät das nicht, nimmt der Server
 Originale bis 12 MB an. Am iPhone/iPad kann man direkt mit der Kamera fotografieren.
 
+## Rezept per Link importieren
+
+„🔗 Aus Link importieren“ (Rezeptübersicht oder „Neues Rezept“, für Erwachsene): Link z. B. von Chefkoch
+einfügen → Titel, Beschreibung, Portionen, Zeiten, Kalorien, Zutaten (in Menge/Einheit/Name zerlegt),
+Schritte, Tags und Foto landen im Rezeptformular und werden erst beim Speichern übernommen.
+
+- Grundlage sind die strukturierten Rezeptdaten der Seite (schema.org/Recipe, JSON-LD); Seiten ohne
+  diese Daten werden mit einem Hinweis abgelehnt.
+- Werbetexte in Beschreibungen und von Chefkoch angehängte Autorennamen werden entfernt.
+- Aus Sicherheitsgründen werden nur öffentliche Adressen abgerufen (auch nach Weiterleitungen),
+  keine Geräte im Heimnetz. Nicht gespeicherte Import-Fotos werden nach einem Tag gelöscht.
+- Code: `app/Actions/ImportRecipeFromUrl.php`, `app/Support/RecipeImport/`.
+
+## Kochmodus
+
+„👩‍🍳 Kochmodus“ auf der Rezeptseite: Vollbild, ein Schritt pro Bildschirm in großer Schrift, blättern per
+Knopf, Wischen oder Pfeiltasten. Unter jedem Schritt stehen die Zutaten, die darin vorkommen; bei
+Zeitangaben („12–15 Minuten“) gibt es einen Timer mit Signalton. Die Zutatenliste lässt sich jederzeit
+einblenden und abhaken. Code: `app/Support/CookingSteps.php`, `resources/js/cooking-mode.js`.
+
 ## Benutzer & Rollen
 
 Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.
@@ -106,6 +126,8 @@ Unter „Essensplan“ (Woche = Montag bis Sonntag, Adresse z. B. `/essensplan/2
 - **Festlegen** (Erwachsene): „Plan festlegen“ zeigt alle Vorschläge mit Anzahl, Namen und Wunschtagen.
   Pro Tag ein Gericht, jedes Gericht höchstens zweimal pro Woche.
 - Vorschlagen und Planen geht für diese und nächste Woche; ältere Wochen bleiben als Historie lesbar.
+- Beim Planen steht an jedem Rezept, wann es es zuletzt gab; oben gibt es die Gruppe „Lange nicht gegessen“
+  (seit mindestens drei Wochen oder noch nie). Auch die Rezeptseite zeigt „Zuletzt gegessen“.
 - Vorschläge und Pläne werden dauerhaft aufbewahrt (Grundlage für spätere Auswertungen) und bleiben
   auch nach dem Löschen eines Rezepts oder Accounts erhalten.
 
@@ -118,6 +140,9 @@ alle Zutaten der Gerichte von **heute bis Sonntag** der laufenden Woche; vergang
   doppelt geplante Gerichte zählen doppelt. Bei jeder Zeile steht, für welche Gerichte und Tage sie gebraucht wird.
 - Zutaten, die in allen Gerichten optional sind, stehen getrennt unter „Optional“.
 - Freitext-Gerichte (z. B. „Pizza bestellen“) haben keine Zutaten und erscheinen nur als Hinweis.
+- **Haben wir immer da:** Zutaten wie Salz oder Öl mit „immer da“ markieren – sie stehen dann eingeklappt
+  unten, zählen nicht mit und werden nicht geteilt („doch einkaufen“ holt sie zurück). Abgleich über den
+  ganzen Zutatennamen ohne Groß-/Kleinschreibung.
 - Logik: `app/Support/ShoppingList.php`, Mengen: `app/Support/Quantity.php`.
 
 **Teilen** (für den Supermarkt): Der Knopf „Teilen“ öffnet – wo der Browser es erlaubt – das

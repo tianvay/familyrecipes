@@ -20,7 +20,16 @@ final class ShoppingListItem
         public readonly ?string $rawAmount,
         public readonly bool $optional,
         public readonly Collection $sources,
+        public readonly ?int $pantryItemId = null,
     ) {}
+
+    /**
+     * „Haben wir immer da“ – muss nicht eingekauft werden.
+     */
+    public function isInPantry(): bool
+    {
+        return $this->pantryItemId !== null;
+    }
 
     /**
      * z. B. „500 g“, „2 Stück“, „eine Prise“ oder leer bei „nach Bedarf“.

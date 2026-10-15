@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateMealPlanRequest;
 use App\Models\MealPlanEntry;
 use App\Models\MealSuggestion;
 use App\Models\Recipe;
+use App\Support\LastEaten;
 use App\Support\Week;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
@@ -34,11 +35,24 @@ class MealPlanController extends Controller
     {
         Gate::authorize('plan-meals', $week);
 
+        $recipes = Recipe::query()->orderBy('title')->get(['id', 'title', 'emoji']);
+        $lastEaten = LastEaten::dates();
+
+        // Bis zu fünf Rezepte, die es seit mindestens drei Wochen (oder noch nie) gab – die ältesten zuerst
+        $longAgo = $recipes
+            ->filter(fn (Recipe $recipe) => ! $lastEaten->has($recipe->id)
+                || $lastEaten[$recipe->id]->lessThanOrEqualTo(today()->subWeeks(3)))
+            ->sortBy(fn (Recipe $recipe) => $lastEaten->get($recipe->id)?->timestamp ?? 0)
+            ->take(5)
+            ->values();
+
         return view('meal-plan.edit', [
             'week' => $week,
             'entries' => $this->entriesByDay($week),
             'suggestionGroups' => $this->suggestionGroups($week),
-            'recipes' => Recipe::query()->orderBy('title')->get(['id', 'title', 'emoji']),
+            'recipes' => $recipes,
+            'lastEaten' => $lastEaten,
+            'longAgo' => $longAgo,
         ]);
     }
 

@@ -22,6 +22,9 @@
                 @endif
 
                 <div class="flex flex-wrap items-center gap-2 pt-2">
+                    @if ($recipe->steps->isNotEmpty())
+                        <a href="{{ route('recipes.cook', $recipe) }}" class="btn btn-primary">👩‍🍳 Kochmodus</a>
+                    @endif
                     <form method="POST" action="{{ route('recipes.favorite', $recipe) }}">
                         @csrf
                         @method('PATCH')
@@ -66,6 +69,16 @@
                 @error('recipe_id')
                     <p class="field-error" role="alert">{{ $message }}</p>
                 @enderror
+
+                <p class="text-sm text-ink/80">
+                    🍽 Zuletzt gegessen:
+                    @if ($lastEaten)
+                        {{ App\Support\Week::dayName($lastEaten->dayOfWeekIso) }}, {{ $lastEaten->format('d.m.Y') }}
+                        ({{ App\Support\LastEaten::label($lastEaten) }})
+                    @else
+                        noch nie
+                    @endif
+                </p>
 
                 <p class="text-xs text-ink-soft">
                     @if ($revision = $recipe->latestRevision)

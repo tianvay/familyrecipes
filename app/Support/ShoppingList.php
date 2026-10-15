@@ -4,6 +4,7 @@ namespace App\Support;
 
 use App\Models\Ingredient;
 use App\Models\MealPlanEntry;
+use App\Models\PantryItem;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -11,6 +12,7 @@ use Illuminate\Support\Str;
 /**
  * Einkaufsliste aus dem festgelegten Essensplan: alle Zutaten der Gerichte
  * von heute bis Sonntag. Vergangene Tage der Woche zählen nicht mit.
+ * Zutaten, die die Familie „immer da hat“ (PantryItem), stehen getrennt und werden nicht geteilt.
  */
 final class ShoppingList
 {
@@ -36,12 +38,34 @@ final class ShoppingList
             ->orderBy('date')
             ->get();
 
-        return new self($from, $to, $meals, self::collectItems($meals));
+        $pantry = PantryItem::query()->pluck('id', 'key');
+
+        return new self($from, $to, $meals, self::collectItems($meals, $pantry));
     }
 
     public function isEmpty(): bool
     {
         return $this->items->isEmpty();
+    }
+
+    /**
+     * Was tatsächlich eingekauft werden muss (ohne „haben wir immer da“).
+     *
+     * @return Collection<string, ShoppingListItem>
+     */
+    public function itemsToBuy(): Collection
+    {
+        return $this->keyedItems()->reject->isInPantry();
+    }
+
+    /**
+     * Zutaten, die die Familie „immer da hat“.
+     *
+     * @return Collection<string, ShoppingListItem>
+     */
+    public function pantryItems(): Collection
+    {
+        return $this->keyedItems()->filter->isInPantry();
     }
 
     /**
@@ -62,7 +86,7 @@ final class ShoppingList
      */
     public function sections(): array
     {
-        $items = $this->items->keyBy(fn (ShoppingListItem $item, int $index) => "i{$index}");
+        $items = $this->itemsToBuy();
 
         return array_values(array_filter([
             ['heading' => null, 'items' => $items->reject->optional],
@@ -103,9 +127,10 @@ final class ShoppingList
      * Mengen, die keine Zahl sind („eine Prise“), bleiben eigene Zeilen.
      *
      * @param  Collection<int, MealPlanEntry>  $meals
+     * @param  Collection<string, int>  $pantry  PantryItem-Schlüssel => ID
      * @return Collection<int, ShoppingListItem>
      */
-    private static function collectItems(Collection $meals): Collection
+    private static function collectItems(Collection $meals, Collection $pantry): Collection
     {
         $groups = [];
 
@@ -150,8 +175,19 @@ final class ShoppingList
                 rawAmount: $group['rawAmount'],
                 optional: $group['optional'],
                 sources: collect($group['sources']),
+                pantryItemId: $pantry->get(PantryItem::keyFor($group['name'])),
             ))
             ->sortBy(fn (ShoppingListItem $item) => Str::ascii(mb_strtolower($item->name)))
             ->values();
+    }
+
+    /**
+     * Stabile IDs („i0“, „i1“ …) für Abhaken und Export.
+     *
+     * @return Collection<string, ShoppingListItem>
+     */
+    private function keyedItems(): Collection
+    {
+        return $this->items->keyBy(fn (ShoppingListItem $item, int $index) => "i{$index}");
     }
 }

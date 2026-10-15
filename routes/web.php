@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CookingModeController;
 use App\Http\Controllers\FamilyFavoritesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MealPlanController;
 use App\Http\Controllers\MealSuggestionController;
+use App\Http\Controllers\PantryItemController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeHistoryController;
+use App\Http\Controllers\RecipeImportController;
 use App\Http\Controllers\RevisionLogController;
 use App\Http\Controllers\ShoppingListController;
 use App\Http\Controllers\ToggleFavoriteController;
@@ -27,6 +30,10 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     // Startseite: „Heute gibt's …“
     Route::get('/', HomeController::class)->name('home');
 
+    // Import per Link – vor der Resource-Route, sonst würde „importieren“ als Rezept-Slug gelesen.
+    Route::get('rezepte/importieren', [RecipeImportController::class, 'create'])->name('recipes.import');
+    Route::post('rezepte/importieren', [RecipeImportController::class, 'store'])->name('recipes.import.store');
+
     // Schreibrechte für Rezepte regelt die RecipePolicy (Kinder dürfen nur lesen).
     Route::resource('rezepte', RecipeController::class)
         ->names('recipes')
@@ -34,6 +41,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
 
     Route::patch('rezepte/{recipe}/favorit', ToggleFavoriteController::class)->name('recipes.favorite');
     Route::get('rezepte/{recipe}/verlauf', RecipeHistoryController::class)->name('recipes.history');
+    Route::get('rezepte/{recipe}/kochen', CookingModeController::class)->name('recipes.cook');
 
     // Essensplan: ansehen und vorschlagen darf jeder, festlegen nur Erwachsene ({week} = „2026-W43“).
     Route::pattern('week', '\d{4}-W\d{2}');
@@ -45,6 +53,8 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
 
     // Einkaufsliste aus dem Essensplan (nur Erwachsene, Prüfung im Controller).
     Route::get('einkaufsliste', ShoppingListController::class)->name('shopping-list.show');
+    Route::post('einkaufsliste/immer-da', [PantryItemController::class, 'store'])->name('pantry-items.store');
+    Route::delete('einkaufsliste/immer-da/{pantryItem}', [PantryItemController::class, 'destroy'])->name('pantry-items.destroy');
 
     Route::get('konto', [AccountController::class, 'edit'])->name('account.edit');
     Route::put('konto/passwort', [AccountController::class, 'updatePassword'])->name('account.password');
