@@ -27,6 +27,11 @@ php artisan storage:link         # für hochgeladene Fotos
 npm run build
 ```
 
+Der fertige Build (`public/build`) liegt mit im Git. Eine weitere Installation (z. B. auf 192.168.178.38)
+lässt sich daher ohne Node per `git pull` aktualisieren. Nach Änderungen an Views, CSS oder JS also
+`npm run build` ausführen und `public/build` mitcommitten. `php artisan migrate` nur auf **einer**
+Installation ausführen, weil beide dieselbe Datenbank nutzen.
+
 **Standard-Zugang:** Benutzername `Admin`, Passwort `Test` (Familienoberhaupt, angelegt per Migration).
 Das Passwort nach der ersten Anmeldung unter „Mein Konto“ ändern.
 

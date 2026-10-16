@@ -37,7 +37,8 @@ Commit-Messages und Antworten an den Nutzer: **Deutsch**. Details zu Funktionen 
 ```bash
 php artisan test            # SQLite in-memory (phpunit.xml), echte DB bleibt unberührt
 vendor/bin/pint             # Code-Stil
-npm run build               # nach jeder Änderung an Views/CSS/JS nötig (kein Vite-Dev-Server im Betrieb)
+npm run build               # nach jeder Änderung an Views/CSS/JS nötig (kein Vite-Dev-Server im Betrieb);
+                            # public/build wird mitcommittet (192.168.178.38 aktualisiert nur per git pull, ohne Node)
 php artisan view:clear
 php artisan users:create    # Account per Konsole; recipes:import = alte recipes.json importieren
 ```

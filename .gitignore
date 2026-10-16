@@ -10,7 +10,6 @@
 /storage/*.key
 
 # Build-Ausgaben & generierte Dateien
-/public/build
 /public/hot
 /public/storage
 /storage/pail
