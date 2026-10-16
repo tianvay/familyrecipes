@@ -96,7 +96,7 @@ einblenden und abhaken. Code: `app/Support/CookingSteps.php`, `resources/js/cook
 
 Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.
 
-| Rolle | Rezepte ansehen, Favoriten | Essen wünschen | Rezepte ändern, Essensplan festlegen | Accounts, Familie, Änderungsprotokoll |
+| Rolle | Rezepte ansehen, Favoriten | Essen wünschen | Rezepte ändern, Essensplan festlegen, Familie | Accounts, Änderungsprotokoll |
 | --- | :---: | :---: | :---: | :---: |
 | Familienoberhaupt (Admin) | ✓ | – | ✓ | ✓ |
 | Erwachsen | ✓ | ✓ | ✓ | – |
@@ -104,7 +104,7 @@ Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.
 
 - Der Admin-Account dient nur der Verwaltung: Er wünscht sich nichts (die Wunschliste sieht er nur zum
   Planen) und erscheint nicht in der Übersicht „Wer mag was?“ – auch seine Favoriten zählen dort nicht.
-- „Wer mag was?“ (Menü „Familie“, nur Familienoberhaupt) zeigt die Top 5 **am beliebtesten** (meiste
+- „Wer mag was?“ (Menü „Familie“, alle Erwachsenen) zeigt die Top 5 **am beliebtesten** (meiste
   Favoriten), die Top 5 **am häufigsten gewünscht** (alle Wünsche, auch eingeplante; gleiche Freitexte
   werden zusammengezählt) und die Favoriten jedes Familienmitglieds.
 

@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum Role: string
 {
-    /** Familienoberhaupt: verwaltet Accounts und sieht die Familien-Übersicht. */
+    /** Familienoberhaupt: verwaltet Accounts und sieht das Änderungsprotokoll. */
     case Admin = 'admin';
 
     case Adult = 'adult';
@@ -25,7 +25,7 @@ enum Role: string
     {
         return match ($this) {
             self::Admin => 'Verwaltet Accounts und Rezepte, plant das Essen und sieht Familien-Übersicht und Änderungsprotokoll. Wünscht sich nichts und erscheint nicht in der Übersicht.',
-            self::Adult => 'Darf Rezepte anlegen, bearbeiten und löschen und den Essensplan festlegen.',
+            self::Adult => 'Darf Rezepte anlegen, bearbeiten und löschen, den Essensplan festlegen und die Familien-Übersicht sehen.',
             self::Child => 'Darf Rezepte ansehen, eigene Favoriten markieren und sich Gerichte wünschen.',
         };
     }

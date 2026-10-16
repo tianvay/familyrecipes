@@ -19,12 +19,22 @@ class FamilyFavoritesTest extends TestCase
         $this->withoutVite();
     }
 
-    public function test_members_cannot_see_family_overview(): void
+    public function test_children_cannot_see_family_overview(): void
     {
-        $this->actingAs(User::factory()->create())
+        $this->actingAs(User::factory()->child()->create())
             ->get(route('family.favorites'))
             ->assertForbidden()
             ->assertSee('Kein Zugriff');
+    }
+
+    public function test_adults_see_family_overview_but_not_user_management(): void
+    {
+        $this->actingAs(User::factory()->create())
+            ->get(route('family.favorites'))
+            ->assertOk()
+            ->assertSee('Wer mag was?');
+
+        $this->get(route('users.index'))->assertForbidden();
     }
 
     public function test_admin_sees_favorites_of_every_member(): void
@@ -92,14 +102,20 @@ class FamilyFavoritesTest extends TestCase
                 && $dishes->first()['wishers']->pluck('name')->all() === ['Lena', 'Max']);
     }
 
-    public function test_family_link_is_only_shown_to_admins(): void
+    public function test_family_link_is_shown_to_adults_and_admins_only(): void
     {
-        $this->actingAs(User::factory()->create())
+        $this->actingAs(User::factory()->child()->create())
             ->get(route('recipes.index'))
             ->assertDontSee(route('family.favorites'));
 
+        $this->actingAs(User::factory()->create())
+            ->get(route('recipes.index'))
+            ->assertSee(route('family.favorites'))
+            ->assertDontSee(route('users.index'));
+
         $this->actingAs(User::factory()->admin()->create())
             ->get(route('recipes.index'))
-            ->assertSee(route('family.favorites'));
+            ->assertSee(route('family.favorites'))
+            ->assertSee(route('users.index'));
     }
 }

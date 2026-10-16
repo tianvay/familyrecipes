@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Enums\Role;
 use App\Models\User;
 use App\Support\Week;
 use Illuminate\Database\Eloquent\Model;
@@ -36,11 +37,13 @@ class AppServiceProvider extends ServiceProvider
         // Bewusst ohne Mindestlänge oder Sonderzeichen: kleiner Familienkreis im lokalen Netz.
         Password::defaults(fn () => Password::min(1));
 
-        Gate::define('view-family-favorites', fn (User $user) => $user->isAdmin());
+        // Familien-Seite (Statistiken): alle Erwachsenen; Benutzerverwaltung bleibt beim Admin (UserPolicy).
+        Gate::define('view-family-favorites', fn (User $user) => $user->role !== Role::Child);
         Gate::define('view-revision-log', fn (User $user) => $user->isAdmin());
 
-        // Essensplan festlegen: nur Erwachsene, nur für diese und nächste Woche.
         Gate::define('make-wishes', fn (User $user) => $user->role->canWish());
+
+        // Essensplan festlegen: nur Erwachsene, nur für diese und nächste Woche.
         Gate::define('plan-meals', fn (User $user, Week $week) => $user->role->canPlanMeals() && $week->isOpen());
 
         // Einkaufsliste: für alle, die den Plan festlegen (Erwachsene).
