@@ -75,7 +75,11 @@
                 </p>
                 <p class="mb-4 text-xs text-ink-soft">Nächste Woche: {{ $nextWeekPlanned }} von 7 Tagen geplant</p>
                 <div class="flex flex-wrap gap-2">
-                    <a href="{{ route('wishes.index') }}" class="btn btn-primary">⭐ Etwas wünschen</a>
+                    @can('make-wishes')
+                        <a href="{{ route('wishes.index') }}" class="btn btn-primary">⭐ Etwas wünschen</a>
+                    @else
+                        <a href="{{ route('wishes.index') }}" class="btn btn-ghost">Wunschliste ansehen</a>
+                    @endcan
                     @can('plan-meals', $nextWeek)
                         <a href="{{ route('meal-plan.edit', $nextWeek) }}" class="btn btn-ghost">Nächste Woche planen</a>
                     @endcan

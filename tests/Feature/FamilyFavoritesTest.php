@@ -28,22 +28,27 @@ class FamilyFavoritesTest extends TestCase
 
     public function test_admin_sees_favorites_of_every_member(): void
     {
-        $admin = User::factory()->admin()->create(['name' => 'Papa']);
+        $admin = User::factory()->admin()->create(['name' => 'Verwaltung']);
         $lena = User::factory()->create(['name' => 'Lena']);
         $max = User::factory()->create(['name' => 'Max']);
+        User::factory()->create(['name' => 'Papa']);
 
         $pizza = Recipe::factory()->create(['title' => 'Pizza']);
         $salad = Recipe::factory()->create(['title' => 'Salat']);
-        Recipe::factory()->create(['title' => 'Rosenkohl']);
+        $sprouts = Recipe::factory()->create(['title' => 'Rosenkohl']);
 
         $lena->favoriteRecipes()->attach([$pizza->id, $salad->id]);
         $max->favoriteRecipes()->attach($pizza);
+        // Favoriten des Admin-Accounts zählen nicht mit.
+        $admin->favoriteRecipes()->attach([$pizza->id, $sprouts->id]);
 
         $this->actingAs($admin)
             ->get(route('family.favorites'))
             ->assertOk()
             ->assertSee(['Lena', 'Max', 'Papa', 'Pizza', 'Salat'])
             ->assertDontSee('Rosenkohl')
+            ->assertViewHas('members', fn ($members) => $members->pluck('name')->all() === ['Lena', 'Max', 'Papa'])
+            ->assertViewHas('popular', fn ($popular) => $popular->first()->favoritedBy->pluck('name')->all() === ['Lena', 'Max'])
             ->assertSeeInOrder(['Am beliebtesten', 'Pizza', '♥ 2', 'Salat', '♥ 1'])
             ->assertSee('Noch keine Favoriten markiert.');
     }

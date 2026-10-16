@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -16,15 +17,19 @@ class FamilyFavoritesController extends Controller
     {
         Gate::authorize('view-family-favorites');
 
+        // Der Admin-Account ist kein Familienmitglied und bleibt außen vor.
+        $familyOnly = fn ($query) => $query->whereNot('role', Role::Admin);
+
         $members = User::query()
+            ->where($familyOnly)
             ->with(['favoriteRecipes' => fn ($query) => $query->orderBy('title')])
             ->orderBy('name')
             ->get();
 
         $popular = Recipe::query()
-            ->with(['favoritedBy' => fn ($query) => $query->orderBy('name')])
-            ->withCount('favoritedBy')
-            ->has('favoritedBy')
+            ->with(['favoritedBy' => fn ($query) => $familyOnly($query)->orderBy('name')])
+            ->withCount(['favoritedBy' => $familyOnly])
+            ->whereHas('favoritedBy', $familyOnly)
             ->orderByDesc('favorited_by_count')
             ->orderBy('title')
             ->limit(10)

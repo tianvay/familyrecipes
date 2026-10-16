@@ -51,8 +51,9 @@ php artisan users:create    # Account per Konsole; recipes:import = alte recipes
   `Quantity` (Mengen addieren), `CookingSteps` (Zutaten/Timer je Schritt), `LastEaten`,
   `RecipeImport/` (`JsonLdRecipeParser`, `IngredientLineParser`, `UrlGuard` gegen Heimnetz-Abrufe).
 - Rechte: `App\Enums\Role` (admin/adult/child), Policies `RecipePolicy`, `UserPolicy`,
-  `MealSuggestionPolicy`, Gates in `AppServiceProvider` (`plan-meals`, `view-shopping-list`,
-  `view-family-favorites`, `view-revision-log`).
+  `MealSuggestionPolicy`, Gates in `AppServiceProvider` (`make-wishes`, `plan-meals`, `view-shopping-list`,
+  `view-family-favorites`, `view-revision-log`). Admin-Account = reine Verwaltung: wünscht nicht,
+  fehlt in der Familien-Übersicht (Papa/Mama sind `adult`).
 - Model `MealSuggestion` = ein **Wunsch** (UI sagt „Wunsch/wünschen“, Tabelle heißt `meal_suggestions`).
 - Frontend: Alpine-Komponenten in `resources/js/*.js`, registriert in `app.js` (`shoppingList`,
   `cookingMode`, `recipePicker`, `recipeAppearance`). Layouts: `components/layouts/{app,guest,focus}`,

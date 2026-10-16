@@ -40,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('view-revision-log', fn (User $user) => $user->isAdmin());
 
         // Essensplan festlegen: nur Erwachsene, nur für diese und nächste Woche.
+        Gate::define('make-wishes', fn (User $user) => $user->role->canWish());
         Gate::define('plan-meals', fn (User $user, Week $week) => $user->role->canPlanMeals() && $week->isOpen());
 
         // Einkaufsliste: für alle, die den Plan festlegen (Erwachsene).

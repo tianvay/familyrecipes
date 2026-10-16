@@ -24,7 +24,7 @@ enum Role: string
     public function description(): string
     {
         return match ($this) {
-            self::Admin => 'Darf alles: Rezepte ändern, Accounts verwalten, Familien-Übersicht und Änderungsprotokoll sehen.',
+            self::Admin => 'Verwaltet Accounts und Rezepte, plant das Essen und sieht Familien-Übersicht und Änderungsprotokoll. Wünscht sich nichts und erscheint nicht in der Übersicht.',
             self::Adult => 'Darf Rezepte anlegen, bearbeiten und löschen und den Essensplan festlegen.',
             self::Child => 'Darf Rezepte ansehen, eigene Favoriten markieren und sich Gerichte wünschen.',
         };
@@ -36,10 +36,19 @@ enum Role: string
     }
 
     /**
-     * Den Essensplan festlegen dürfen nur Erwachsene; wünschen darf jeder.
+     * Den Essensplan festlegen dürfen nur Erwachsene (inkl. Admin).
      */
     public function canPlanMeals(): bool
     {
         return $this !== self::Child;
+    }
+
+    /**
+     * Wünschen dürfen alle Familienmitglieder – nur der Admin-Account nicht,
+     * er dient ausschließlich der Verwaltung.
+     */
+    public function canWish(): bool
+    {
+        return $this !== self::Admin;
     }
 }

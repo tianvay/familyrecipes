@@ -231,6 +231,35 @@ class WishListTest extends TestCase
             ->assertSee('name="week" value="'.self::NEXT_WEEK.'"', false);
     }
 
+    public function test_admin_account_cannot_wish_but_sees_the_list(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $recipe = Recipe::factory()->complete()->create();
+        MealSuggestion::factory()->create(['title' => 'Lasagne']);
+
+        $this->actingAs($admin)
+            ->post(route('wishes.store'), ['recipe_id' => $recipe->id])
+            ->assertForbidden();
+        $this->assertDatabaseMissing('meal_suggestions', ['user_id' => $admin->id]);
+
+        $this->get(route('wishes.index'))
+            ->assertOk()
+            ->assertSee('Lasagne')
+            ->assertDontSee('Etwas wünschen');
+        $this->get(route('recipes.show', $recipe))->assertDontSee('⭐ Wünschen');
+        $this->get(route('home'))->assertDontSee('Etwas wünschen');
+        $this->get(route('meal-plan.show', Week::current()->next()))->assertDontSee('Etwas wünschen');
+    }
+
+    public function test_adults_can_still_wish(): void
+    {
+        $this->actingAs(User::factory()->create())
+            ->post(route('wishes.store'), ['title' => 'Lasagne'])
+            ->assertRedirect(route('wishes.index'));
+
+        $this->assertDatabaseHas('meal_suggestions', ['title' => 'Lasagne']);
+    }
+
     public function test_wishes_are_in_the_navigation(): void
     {
         $this->actingAs(User::factory()->child()->create())

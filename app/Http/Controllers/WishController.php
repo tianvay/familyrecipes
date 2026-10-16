@@ -27,6 +27,7 @@ class WishController extends Controller
 
         return view('wishes.index', [
             'wishList' => $wishList,
+            'canWish' => $user->can('make-wishes'),
             'openGroups' => $wishList->group($wishList->open()),
             'plannedGroups' => $wishList->group($wishList->fulfilledSince(CarbonImmutable::today()->subDays(7))),
             'recipes' => Recipe::query()->orderBy('title')->get(['id', 'title', 'emoji'])

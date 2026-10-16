@@ -72,7 +72,7 @@
                     <h2 class="mb-1 font-display text-2xl font-semibold">Wünsche</h2>
                     <p class="text-sm text-ink-soft">Offen oder in KW {{ $week->number() }} eingeplant.</p>
                 </div>
-                @if ($week->isOpen())
+                @if ($week->isOpen() && auth()->user()->can('make-wishes'))
                     <a href="{{ route('wishes.index', ['woche' => $week->iso()]) }}" class="btn btn-ghost">＋ Etwas wünschen</a>
                 @endif
             </div>

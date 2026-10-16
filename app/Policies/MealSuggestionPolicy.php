@@ -7,7 +7,8 @@ use App\Models\User;
 use App\Support\WishList;
 
 /**
- * Wünsche (MealSuggestion): wünschen darf jedes Familienmitglied (siehe StoreWishRequest).
+ * Wünsche (MealSuggestion): wünschen darf jedes Familienmitglied außer dem Admin-Account
+ * (Gate `make-wishes`, siehe StoreWishRequest).
  */
 class MealSuggestionPolicy
 {

@@ -96,11 +96,14 @@ einblenden und abhaken. Code: `app/Support/CookingSteps.php`, `resources/js/cook
 
 Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.
 
-| Rolle | Rezepte ansehen, Favoriten, Essen wünschen | Rezepte ändern, Essensplan festlegen | Accounts, Familie, Änderungsprotokoll |
-| --- | :---: | :---: | :---: |
-| Familienoberhaupt | ✓ | ✓ | ✓ |
-| Erwachsen | ✓ | ✓ | – |
-| Kind | ✓ | – | – |
+| Rolle | Rezepte ansehen, Favoriten | Essen wünschen | Rezepte ändern, Essensplan festlegen | Accounts, Familie, Änderungsprotokoll |
+| --- | :---: | :---: | :---: | :---: |
+| Familienoberhaupt (Admin) | ✓ | – | ✓ | ✓ |
+| Erwachsen | ✓ | ✓ | ✓ | – |
+| Kind | ✓ | ✓ | – | – |
+
+- Der Admin-Account dient nur der Verwaltung: Er wünscht sich nichts (die Wunschliste sieht er nur zum
+  Planen) und erscheint nicht in der Übersicht „Wer mag was?“ – auch seine Favoriten zählen dort nicht.
 
 - Jedes Mitglied kann unter „Mein Konto“ das eigene Passwort ändern.
 - Der Standard-Admin wird per Migration angelegt; weitere Accounts über „Benutzer verwalten“
@@ -119,7 +122,7 @@ konkreten Änderungen (Felder alt → neu, hinzugefügte/entfernte Zutaten, Schr
 ## Wunschliste
 
 Unter „Wünsche“ (Menü, Startseite, „⭐ Wünschen“ auf jeder Rezeptseite) kann sich jedes Familienmitglied
-ein Rezept oder eine eigene Idee wünschen – **ab dieser oder ab nächster Woche**, optional mit Wunschtag und Notiz.
+(außer dem Admin-Account) ein Rezept oder eine eigene Idee wünschen – **ab dieser oder ab nächster Woche**, optional mit Wunschtag und Notiz.
 
 - Ein Wunsch bleibt **offen, bis das Gericht im Essensplan steht** (an einem Tag ab der gewünschten Woche),
   egal wie viele Wochen das dauert. „Erfüllt“ wird aus dem Plan berechnet: Wird das Gericht wieder

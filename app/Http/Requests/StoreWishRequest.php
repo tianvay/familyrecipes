@@ -19,8 +19,8 @@ class StoreWishRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Wünschen darf jedes Familienmitglied, auch Kinder.
-        return true;
+        // Wünschen darf jedes Familienmitglied, auch Kinder – nur der Admin-Account nicht.
+        return $this->user()->can('make-wishes');
     }
 
     protected function prepareForValidation(): void

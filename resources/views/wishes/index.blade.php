@@ -5,10 +5,12 @@
         <p class="mt-2 text-ink-soft">Was möchtet ihr essen? Wünsche bleiben stehen, bis sie im Essensplan landen.</p>
     </div>
 
-    <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
-        <div class="lg:sticky lg:top-24 lg:self-start">
-            @include('wishes.partials.form')
-        </div>
+    <div @class(['grid gap-10', 'lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]' => $canWish, 'max-w-3xl' => ! $canWish])>
+        @if ($canWish)
+            <div class="lg:sticky lg:top-24 lg:self-start">
+                @include('wishes.partials.form')
+            </div>
+        @endif
 
         <div class="space-y-10">
             <section aria-labelledby="offen">
