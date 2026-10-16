@@ -104,6 +104,9 @@ Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.
 
 - Der Admin-Account dient nur der Verwaltung: Er wünscht sich nichts (die Wunschliste sieht er nur zum
   Planen) und erscheint nicht in der Übersicht „Wer mag was?“ – auch seine Favoriten zählen dort nicht.
+- „Wer mag was?“ (Menü „Familie“, nur Familienoberhaupt) zeigt die Top 5 **am beliebtesten** (meiste
+  Favoriten), die Top 5 **am häufigsten gewünscht** (alle Wünsche, auch eingeplante; gleiche Freitexte
+  werden zusammengezählt) und die Favoriten jedes Familienmitglieds.
 
 - Jedes Mitglied kann unter „Mein Konto“ das eigene Passwort ändern.
 - Der Standard-Admin wird per Migration angelegt; weitere Accounts über „Benutzer verwalten“

@@ -5,30 +5,66 @@
         <p class="mt-3 text-ink-soft">Die Lieblingsrezepte aller Familienmitglieder auf einen Blick.</p>
     </section>
 
-    {{-- Beliebteste Rezepte --}}
-    @if ($popular->isNotEmpty())
-        <section class="card-section mb-10">
-            <h2 class="mb-5 font-display text-2xl font-semibold">Am beliebtesten</h2>
-            <ol class="divide-y divide-line">
-                @foreach ($popular as $recipe)
-                    <li class="flex flex-wrap items-center gap-x-4 gap-y-2 py-3" style="--recipe: {{ $recipe->accent_color }}">
-                        <span class="w-6 font-display text-lg font-semibold text-ink-soft tabular-nums">{{ $loop->iteration }}</span>
-                        <span class="recipe-tint grid size-11 shrink-0 place-items-center rounded-xl text-2xl" aria-hidden="true">{{ $recipe->emoji ?: '🍽️' }}</span>
-                        <a href="{{ route('recipes.show', $recipe) }}" class="min-w-0 flex-1 font-semibold hover:text-accent-dark">{{ $recipe->title }}</a>
-                        <div class="flex items-center gap-3">
-                            <div class="flex -space-x-2">
-                                @foreach ($recipe->favoritedBy as $member)
-                                    <span class="grid size-8 place-items-center rounded-full border-2 border-white bg-paper-deep text-xs font-semibold" title="{{ $member->name }}">
-                                        {{ $member->initials() }}
-                                    </span>
-                                @endforeach
-                            </div>
-                            <span class="text-sm font-medium text-accent">♥ {{ $recipe->favorited_by_count }}</span>
-                        </div>
-                    </li>
-                @endforeach
-            </ol>
-        </section>
+    @if ($popular->isNotEmpty() || $mostWished->isNotEmpty())
+        <div class="mb-10 grid gap-6 lg:grid-cols-2">
+            {{-- Beliebteste Rezepte (Favoriten) --}}
+            @if ($popular->isNotEmpty())
+                <section class="card-section">
+                    <h2 class="mb-1 font-display text-2xl font-semibold">Am beliebtesten</h2>
+                    <p class="mb-4 text-sm text-ink-soft">Top 5 – von den meisten als Favorit markiert.</p>
+                    <ol class="divide-y divide-line">
+                        @foreach ($popular as $recipe)
+                            <li class="flex flex-wrap items-center gap-x-4 gap-y-2 py-3" style="--recipe: {{ $recipe->accent_color }}">
+                                <span class="w-6 font-display text-lg font-semibold text-ink-soft tabular-nums">{{ $loop->iteration }}</span>
+                                <span class="recipe-tint grid size-11 shrink-0 place-items-center rounded-xl text-2xl" aria-hidden="true">{{ $recipe->emoji ?: '🍽️' }}</span>
+                                <a href="{{ route('recipes.show', $recipe) }}" class="min-w-0 flex-1 font-semibold hover:text-accent-dark">{{ $recipe->title }}</a>
+                                <div class="flex items-center gap-3">
+                                    <div class="flex -space-x-2">
+                                        @foreach ($recipe->favoritedBy as $member)
+                                            <span class="grid size-8 place-items-center rounded-full border-2 border-white bg-paper-deep text-xs font-semibold" title="{{ $member->name }}">
+                                                {{ $member->initials() }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                    <span class="text-sm font-medium text-accent">♥ {{ $recipe->favorited_by_count }}</span>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ol>
+                </section>
+            @endif
+
+            {{-- Am häufigsten gewünscht (alle Wünsche, auch erfüllte) --}}
+            @if ($mostWished->isNotEmpty())
+                <section class="card-section">
+                    <h2 class="mb-1 font-display text-2xl font-semibold">Am häufigsten gewünscht</h2>
+                    <p class="mb-4 text-sm text-ink-soft">Top 5 – alle Wünsche, auch die schon eingeplanten.</p>
+                    <ol class="divide-y divide-line">
+                        @foreach ($mostWished as $dish)
+                            <li class="flex flex-wrap items-center gap-x-4 gap-y-2 py-3" @if ($dish['recipe']) style="--recipe: {{ $dish['recipe']->accent_color }}" @endif>
+                                <span class="w-6 font-display text-lg font-semibold text-ink-soft tabular-nums">{{ $loop->iteration }}</span>
+                                <span class="recipe-tint grid size-11 shrink-0 place-items-center rounded-xl text-2xl" aria-hidden="true">{{ $dish['recipe']?->emoji ?: '✏️' }}</span>
+                                @if ($dish['recipe'])
+                                    <a href="{{ route('recipes.show', $dish['recipe']) }}" class="min-w-0 flex-1 font-semibold hover:text-accent-dark">{{ $dish['title'] }}</a>
+                                @else
+                                    <span class="min-w-0 flex-1 font-semibold">{{ $dish['title'] }}</span>
+                                @endif
+                                <div class="flex items-center gap-3">
+                                    <div class="flex -space-x-2">
+                                        @foreach ($dish['wishers'] as $member)
+                                            <span class="grid size-8 place-items-center rounded-full border-2 border-white bg-paper-deep text-xs font-semibold" title="{{ $member->name }}">
+                                                {{ $member->initials() }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                    <span class="text-sm font-medium text-accent">⭐ {{ $dish['count'] }}×</span>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ol>
+                </section>
+            @endif
+        </div>
     @endif
 
     {{-- Pro Familienmitglied --}}

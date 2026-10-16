@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\MealSuggestion;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -51,6 +52,44 @@ class FamilyFavoritesTest extends TestCase
             ->assertViewHas('popular', fn ($popular) => $popular->first()->favoritedBy->pluck('name')->all() === ['Lena', 'Max'])
             ->assertSeeInOrder(['Am beliebtesten', 'Pizza', '♥ 2', 'Salat', '♥ 1'])
             ->assertSee('Noch keine Favoriten markiert.');
+    }
+
+    public function test_popular_shows_the_top_five_favorites(): void
+    {
+        $members = User::factory()->count(3)->create();
+        $recipes = Recipe::factory()->count(7)->sequence(fn ($s) => ['title' => 'Rezept '.($s->index + 1)])->create();
+
+        // Rezept 7 von allen, Rezept 6 von zweien, der Rest von einer Person
+        $recipes->each(fn (Recipe $recipe) => $members[0]->favoriteRecipes()->attach($recipe));
+        $members[1]->favoriteRecipes()->attach([$recipes[5]->id, $recipes[6]->id]);
+        $members[2]->favoriteRecipes()->attach($recipes[6]);
+
+        $this->actingAs(User::factory()->admin()->create())
+            ->get(route('family.favorites'))
+            ->assertViewHas('popular', fn ($popular) => $popular->pluck('title')->all()
+                === ['Rezept 7', 'Rezept 6', 'Rezept 1', 'Rezept 2', 'Rezept 3']);
+    }
+
+    public function test_most_wished_counts_all_wishes_without_the_admin(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $lena = User::factory()->child()->create(['name' => 'Lena']);
+        $max = User::factory()->create(['name' => 'Max']);
+        $pizza = Recipe::factory()->create(['title' => 'Pizza']);
+
+        MealSuggestion::factory()->for($lena)->forRecipe($pizza)->create();
+        MealSuggestion::factory()->for($lena)->forRecipe($pizza)->create(); // z. B. später erneut gewünscht
+        MealSuggestion::factory()->for($max)->forRecipe($pizza)->create();
+        MealSuggestion::factory()->for($max)->create(['recipe_id' => null, 'title' => 'Döner']);
+        MealSuggestion::factory()->for($lena)->create(['recipe_id' => null, 'title' => 'döner ']);
+        MealSuggestion::factory()->for($admin)->create(['recipe_id' => null, 'title' => 'Sushi']);
+
+        $this->actingAs($admin)
+            ->get(route('family.favorites'))
+            ->assertOk()
+            ->assertSeeInOrder(['Am häufigsten gewünscht', 'Pizza', '⭐ 3×', 'Döner', '⭐ 2×'])
+            ->assertViewHas('mostWished', fn ($dishes) => $dishes->pluck('title')->all() === ['Pizza', 'Döner']
+                && $dishes->first()['wishers']->pluck('name')->all() === ['Lena', 'Max']);
     }
 
     public function test_family_link_is_only_shown_to_admins(): void
