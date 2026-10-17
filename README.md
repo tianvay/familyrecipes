@@ -23,7 +23,7 @@ cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed       # Tabellen, Standard-Admin und 3 Beispielrezepte
 php artisan recipes:import       # übrige Rezepte aus database/data/recipes.json
-php artisan storage:link         # für hochgeladene Fotos
+php artisan storage:link         # für die Vorschau importierter Fotos
 npm run build
 ```
 
@@ -76,6 +76,16 @@ die nächsten Tage, den Stand der nächsten Woche (geplante Tage, Vorschläge) u
 Fotos werden vor dem Hochladen im Browser auf höchstens 1600 px verkleinert und als JPEG gespeichert
 (iPhone-Fotos: typischerweise mehrere MB → unter 1 MB). Kann ein Gerät das nicht, nimmt der Server
 Originale bis 12 MB an. Am iPhone/iPad kann man direkt mit der Kamera fotografieren.
+
+Die Fotos liegen **in der Datenbank** (Tabelle `recipe_images`, `MEDIUMBLOB`), damit alle Installationen
+dieselben Fotos sehen. Ausgeliefert werden sie über `/rezepte/{rezept}/bild?v=…`, und der Browser
+speichert sie dauerhaft zwischen. Voraussetzung: In der MariaDB muss `max_allowed_packet` mindestens
+`32M` betragen (Standard ist 1 MB).
+
+- Ältere Fotos, die noch als Datei unter `storage/app/public/recipes` liegen, übernimmt
+  `php artisan recipes:move-images` in die Datenbank. Der Befehl muss auf **jeder** Installation einmal
+  laufen, weil jede nur ihre eigenen Dateien findet. Bis dahin werden diese Fotos weiter als Datei angezeigt.
+- Die Dateien bleiben als Sicherung liegen und können danach gelöscht werden.
 
 ## Rezept per Link importieren
 

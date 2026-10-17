@@ -86,8 +86,8 @@ class RecipeImportTest extends TestCase
             ->assertSessionHasNoErrors();
 
         $recipe = Recipe::sole();
-        $this->assertSame('recipes/0b7c1a52-4b0e-4c55-9a6a-3f3a1c2d9e10.png', $recipe->image_path);
-        Storage::disk('public')->assertExists($recipe->image_path);
+        $this->assertSame('png', $recipe->image()->sole()->data);
+        $this->assertSame(sha1('png'), $recipe->image_hash);
         Storage::disk('public')->assertMissing($import);
     }
 

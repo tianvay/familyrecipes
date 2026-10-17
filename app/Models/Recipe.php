@@ -26,7 +26,6 @@ class Recipe extends Model
         'description',
         'emoji',
         'color',
-        'image_path',
         'servings',
         'prep_minutes',
         'cook_minutes',
@@ -83,6 +82,36 @@ class Recipe extends Model
     public function steps(): HasMany
     {
         return $this->hasMany(Step::class)->orderBy('position');
+    }
+
+    /**
+     * Das Foto in der Datenbank. Nur zum Ausliefern laden – für die Anzeige reicht image_hash.
+     */
+    public function image(): HasOne
+    {
+        return $this->hasOne(RecipeImage::class);
+    }
+
+    /**
+     * Speichert ein Foto in der Datenbank und ersetzt ein vorhandenes.
+     */
+    public function storeImage(string $contents, string $mimeType): void
+    {
+        $this->image()->updateOrCreate([], [
+            'mime_type' => $mimeType,
+            'size' => strlen($contents),
+            'data' => $contents,
+        ]);
+
+        // image_path (alte Fotodatei) wird nicht mehr gebraucht; die Datei bleibt als Sicherung liegen.
+        $this->forceFill(['image_hash' => sha1($contents), 'image_path' => null])->save();
+    }
+
+    public function removeImage(): void
+    {
+        $this->image()->delete();
+
+        $this->forceFill(['image_hash' => null, 'image_path' => null])->save();
     }
 
     public function tags(): BelongsToMany
@@ -142,7 +171,7 @@ class Recipe extends Model
             'description' => $this->description,
             'emoji' => $this->emoji,
             'color' => $this->color,
-            'image' => $this->image_path,
+            'image' => $this->image_hash ?? $this->image_path,
             'servings' => $this->servings,
             'prep_minutes' => $withUnit($this->prep_minutes, 'Min.'),
             'cook_minutes' => $withUnit($this->cook_minutes, 'Min.'),
@@ -213,11 +242,14 @@ class Recipe extends Model
 
     protected function imageUrl(): Attribute
     {
-        return Attribute::get(
-            // asset() statt Storage::url(), damit die URL zur aufgerufenen Adresse passt
-            // (artisan serve, XAMPP unter /rezeptbuch, Zugriff per LAN-IP).
-            fn (): ?string => $this->image_path ? asset('storage/'.$this->image_path) : null
-        );
+        return Attribute::get(fn (): ?string => match (true) {
+            // ?v= wechselt mit dem Foto, so darf der Browser es dauerhaft zwischenspeichern.
+            $this->image_hash !== null => route('recipes.image', ['recipe' => $this, 'v' => substr($this->image_hash, 0, 10)]),
+            // Übergang: altes Foto, das noch nicht per recipes:move-images übernommen wurde.
+            // asset() statt Storage::url(), damit die URL zur aufgerufenen Adresse passt.
+            $this->image_path !== null => asset('storage/'.$this->image_path),
+            default => null,
+        });
     }
 
     protected function accentColor(): Attribute

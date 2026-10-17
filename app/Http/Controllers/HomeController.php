@@ -21,7 +21,7 @@ class HomeController extends Controller
 
         $upcoming = MealPlanEntry::query()
             ->betweenDates($today, $today->addDays(6))
-            ->with('recipe:id,title,slug,summary,emoji,color,image_path,prep_minutes,cook_minutes')
+            ->with('recipe:id,title,slug,summary,emoji,color,image_path,image_hash,prep_minutes,cook_minutes')
             ->get()
             ->keyBy(fn (MealPlanEntry $entry) => $entry->date->toDateString());
 

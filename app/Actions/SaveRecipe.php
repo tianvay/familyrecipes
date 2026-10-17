@@ -25,25 +25,24 @@ class SaveRecipe
      */
     public function handle(Recipe $recipe, array $data, ?UploadedFile $image = null, ?User $actor = null): Recipe
     {
-        $oldImage = $recipe->image_path;
-
+        // Foto aus dem Import-Zwischenspeicher (liegt nur auf dieser Installation)
         $imported = $data['imported_image'] ?? null;
+        $imported = $imported && Storage::disk('public')->exists($imported) ? $imported : null;
 
-        if ($image) {
-            $data['image_path'] = $image->store('recipes', 'public');
-        } elseif ($data['remove_image'] ?? false) {
-            $data['image_path'] = null;
-        } elseif ($imported && Storage::disk('public')->exists($imported)) {
-            // Foto aus dem Import-Zwischenspeicher übernehmen
-            $data['image_path'] = 'recipes/'.basename($imported);
-            Storage::disk('public')->move($imported, $data['image_path']);
-        }
-
-        DB::transaction(function () use ($recipe, $data, $actor) {
+        DB::transaction(function () use ($recipe, $data, $image, $imported, $actor) {
             $isNew = ! $recipe->exists;
             $before = $isNew ? [] : $recipe->auditSnapshot();
 
             $recipe->fill(Arr::except($data, ['ingredients', 'steps', 'tags', 'image', 'remove_image', 'imported_image']))->save();
+
+            // Fotos liegen in der Datenbank (recipe_images), damit jede Installation sie sieht.
+            if ($image) {
+                $recipe->storeImage($image->get(), $image->getMimeType());
+            } elseif ($data['remove_image'] ?? false) {
+                $recipe->removeImage();
+            } elseif ($imported) {
+                $recipe->storeImage(Storage::disk('public')->get($imported), Storage::disk('public')->mimeType($imported));
+            }
 
             $recipe->ingredients()->delete();
             $recipe->ingredients()->createMany(
@@ -80,8 +79,8 @@ class SaveRecipe
             }
         });
 
-        if ($oldImage && $oldImage !== $recipe->image_path) {
-            Storage::disk('public')->delete($oldImage);
+        if ($imported) {
+            Storage::disk('public')->delete($imported);
         }
 
         return $recipe;

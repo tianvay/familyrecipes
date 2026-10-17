@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Löscht ein Rezept samt Foto und hält das im Änderungsprotokoll fest.
+ * Löscht ein Rezept samt Foto (recipe_images per Fremdschlüssel) und hält das im Änderungsprotokoll fest.
  */
 class DeleteRecipe
 {
@@ -21,6 +21,7 @@ class DeleteRecipe
             $recipe->delete();
         });
 
+        // Altes Foto als Datei, falls es noch nicht in die Datenbank übernommen wurde
         if ($recipe->image_path) {
             Storage::disk('public')->delete($recipe->image_path);
         }

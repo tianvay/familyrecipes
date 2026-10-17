@@ -9,6 +9,7 @@ use App\Http\Controllers\MealPlanController;
 use App\Http\Controllers\PantryItemController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeHistoryController;
+use App\Http\Controllers\RecipeImageController;
 use App\Http\Controllers\RecipeImportController;
 use App\Http\Controllers\RevisionLogController;
 use App\Http\Controllers\ShoppingListController;
@@ -42,6 +43,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::patch('rezepte/{recipe}/favorit', ToggleFavoriteController::class)->name('recipes.favorite');
     Route::get('rezepte/{recipe}/verlauf', RecipeHistoryController::class)->name('recipes.history');
     Route::get('rezepte/{recipe}/kochen', CookingModeController::class)->name('recipes.cook');
+    Route::get('rezepte/{recipe}/bild', RecipeImageController::class)->name('recipes.image');
 
     // Essensplan: ansehen und vorschlagen darf jeder, festlegen nur Erwachsene ({week} = „2026-W43“).
     Route::pattern('week', '\d{4}-W\d{2}');

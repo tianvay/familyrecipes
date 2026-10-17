@@ -235,7 +235,7 @@
                     <p class="mt-2 text-xs text-herb">Foto aus dem Import wird übernommen.</p>
                 @endif
 
-                @if ($recipe->image_path || $importedImage)
+                @if ($recipe->image_url || $importedImage)
                     <label class="mt-3 flex items-center gap-2 text-sm text-ink-soft">
                         <input type="checkbox" name="remove_image" value="1" @checked(old('remove_image')) class="size-4 accent-accent">
                         {{ $importedImage ? 'Importiertes Foto nicht übernehmen' : 'Aktuelles Foto entfernen' }}

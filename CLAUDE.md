@@ -74,6 +74,10 @@ php artisan users:create    # Account per Konsole; recipes:import = alte recipes
 - Bash-Heredocs mit Backslashes (PHP-Namespaces) werden zerschossen → Edit/Write-Tool oder
   Python-Skript als Datei im Scratchpad nutzen.
 - Keine GD: Fotos werden im Browser verkleinert (`recipe-appearance.js`), Server-Limit 12 MB.
+- Fotos liegen in der DB (`recipe_images`, nur über `$recipe->image()` laden, `storeImage()`/`removeImage()`);
+  `recipes.image_hash` = vorhanden/Cache-Schlüssel. `image_path` ist ein Überbleibsel aus der Zeit vor der
+  DB-Speicherung, nur noch für `recipes:move-images`. Ob .38 den Befehl ausgeführt hat, prüfen (2 Fotos fehlten
+  am 17.10.2026); danach kann `image_path` per Migration entfernt werden. MariaDB `max_allowed_packet` ≥ 32M.
 
 ## Offene Ideen (nach Umsetzbarkeit)
 

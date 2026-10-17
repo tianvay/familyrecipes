@@ -104,7 +104,10 @@ class RecipeTest extends TestCase
         $this->assertSame(['Kürbis würfeln.', 'Alles pürieren.'], $recipe->steps->pluck('body')->all());
         $this->assertEqualsCanonicalizing(['Herbst', 'Vegan'], $recipe->tags->pluck('name')->all());
         $this->assertSame(['Mit Kürbiskernöl servieren.'], $recipe->tips);
-        Storage::disk('public')->assertExists($recipe->image_path);
+        // Das Foto liegt in der Datenbank, nicht als Datei
+        $this->assertNull($recipe->image_path);
+        $this->assertSame('image/png', $recipe->image()->sole()->mime_type);
+        $this->assertSame([], Storage::disk('public')->allFiles());
     }
 
     public function test_large_phone_photos_are_accepted_up_to_12_mb(): void
