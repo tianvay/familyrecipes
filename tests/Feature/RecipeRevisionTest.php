@@ -90,13 +90,15 @@ class RecipeRevisionTest extends TestCase
         $this->post(route('recipes.store'), $this->payload());
         $recipe = Recipe::sole();
 
-        $this->delete(route('recipes.destroy', $recipe));
+        // Löschen darf nur das Familienoberhaupt
+        $this->actingAs(User::factory()->admin()->create(['name' => 'Admin']))
+            ->delete(route('recipes.destroy', $recipe));
 
         $this->assertModelMissing($recipe);
         $deleted = RecipeRevision::where('action', RevisionAction::Deleted)->sole();
         $this->assertNull($deleted->recipe_id);
         $this->assertSame('Linsensuppe', $deleted->recipe_title);
-        $this->assertSame('Anna', $deleted->user_name);
+        $this->assertSame('Admin', $deleted->user_name);
     }
 
     public function test_log_entries_survive_deleting_the_author(): void
@@ -127,14 +129,14 @@ class RecipeRevisionTest extends TestCase
     public function test_revision_log_is_admin_only_and_lists_deleted_recipes(): void
     {
         $this->post(route('recipes.store'), $this->payload());
-        $this->delete(route('recipes.destroy', Recipe::sole()));
-
         $this->get(route('revisions.index'))->assertForbidden();
 
-        $this->actingAs(User::factory()->admin()->create())
-            ->get(route('revisions.index'))
+        $this->actingAs(User::factory()->admin()->create(['name' => 'Admin']))
+            ->delete(route('recipes.destroy', Recipe::sole()));
+
+        $this->get(route('revisions.index'))
             ->assertOk()
-            ->assertSeeInOrder(['Anna', '„Linsensuppe“', 'gelöscht', 'Anna', '„Linsensuppe“', 'angelegt']);
+            ->assertSeeInOrder(['Admin', '„Linsensuppe“', 'gelöscht', 'Anna', '„Linsensuppe“', 'angelegt']);
     }
 
     public function test_seeded_recipes_are_attributed_to_system(): void

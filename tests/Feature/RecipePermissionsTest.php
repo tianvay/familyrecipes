@@ -60,14 +60,27 @@ class RecipePermissionsTest extends TestCase
             ->assertDontSee(route('recipes.create'));
     }
 
-    public function test_adults_can_change_recipes(): void
+    public function test_adults_can_change_but_not_delete_recipes(): void
     {
         $recipe = Recipe::factory()->complete()->create();
 
         $this->actingAs(User::factory()->create());
-        $this->get(route('recipes.show', $recipe))->assertSee(route('recipes.edit', $recipe));
+        $this->get(route('recipes.show', $recipe))
+            ->assertSee(route('recipes.edit', $recipe))
+            ->assertDontSee('Löschen');
         $this->get(route('recipes.edit', $recipe))->assertOk();
         $this->put(route('recipes.update', $recipe), $this->payload())->assertRedirect(route('recipes.show', $recipe));
+        $this->delete(route('recipes.destroy', $recipe))->assertForbidden();
+
+        $this->assertModelExists($recipe);
+    }
+
+    public function test_only_the_admin_can_delete_recipes(): void
+    {
+        $recipe = Recipe::factory()->complete()->create();
+
+        $this->actingAs(User::factory()->admin()->create());
+        $this->get(route('recipes.show', $recipe))->assertSee('Löschen');
         $this->delete(route('recipes.destroy', $recipe))->assertRedirect(route('recipes.index'));
 
         $this->assertModelMissing($recipe);

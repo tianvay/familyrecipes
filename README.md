@@ -111,7 +111,7 @@ einblenden und abhaken. Code: `app/Support/CookingSteps.php`, `resources/js/cook
 
 Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.
 
-| Rolle | Rezepte ansehen, Favoriten | Essen wünschen | Rezepte ändern, Essensplan festlegen, Familie | Accounts, Änderungsprotokoll |
+| Rolle | Rezepte ansehen, Favoriten | Essen wünschen | Rezepte anlegen/ändern, Essensplan festlegen, Familie | Rezepte löschen, Accounts, Änderungsprotokoll |
 | --- | :---: | :---: | :---: | :---: |
 | Familienoberhaupt (Admin) | ✓ | – | ✓ | ✓ |
 | Erwachsen | ✓ | ✓ | ✓ | – |

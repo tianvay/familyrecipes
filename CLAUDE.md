@@ -55,7 +55,7 @@ php artisan users:create    # Account per Konsole; recipes:import = alte recipes
   `MealSuggestionPolicy`, Gates in `AppServiceProvider` (`make-wishes`, `plan-meals`, `view-shopping-list`,
   `view-family-favorites`, `view-revision-log`). Admin-Account = reine Verwaltung: wünscht nicht,
   fehlt in der Familien-Übersicht (Papa/Mama sind `adult`). Familien-Seite: alle Erwachsenen;
-  Benutzerverwaltung und Änderungsprotokoll: nur Admin.
+  Rezepte löschen, Benutzerverwaltung und Änderungsprotokoll: nur Admin.
 - Model `MealSuggestion` = ein **Wunsch** (UI sagt „Wunsch/wünschen“, Tabelle heißt `meal_suggestions`).
 - Frontend: Alpine-Komponenten in `resources/js/*.js`, registriert in `app.js` (`shoppingList`,
   `cookingMode`, `recipePicker`, `recipeAppearance`). Layouts: `components/layouts/{app,guest,focus}`,
@@ -76,8 +76,8 @@ php artisan users:create    # Account per Konsole; recipes:import = alte recipes
 - Keine GD: Fotos werden im Browser verkleinert (`recipe-appearance.js`), Server-Limit 12 MB.
 - Fotos liegen in der DB (`recipe_images`, nur über `$recipe->image()` laden, `storeImage()`/`removeImage()`);
   `recipes.image_hash` = vorhanden/Cache-Schlüssel. `image_path` ist ein Überbleibsel aus der Zeit vor der
-  DB-Speicherung, nur noch für `recipes:move-images`. Ob .38 den Befehl ausgeführt hat, prüfen (2 Fotos fehlten
-  am 17.10.2026); danach kann `image_path` per Migration entfernt werden. MariaDB `max_allowed_packet` ≥ 32M.
+  DB-Speicherung, nur noch für `recipes:move-images`. Seit 19.10.2026 sind alle Fotos übernommen (beide
+  Installationen) → `image_path` kann per Migration entfernt werden. MariaDB `max_allowed_packet` ≥ 32M.
 
 ## Offene Ideen (nach Umsetzbarkeit)
 

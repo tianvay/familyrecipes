@@ -164,7 +164,9 @@ class RecipeTest extends TestCase
     {
         $recipe = Recipe::factory()->complete()->create();
 
-        $this->delete(route('recipes.destroy', $recipe))->assertRedirect(route('recipes.index'));
+        $this->actingAs(User::factory()->admin()->create())
+            ->delete(route('recipes.destroy', $recipe))
+            ->assertRedirect(route('recipes.index'));
 
         $this->assertModelMissing($recipe);
         $this->assertDatabaseCount('ingredients', 0);

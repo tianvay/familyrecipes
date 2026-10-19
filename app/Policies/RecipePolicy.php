@@ -7,7 +7,7 @@ use App\Models\User;
 
 /**
  * Ansehen und Favoriten markieren darf jedes Familienmitglied,
- * Ändern nur Erwachsene und das Familienoberhaupt.
+ * Ändern nur Erwachsene und das Familienoberhaupt, Löschen nur das Familienoberhaupt (Admin).
  */
 class RecipePolicy
 {
@@ -23,6 +23,6 @@ class RecipePolicy
 
     public function delete(User $user, Recipe $recipe): bool
     {
-        return $user->role->canEditRecipes();
+        return $user->isAdmin();
     }
 }
