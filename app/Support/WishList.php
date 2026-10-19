@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
  * Die Wunschliste der Familie.
  *
  * Ein Wunsch (MealSuggestion) gilt „ab“ seiner Woche (week_start) und bleibt offen, bis dasselbe
- * Gericht an einem Tag ab dieser Woche im Essensplan steht. „Erfüllt“ wird nicht gespeichert,
+ * Gericht an einem Tag ab dieser Woche – und nicht vor dem Tag des Wunsches – im Essensplan steht. „Erfüllt“ wird nicht gespeichert,
  * sondern aus dem Plan berechnet – wird ein Gericht wieder ausgeplant, ist der Wunsch wieder offen.
  */
 final class WishList
@@ -62,7 +62,7 @@ final class WishList
     }
 
     /**
-     * Wünsche, die ab dem angegebenen Tag eingeplant sind (z. B. „Eingeplant 🎉“ der letzten 7 Tage).
+     * Wünsche, die ab dem angegebenen Tag eingeplant sind (z. B. „Eingeplant 🎉“ ab heute).
      *
      * @return Collection<int, MealSuggestion>
      */
@@ -141,7 +141,8 @@ final class WishList
     }
 
     /**
-     * Erstes passendes Plan-Datum ab der Wunsch-Woche für jeden Wunsch.
+     * Erstes passendes Plan-Datum für jeden Wunsch: ab der Wunsch-Woche, aber frühestens am Tag,
+     * an dem gewünscht wurde. Wer sich am Sonntag ein Gericht vom Freitag wünscht, will es noch einmal.
      *
      * @param  Collection<int, MealSuggestion>  $wishes
      * @return array<int, CarbonImmutable|null>
@@ -165,8 +166,10 @@ final class WishList
         $result = [];
 
         foreach ($wishes as $wish) {
+            $from = $wish->week_start->max($wish->created_at->toImmutable()->startOfDay());
+
             $result[$wish->id] = $datesByDish->get($wish->dishKey())
-                ?->first(fn (CarbonImmutable $date) => $date->greaterThanOrEqualTo($wish->week_start));
+                ?->first(fn (CarbonImmutable $date) => $date->greaterThanOrEqualTo($from));
         }
 
         return $result;

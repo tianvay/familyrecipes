@@ -145,7 +145,9 @@ Unter „Wünsche“ (Menü, Startseite, „⭐ Wünschen“ auf jeder Rezeptsei
 - Ein Wunsch bleibt **offen, bis das Gericht im Essensplan steht** (an einem Tag ab der gewünschten Woche),
   egal wie viele Wochen das dauert. „Erfüllt“ wird aus dem Plan berechnet: Wird das Gericht wieder
   ausgeplant, ist der Wunsch wieder offen (`app/Support/WishList.php`).
-- Eingeplante Wünsche erscheinen eine Woche lang unter „Eingeplant 🎉“ und bleiben als Historie gespeichert.
+- Eingeplante Wünsche erscheinen unter „Eingeplant 🎉“, solange der Tag heute oder später ist, und bleiben
+  als Historie gespeichert. Ein Wunsch wird nur durch einen Plan-Tag ab dem Tag des Wunsches erfüllt –
+  wer sich ein Gericht wünscht, das letzte Woche schon dran war, steht also wieder bei den offenen Wünschen.
 - Jede Person hat ein Gericht nur einmal offen auf der Liste; eigene offene Wünsche lassen sich zurückziehen,
   Erwachsene können offene Wünsche entfernen.
 - Rezeptauswahl für viele Rezepte: Suchfeld (findet „Käse“ auch mit „kase“) und „♥ Nur meine Favoriten“.

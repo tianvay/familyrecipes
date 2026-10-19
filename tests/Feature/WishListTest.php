@@ -137,6 +137,35 @@ class WishListTest extends TestCase
         $this->assertFalse(WishList::upTo()->open()->contains($wish));
     }
 
+    public function test_a_wish_made_after_the_dish_was_eaten_stays_open(): void
+    {
+        $recipe = Recipe::factory()->create();
+        MealPlanEntry::factory()->forRecipe($recipe)->create(['date' => '2026-10-12']); // Montag, schon gegessen
+
+        // Mittwoch: „ab dieser Woche“ gewünscht – das Essen vom Montag zählt nicht
+        $wish = MealSuggestion::factory()->forRecipe($recipe)->forWeek(Week::fromIso(self::THIS_WEEK))->create();
+        $this->assertTrue(WishList::upTo()->open()->contains($wish));
+
+        // Wird es heute oder später eingeplant, ist der Wunsch erfüllt
+        MealPlanEntry::factory()->forRecipe($recipe)->create(['date' => '2026-10-14']);
+        $this->assertSame('2026-10-14', WishList::upTo()->fulfilledOn($wish)->toDateString());
+    }
+
+    public function test_planned_section_only_shows_today_and_later(): void
+    {
+        $past = Recipe::factory()->create(['title' => 'Gestern-Suppe']);
+        $soon = Recipe::factory()->create(['title' => 'Morgen-Pizza']);
+        MealSuggestion::factory()->forRecipe($past)->forWeek(Week::fromIso(self::THIS_WEEK))->create(['created_at' => '2026-10-12 08:00']);
+        MealSuggestion::factory()->forRecipe($soon)->forWeek(Week::fromIso(self::THIS_WEEK))->create();
+        MealPlanEntry::factory()->forRecipe($past)->create(['date' => '2026-10-13']);
+        MealPlanEntry::factory()->forRecipe($soon)->create(['date' => '2026-10-15']);
+
+        $this->actingAs(User::factory()->child()->create())
+            ->get(route('wishes.index'))
+            ->assertViewHas('plannedGroups', fn ($groups) => $groups->pluck('title')->all() === ['Morgen-Pizza'])
+            ->assertViewHas('openGroups', fn ($groups) => $groups->isEmpty());
+    }
+
     public function test_planned_wishes_show_up_as_planned(): void
     {
         $recipe = Recipe::factory()->create(['title' => 'Lasagne']);
@@ -157,7 +186,7 @@ class WishListTest extends TestCase
     {
         MealSuggestion::factory()->forWeek(Week::fromIso(self::THIS_WEEK))->create(['title' => 'Offen']);
         MealSuggestion::factory()->forWeek(Week::fromIso('2026-W44'))->create(['title' => 'Erst später']);
-        $planned = MealSuggestion::factory()->forWeek(Week::fromIso(self::THIS_WEEK))->create(['title' => 'Schon dran']);
+        $planned = MealSuggestion::factory()->forWeek(Week::fromIso(self::THIS_WEEK))->create(['title' => 'Schon dran', 'created_at' => '2026-10-12 08:00']);
         MealPlanEntry::factory()->create(['date' => '2026-10-13', 'title' => 'Schon dran']);
 
         $this->actingAs(User::factory()->create())

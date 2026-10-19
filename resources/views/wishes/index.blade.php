@@ -23,7 +23,7 @@
             @if ($plannedGroups->isNotEmpty())
                 <section aria-labelledby="eingeplant">
                     <h2 id="eingeplant" class="mb-1 font-display text-2xl font-semibold">Eingeplant 🎉</h2>
-                    <p class="mb-4 text-sm text-ink-soft">Diese Wünsche stehen im Essensplan.</p>
+                    <p class="mb-4 text-sm text-ink-soft">Diese Wünsche stehen ab heute im Essensplan.</p>
                     @include('wishes.partials.groups', ['groups' => $plannedGroups, 'empty' => ''])
                 </section>
             @endif

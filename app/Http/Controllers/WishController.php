@@ -29,7 +29,7 @@ class WishController extends Controller
             'wishList' => $wishList,
             'canWish' => $user->can('make-wishes'),
             'openGroups' => $wishList->group($wishList->open()),
-            'plannedGroups' => $wishList->group($wishList->fulfilledSince(CarbonImmutable::today()->subDays(7))),
+            'plannedGroups' => $wishList->group($wishList->fulfilledSince(CarbonImmutable::today())),
             'recipes' => Recipe::query()->orderBy('title')->get(['id', 'title', 'emoji'])
                 ->map(fn (Recipe $recipe) => [
                     'id' => $recipe->id,
