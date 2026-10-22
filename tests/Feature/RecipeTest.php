@@ -50,6 +50,18 @@ class RecipeTest extends TestCase
             ->assertDontSee('Linsensuppe');
     }
 
+    public function test_tag_filter_is_sorted_alphabetically(): void
+    {
+        $vegan = Tag::factory()->create(['name' => 'Vegan']);
+        $airfryer = Tag::factory()->create(['name' => 'Airfryer']);
+        // Vegan kommt häufiger vor, steht aber trotzdem hinten
+        Recipe::factory()->count(2)->hasAttached($vegan)->create();
+        Recipe::factory()->hasAttached($airfryer)->create();
+
+        $this->get(route('recipes.index'))
+            ->assertViewHas('tags', fn ($tags) => $tags->pluck('name')->all() === ['Airfryer', 'Vegan']);
+    }
+
     public function test_index_can_be_filtered_by_tag_and_favorites(): void
     {
         $tag = Tag::factory()->create(['name' => 'Vegan']);

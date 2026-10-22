@@ -35,7 +35,6 @@ class RecipeController extends Controller
         $tags = Tag::query()
             ->whereHas('recipes')
             ->withCount('recipes')
-            ->orderByDesc('recipes_count')
             ->orderBy('name')
             ->get();
 
