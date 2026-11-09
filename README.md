@@ -21,7 +21,7 @@ composer install
 npm install
 cp .env.example .env
 php artisan key:generate
-php artisan migrate --seed       # Tabellen, Standard-Admin und 3 Beispielrezepte
+php artisan migrate --seed       # Tabellen, Standard-Admin und alle Familienrezepte (Stand 09.11.2026)
 php artisan recipes:import       # übrige Rezepte aus database/data/recipes.json
 php artisan storage:link         # für die Vorschau importierter Fotos
 npm run build
@@ -198,7 +198,7 @@ Frontend: `resources/js/shopping-list.js`.
 | Controller | `app/Http/Controllers` – Rezepte, Verlauf, Favoriten, Familie, Änderungsprotokoll, Benutzer, Konto, Login |
 | Views | `resources/views`, Layouts unter `resources/views/components/layouts` |
 | Artisan-Befehle | `users:create`, `recipes:import` (`app/Console/Commands`) |
-| Beispielrezepte | `database/seeders/RecipeSeeder.php` |
+| Familienrezepte für frische Installationen | `database/seeders/RecipeSeeder.php`, Daten in `database/seeders/data/` (`recipes.json` + Fotos) |
 | Ursprüngliche Rezeptdaten | `database/data/recipes.json` |
 
 ## Tests

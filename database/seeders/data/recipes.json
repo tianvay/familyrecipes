@@ -1,0 +1,1839 @@
+[
+    {
+        "title": "Süßkartoffel-Pfanne mit Kräuter-Dip",
+        "summary": "Knusprige Süßkartoffeln aus der Pfanne mit frischem Kräuter-Dip.",
+        "description": "Knusprige Süßkartoffeln aus der Pfanne mit einem frischen Kräuter-Dip. Optional kann Hähnchen für eine proteinreiche Variante ergänzt werden.",
+        "emoji": "🍠",
+        "color": "#E8853D",
+        "servings": 2,
+        "prep_minutes": 10,
+        "cook_minutes": 20,
+        "difficulty": "easy",
+        "calories": 340,
+        "protein": 12,
+        "tags": [
+            "High Protein",
+            "Meal Prep",
+            "Pfanne",
+            "Vegetarisch",
+            "Wenig Abwasch"
+        ],
+        "ingredients": [
+            {
+                "amount": "500–600",
+                "unit": "g",
+                "name": "Süßkartoffeln"
+            },
+            {
+                "amount": "1–2",
+                "unit": "EL",
+                "name": "Butter"
+            },
+            {
+                "amount": "250",
+                "unit": "g",
+                "name": "Magerquark oder griechischer Joghurt"
+            },
+            {
+                "name": "Frische Kräuter"
+            },
+            {
+                "name": "Salz"
+            },
+            {
+                "name": "Schwarzer Pfeffer"
+            },
+            {
+                "name": "Chiliflocken"
+            },
+            {
+                "amount": "200–250",
+                "unit": "g",
+                "name": "Hähnchenbrust oder Putenschnitzel",
+                "is_optional": true
+            },
+            {
+                "amount": "1",
+                "unit": "Stück",
+                "name": "Zitrone",
+                "is_optional": true
+            }
+        ],
+        "steps": [
+            "Süßkartoffeln schälen und in etwa 1 cm große Würfel schneiden.",
+            "Optional Hähnchen oder Putenschnitzel in Streifen schneiden.",
+            "Kräuter fein hacken.",
+            "Magerquark oder Joghurt mit Kräutern, Zitronensaft, Salz und Pfeffer verrühren.",
+            "Butter in einer Pfanne erhitzen und die Süßkartoffeln 5–7 Minuten anbraten.",
+            "3–4 EL Wasser hinzufügen, Deckel auflegen und weitere 5 Minuten dämpfen.",
+            "Deckel entfernen und die Kartoffeln knusprig anbraten.",
+            "Mit Salz, Pfeffer und Chiliflocken würzen.",
+            "Optional das Fleisch in derselben Pfanne separat anbraten.",
+            "Mit dem Kräuter-Dip servieren."
+        ],
+        "tips": [
+            "Mit Hähnchen: ca. 490 kcal und 40 g Protein pro Portion."
+        ]
+    },
+    {
+        "title": "Crispy Tofu & Brokkoli",
+        "summary": "Knuspriger Tofu und Brokkoli aus dem Airfryer.",
+        "description": "Knuspriger Natur-Tofu und Brokkoli aus dem Airfryer – proteinreich, ballaststoffreich und perfekt für eine gesunde Ernährung.",
+        "emoji": "🥦",
+        "color": "#5DAA68",
+        "servings": 1,
+        "prep_minutes": 10,
+        "cook_minutes": 15,
+        "difficulty": "very_easy",
+        "calories": 280,
+        "protein": 22,
+        "tags": [
+            "Airfryer",
+            "High Protein",
+            "Meal Prep",
+            "Schnell",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "1",
+                "unit": "Block",
+                "name": "Natur-Tofu"
+            },
+            {
+                "amount": "1",
+                "unit": "Kopf",
+                "name": "Brokkoli"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Sojasauce"
+            },
+            {
+                "name": "Knoblauchpulver"
+            },
+            {
+                "name": "Paprikapulver (edelsüß)"
+            }
+        ],
+        "steps": [
+            "Tofu in etwa 2 cm große Würfel schneiden.",
+            "Brokkoli in mundgerechte Röschen teilen.",
+            "Tofu und Brokkoli mit Sojasauce sowie den Gewürzen vermengen.",
+            "Alles in den Airfryer geben und bei 200 °C für 12–15 Minuten garen.",
+            "Nach der Hälfte der Garzeit den Korb kräftig schütteln.",
+            "Direkt heiß servieren."
+        ],
+        "tips": [
+            "Den Tofu vorher gut ausdrücken, damit er besonders knusprig wird.",
+            "Backpapier-Einlagen erleichtern die Reinigung des Airfryers.",
+            "Mit Sesam, Sriracha oder Erdnusssauce servieren."
+        ]
+    },
+    {
+        "title": "High Protein Cheesecake",
+        "summary": "Cremiger Cheesecake auf Skyr-Basis.",
+        "description": "Cremiger Cheesecake auf Skyr-Basis mit viel Protein und wenig Kalorien. Ideal als gesunder Snack oder Dessert.",
+        "emoji": "🍰",
+        "color": "#f5d76e",
+        "servings": 8,
+        "prep_minutes": 10,
+        "cook_minutes": 50,
+        "difficulty": "easy",
+        "calories": 95,
+        "protein": 11,
+        "tags": [
+            "Dessert",
+            "High Protein",
+            "Kalorienarm",
+            "Meal Prep",
+            "Ofen"
+        ],
+        "ingredients": [
+            {
+                "amount": "500",
+                "unit": "g",
+                "name": "Skyr"
+            },
+            {
+                "amount": "200",
+                "unit": "g",
+                "name": "Frischkäse (fettreduziert)"
+            },
+            {
+                "amount": "2",
+                "unit": "Stück",
+                "name": "Eier"
+            },
+            {
+                "amount": "1",
+                "unit": "Päckchen",
+                "name": "Puddingpulver"
+            },
+            {
+                "name": "Zitronen Flavor Powder"
+            }
+        ],
+        "steps": [
+            "Den Backofen auf 180 °C vorheizen.",
+            "Alle Zutaten in eine große Schüssel geben und zu einer glatten Masse verrühren.",
+            "Die Masse gleichmäßig in eine Kuchenform füllen.",
+            "Den Cheesecake 40 bis 60 Minuten backen.",
+            "Nach dem Backen vollständig auf Zimmertemperatur abkühlen lassen.",
+            "Vor dem Servieren optional einige Stunden kalt stellen."
+        ],
+        "tips": [
+            "Gut gekühlt schmeckt der Cheesecake besonders cremig.",
+            "Für mehr Aroma etwas Zitronenabrieb ergänzen.",
+            "Mit Beeren oder Vanille Flavor Powder variieren."
+        ],
+        "notes": "Nährwerte gelten pro Stück bei acht Stücken."
+    },
+    {
+        "title": "Umami-Kartoffel-Brokkoli-Mix mit Kräuter-Quark-Dip",
+        "description": "Knusprige Kartoffeln und Brokkoli aus dem Airfryer mit cremigem Kräuter-Quark-Dip und einer feinen Umami-Note durch MSG.",
+        "emoji": "🍽️",
+        "color": "#c8553d",
+        "cook_minutes": 20,
+        "difficulty": "easy",
+        "tags": [
+            "Airfryer",
+            "Brokkoli",
+            "Gemüse",
+            "High Protein",
+            "Kartoffeln",
+            "Meal Prep",
+            "Schnell",
+            "Vegetarisch",
+            "Wenig Abwasch"
+        ],
+        "ingredients": [
+            {
+                "amount": "400",
+                "unit": "g",
+                "name": "Kartoffeln (festkochend)"
+            },
+            {
+                "amount": "300",
+                "unit": "g",
+                "name": "Brokkoli"
+            },
+            {
+                "amount": "2",
+                "unit": "EL",
+                "name": "Olivenöl"
+            },
+            {
+                "amount": "1",
+                "unit": "TL",
+                "name": "Salz"
+            },
+            {
+                "amount": "0,5",
+                "unit": "TL",
+                "name": "MSG"
+            },
+            {
+                "name": "Knoblauchpulver",
+                "is_optional": true
+            },
+            {
+                "amount": "250",
+                "unit": "g",
+                "name": "Magerquark"
+            },
+            {
+                "amount": "2",
+                "unit": "EL",
+                "name": "Naturjoghurt"
+            },
+            {
+                "amount": "50",
+                "unit": "g",
+                "name": "TK-8-Kräuter-Mix"
+            },
+            {
+                "amount": "0,5",
+                "unit": "Stück",
+                "name": "Zitrone"
+            },
+            {
+                "name": "Schwarzer Pfeffer"
+            }
+        ],
+        "steps": [
+            "Kartoffeln in etwa 1,5 cm große Spalten schneiden.",
+            "Brokkoli in mundgerechte Röschen teilen.",
+            "Kartoffeln und Brokkoli mit Olivenöl, Salz und optional Knoblauchpulver vermengen.",
+            "Alles in den Airfryer geben.",
+            "Bei 190 °C für 15–20 Minuten garen.",
+            "Nach der Hälfte der Zeit den Korb kräftig schütteln.",
+            "Das heiße Gemüse direkt nach dem Garen mit MSG bestreuen und durchschwenken.",
+            "Magerquark und Naturjoghurt glatt rühren.",
+            "TK-Kräuter unterrühren.",
+            "Mit Zitronensaft, Salz und Pfeffer abschmecken.",
+            "Zusammen mit dem warmen Gemüse servieren."
+        ],
+        "notes": "Bei Bedarf etwas Wasser oder Mineralwasser in den Dip geben, damit er cremiger wird."
+    },
+    {
+        "title": "Gefüllter Airfryer-Burger",
+        "description": "Saftiges Hackfleisch mit Cheddar, Burgersoße und frischem Gemüse, komplett in knusprigem Pizzateig eingeschlossen und im Airfryer gebacken.",
+        "emoji": "🍔",
+        "color": "#B85C38",
+        "servings": 4,
+        "prep_minutes": 20,
+        "cook_minutes": 15,
+        "difficulty": "easy",
+        "tags": [
+            "Airfryer",
+            "Burger",
+            "Cheddar",
+            "Hackfleisch",
+            "Herzhaft"
+        ],
+        "ingredients": [
+            {
+                "amount": "400",
+                "unit": "g",
+                "name": "Hackfleisch"
+            },
+            {
+                "amount": "1",
+                "unit": "Rolle",
+                "name": "Pizzateig"
+            },
+            {
+                "amount": "4",
+                "unit": "EL",
+                "name": "Burgersoße"
+            },
+            {
+                "amount": "4",
+                "unit": "Scheiben",
+                "name": "Cheddar"
+            },
+            {
+                "amount": "4–6",
+                "unit": "Stück",
+                "name": "Gewürzgurken"
+            },
+            {
+                "name": "Tomaten"
+            },
+            {
+                "name": "Salatblätter"
+            },
+            {
+                "amount": "1",
+                "unit": "Stück",
+                "name": "Ei"
+            },
+            {
+                "name": "Sesam",
+                "is_optional": true
+            },
+            {
+                "name": "Salz"
+            },
+            {
+                "name": "Schwarzer Pfeffer"
+            }
+        ],
+        "steps": [
+            "Hackfleisch mit Salz und Pfeffer würzen und vier Pattys formen.",
+            "Die Pattys kurz in einer Pfanne anbraten.",
+            "Pizzateig in vier gleich große Stücke schneiden.",
+            "Jedes Teigstück mit Burgersoße bestreichen.",
+            "Mit Patty, Cheddar, Gewürzgurken, Tomaten und Salat belegen.",
+            "Den Teig vollständig verschließen.",
+            "Mit der Naht nach unten in den Airfryer legen.",
+            "Mit verquirltem Ei bestreichen.",
+            "Nach Belieben mit Sesam bestreuen.",
+            "Bei 180 °C für 10–15 Minuten goldbraun backen."
+        ],
+        "tips": [
+            "Den Teig gut verschließen, damit beim Backen kein Käse austritt.",
+            "Die Pattys nur kurz anbraten, damit sie im Airfryer saftig bleiben.",
+            "Mit Bacon ergänzen.",
+            "Mit Jalapeños für mehr Schärfe.",
+            "Vegetarisch mit einem pflanzlichen Burger-Patty."
+        ]
+    },
+    {
+        "title": "Veganes Kartoffelgratin",
+        "description": "Cremiges Kartoffelgratin mit veganer Sahne und knuspriger Käsealternative. Herzhaft, sättigend und komplett pflanzlich.",
+        "emoji": "🥔",
+        "color": "#d8c28a",
+        "servings": 6,
+        "prep_minutes": 20,
+        "cook_minutes": 60,
+        "difficulty": "easy",
+        "tags": [
+            "Auflauf",
+            "Kartoffeln",
+            "Ofen",
+            "Vegan",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "1000",
+                "unit": "g",
+                "name": "Kartoffeln (vorwiegend festkochend)"
+            },
+            {
+                "amount": "400",
+                "unit": "ml",
+                "name": "Vegane Sahne"
+            },
+            {
+                "amount": "2–3",
+                "unit": "Stück",
+                "name": "Knoblauchzehen"
+            },
+            {
+                "amount": "1",
+                "unit": "TL",
+                "name": "Muskatnuss"
+            },
+            {
+                "amount": "150",
+                "unit": "g",
+                "name": "Veganer Reibekäse"
+            },
+            {
+                "name": "Salz"
+            },
+            {
+                "name": "Schwarzer Pfeffer"
+            },
+            {
+                "name": "Vegane Margarine oder Öl"
+            },
+            {
+                "name": "Petersilie oder Thymian",
+                "is_optional": true
+            }
+        ],
+        "steps": [
+            "Backofen auf 180 °C Ober-/Unterhitze vorheizen.",
+            "Auflaufform leicht einfetten.",
+            "Kartoffeln schälen und in 2–3 mm dünne Scheiben schneiden.",
+            "Vegane Sahne mit Knoblauch, Muskat, Salz und Pfeffer verrühren.",
+            "Kartoffelscheiben fächerartig in die Auflaufform schichten.",
+            "Mit der Sahnemischung gleichmäßig übergießen.",
+            "35–40 Minuten ohne Käse backen.",
+            "Veganen Reibekäse darüber verteilen.",
+            "Weitere 15–20 Minuten goldbraun backen.",
+            "Vor dem Servieren 5–10 Minuten ruhen lassen.",
+            "Optional mit frischen Kräutern garnieren."
+        ],
+        "tips": [
+            "Mit einem Gemüsehobel werden die Kartoffelscheiben besonders gleichmäßig.",
+            "Die Sahnesauce darf vor dem Backen ruhig kräftig gewürzt sein.",
+            "Vor dem Anschneiden etwas ruhen lassen, damit das Gratin stabil bleibt.",
+            "Mit veganem Räucherkäse überbacken.",
+            "Mit Spinat zwischen den Kartoffelschichten ergänzen.",
+            "Mit veganem Speck verfeinern."
+        ],
+        "image": "veganes-kartoffelgratin-mit-knoblauch-und-muskat.jpg"
+    },
+    {
+        "title": "Thunfisch-Wraps",
+        "description": "Proteinreiche Vollkorn-Wraps mit cremigem Hüttenkäse, Thunfisch und knackigem Gemüse. Ideal als schnelles Mittagessen oder Meal Prep.",
+        "emoji": "🌯",
+        "color": "#6ca6c1",
+        "servings": 2,
+        "prep_minutes": 15,
+        "cook_minutes": 0,
+        "difficulty": "very_easy",
+        "tags": [
+            "Fisch",
+            "High Protein",
+            "Kalt",
+            "Lunch",
+            "Meal Prep",
+            "Schnell"
+        ],
+        "ingredients": [
+            {
+                "amount": "250",
+                "unit": "g",
+                "name": "Hüttenkäse"
+            },
+            {
+                "amount": "150",
+                "unit": "g",
+                "name": "Thunfisch (im eigenen Saft)"
+            },
+            {
+                "amount": "1",
+                "unit": "Stange",
+                "name": "Staudensellerie"
+            },
+            {
+                "amount": "1",
+                "unit": "klein",
+                "name": "Rote Zwiebel"
+            },
+            {
+                "amount": "2",
+                "unit": "Stück",
+                "name": "Vollkorn-Wraps"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Zitronensaft"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Frischer Dill"
+            },
+            {
+                "name": "Salz"
+            },
+            {
+                "name": "Schwarzer Pfeffer"
+            }
+        ],
+        "steps": [
+            "Den Thunfisch gründlich abtropfen lassen.",
+            "Sellerie und Zwiebel fein würfeln.",
+            "Hüttenkäse, Thunfisch, Sellerie, Zwiebel, Zitronensaft und Dill in einer Schüssel vermengen.",
+            "Mit Salz und Pfeffer abschmecken.",
+            "Die Vollkorn-Wraps kurz erwärmen.",
+            "Die Füllung gleichmäßig auf beide Wraps verteilen.",
+            "Fest aufrollen und servieren."
+        ],
+        "tips": [
+            "Die Wraps vor dem Rollen kurz erwärmen, damit sie nicht reißen.",
+            "Die Füllung eignet sich auch hervorragend als Salat ohne Wrap.",
+            "Mit Gurke ergänzen.",
+            "Mit Avocado verfeinern.",
+            "Mit etwas Chili für mehr Schärfe."
+        ]
+    },
+    {
+        "title": "Mediterrane Frischkäse-Paprika",
+        "summary": "Gefüllte Paprika aus dem Airfryer mit körnigem Frischkäse.",
+        "description": "Ein schneller, proteinreicher Snack oder eine leichte Hauptmahlzeit. Die Paprika wird mit einer mediterranen Frischkäsefüllung gefüllt und im Airfryer gegart.",
+        "emoji": "🫑",
+        "color": "#D94E41",
+        "servings": 1,
+        "prep_minutes": 10,
+        "cook_minutes": 12,
+        "difficulty": "very_easy",
+        "calories": 240,
+        "protein": 18,
+        "tags": [
+            "Airfryer",
+            "High Protein",
+            "Low Carb",
+            "Paprika",
+            "Schnell",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "1",
+                "unit": "groß",
+                "name": "Paprika"
+            },
+            {
+                "name": "Körniger Frischkäse"
+            },
+            {
+                "name": "Oliven"
+            },
+            {
+                "name": "Frische Petersilie"
+            },
+            {
+                "amount": "1",
+                "unit": "Stück",
+                "name": "Ei"
+            },
+            {
+                "name": "Schwarzer Pfeffer"
+            }
+        ],
+        "steps": [
+            "Paprika halbieren und entkernen.",
+            "Petersilie hacken.",
+            "Oliven in Ringe schneiden.",
+            "Körnigen Frischkäse mit Ei, Petersilie und Oliven vermengen.",
+            "Mit Pfeffer abschmecken.",
+            "Die Paprikahälften füllen.",
+            "Bei 180 °C für 10–12 Minuten im Airfryer garen."
+        ],
+        "tips": [
+            "Gelbe Paprika schmeckt etwas süßer als rote.",
+            "Mit etwas Feta erhält das Gericht eine kräftigere Note.",
+            "Mit getrockneten Tomaten ergänzen.",
+            "Mit Chili schärfer würzen.",
+            "Mit Mozzarella überbacken."
+        ]
+    },
+    {
+        "title": "Zucchini-Tomaten-Airfryer-Bowl",
+        "summary": "Mediterrane Gemüse-Bowl mit Tofu oder Hähnchen aus dem Airfryer.",
+        "description": "Ein schnelles Airfryer-Gericht mit mediterranem Gemüse. Wahlweise vegetarisch mit Tofu oder proteinreich mit Hähnchen.",
+        "emoji": "🥒",
+        "color": "#6A994E",
+        "servings": 2,
+        "prep_minutes": 15,
+        "cook_minutes": 15,
+        "difficulty": "easy",
+        "calories": 310,
+        "protein": 24,
+        "tags": [
+            "Airfryer",
+            "Gemüse",
+            "High Protein",
+            "Meal Prep",
+            "Schnell"
+        ],
+        "ingredients": [
+            {
+                "amount": "2",
+                "unit": "mittelgroß",
+                "name": "Zucchini"
+            },
+            {
+                "amount": "250",
+                "unit": "g",
+                "name": "Kirschtomaten"
+            },
+            {
+                "amount": "1",
+                "unit": "Stück",
+                "name": "Rote Zwiebel"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Olivenöl"
+            },
+            {
+                "name": "Italienische Kräuter"
+            },
+            {
+                "name": "Knoblauchpulver"
+            },
+            {
+                "name": "Salz"
+            },
+            {
+                "name": "Schwarzer Pfeffer"
+            },
+            {
+                "amount": "200",
+                "unit": "g",
+                "name": "Natur-Tofu",
+                "is_optional": true
+            },
+            {
+                "amount": "200",
+                "unit": "g",
+                "name": "Hähnchenbrustfilet",
+                "is_optional": true
+            },
+            {
+                "amount": "100",
+                "unit": "g",
+                "name": "Feta",
+                "is_optional": true
+            }
+        ],
+        "steps": [
+            "Zucchini würfeln und die Zwiebel in grobe Spalten schneiden.",
+            "Kirschtomaten ganz lassen.",
+            "Tofu oder Hähnchen in gleich große Stücke schneiden.",
+            "Gemüse mit Olivenöl, italienischen Kräutern, Knoblauch, Salz und Pfeffer vermengen.",
+            "Den Airfryer mit gelochtem Backpapier auslegen.",
+            "Gemüse in die Mitte geben.",
+            "Tofu auf eine Seite oder Hähnchen auf die andere Seite legen.",
+            "Bei 200 °C für 12–15 Minuten garen.",
+            "Nach etwa 8 Minuten alles vorsichtig wenden.",
+            "Optional kurz vor Ende den Feta über die vegetarische Variante bröseln.",
+            "Direkt servieren."
+        ],
+        "tips": [
+            "Tofu und Hähnchen getrennt platzieren, damit beide Varianten gleichzeitig zubereitet werden können.",
+            "Die Tomaten erst kurz vor dem Garen salzen, damit sie weniger Flüssigkeit verlieren.",
+            "Mit Aubergine ergänzen.",
+            "Mit Mozzarella statt Feta.",
+            "Mit Paprika erweitern.",
+            "Nährwerte Vegetarisch (Tofu): ~310 kcal, ~24 g Protein",
+            "Nährwerte Mit Hähnchen: ~380 kcal, ~42 g Protein"
+        ]
+    },
+    {
+        "title": "Spinat-Lasagne",
+        "emoji": "🍽️",
+        "color": "#41964b",
+        "servings": 3,
+        "prep_minutes": 30,
+        "calories": 534,
+        "protein": 33,
+        "source": "https://www.chefkoch.de/rezepte/1349191239705221/Leichte-Spinat-Lasagne.html",
+        "tags": [
+            "Auflauf",
+            "Gemüse",
+            "Hauptspeise",
+            "Italienisch",
+            "Nudeln",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "12",
+                "name": "Lasagneplatte (grüne)"
+            },
+            {
+                "amount": "450",
+                "unit": "g",
+                "name": "Blattspinat (TK)"
+            },
+            {
+                "amount": "3",
+                "unit": "EL",
+                "name": "Schmelzkäse (fettreduziert)"
+            },
+            {
+                "amount": "500",
+                "unit": "ml",
+                "name": "Brühe"
+            },
+            {
+                "amount": "3",
+                "name": "Scheibe/n Kochschinken (mager)",
+                "is_optional": true
+            },
+            {
+                "amount": "140",
+                "unit": "g",
+                "name": "Käse (gerieben, fettreduziert)"
+            },
+            {
+                "amount": "1",
+                "name": "Zehe/n Knoblauch"
+            },
+            {
+                "name": "Salz"
+            },
+            {
+                "name": "Pfeffer"
+            },
+            {
+                "name": "Muskat"
+            }
+        ],
+        "steps": [
+            "Backofen vorheizen.",
+            "Spinat auftauen lassen. Spinat in einer Pfanne leicht andünsten. Knoblauch klein schneiden und zum Spinat geben, mit Salz, Pfeffer und Muskatnuss würzen. Etwas abkühlen lassen.",
+            "Brühe erwärmen und Schmelzkäse darin schmelzen, abschmecken. Schinken in mundgerechte Stücke schneiden.",
+            "Nun alles einschichten: etwas Soße, etwas Spinat, etwas Schinken und etwas Käse, dann eine Lage Lasagneplatten. Immer so weiter machen, bis alles verbraucht ist. Zum Schluss mit restlichem Käse bestreuen und bei 200°C ca. 20 Minuten backen."
+        ],
+        "image": "spinat-lasagne.jpg"
+    },
+    {
+        "title": "Champignon-Lauch Blätterteigrolle mit Feta",
+        "summary": "Champignons, Lauch und Feta in einer knusprigen Blätterteigrolle",
+        "description": "Champignons, Lauch und Feta werden im Backofen",
+        "emoji": "🍄‍🟫",
+        "color": "#a6442f",
+        "servings": 6,
+        "prep_minutes": 15,
+        "cook_minutes": 30,
+        "difficulty": "very_easy",
+        "calories": 320,
+        "protein": 14,
+        "tags": [
+            "Feta",
+            "Gemüse",
+            "Herzhaft",
+            "High Protein",
+            "Lauch",
+            "Ofen",
+            "Pilze",
+            "Vegetarisch",
+            "Wenig Abwasch"
+        ],
+        "ingredients": [
+            {
+                "amount": "1",
+                "name": "Rolle Blätterteig"
+            },
+            {
+                "amount": "250",
+                "unit": "g",
+                "name": "Champignons"
+            },
+            {
+                "amount": "1",
+                "name": "Stange Lauch"
+            },
+            {
+                "amount": "1",
+                "name": "Zwiebel"
+            },
+            {
+                "amount": "2",
+                "name": "Knoblauchzehen"
+            },
+            {
+                "amount": "200",
+                "unit": "g",
+                "name": "körniger Frischkäse"
+            },
+            {
+                "amount": "150",
+                "unit": "g",
+                "name": "Feta"
+            },
+            {
+                "amount": "3",
+                "name": "Eier"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Butter"
+            },
+            {
+                "name": "Pfeffer"
+            },
+            {
+                "name": "Paprikapulver"
+            },
+            {
+                "name": "Muskat"
+            },
+            {
+                "name": "Thymian oder italienischer Kräutermix",
+                "is_optional": true
+            }
+        ],
+        "steps": [
+            "Champignons klein schneiden und in Butter bei hoher Hitze kräftig anbraten, bis sie schön gebräunt sind und kaum noch Flüssigkeit abgeben.",
+            "Zwiebel dazugeben und 2–3 Minuten mitbraten.",
+            "Lauch und Knoblauch dazugeben und weitere 3–4 Minuten braten.",
+            "Mit Pfeffer, Paprika und etwas Muskat würzen. Optional Thymian dazu.",
+            "Gemüse vom Herd nehmen und 10 Minuten abkühlen lassen.",
+            "In einer Schüssel Frischkäse + 2 Eier vermischen.",
+            "Den Feta mit den Fingern grob zerbröseln und zusammen mit dem Gemüse unterheben.",
+            "Blätterteig ausrollen und die Füllung mittig verteilen. Nicht zu dick an den Rand streichen.",
+            "Blätterteig über die Füllung klappen, Enden verschließen und die Rolle mit der Naht nach unten auf Backpapier legen.",
+            "Mit verquirltem Ei bestreichen und oben 3–4 kleine Schlitze einschneiden.",
+            "Bei 200 °C Ober-/Unterhitze ca. 25–30 Minuten backen, bis die Rolle schön goldbraun ist.",
+            "5–10 Minuten ruhen lassen, dann anschneiden."
+        ],
+        "notes": "Feta nicht komplett zerbröseln, sondern etwa ⅔ unter die Füllung mischen und ⅓ in etwas größeren Stückchen lassen.",
+        "image": "champignon-lauch-blaetterteigrolle-mit-feta.jpg"
+    },
+    {
+        "title": "Zucchini-Tomatensoße",
+        "summary": "Zu Nudeln",
+        "emoji": "🍲",
+        "color": "#f80e0e",
+        "servings": 6,
+        "prep_minutes": 5,
+        "cook_minutes": 10,
+        "difficulty": "very_easy",
+        "tags": [
+            "Gemüse",
+            "Soße",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "2",
+                "name": "Zehen Knoblauch"
+            },
+            {
+                "amount": "1",
+                "name": "Zwiebel"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Butter"
+            },
+            {
+                "amount": "1",
+                "unit": "TL",
+                "name": "Tomatenmark"
+            },
+            {
+                "amount": "2",
+                "name": "Dosen Passierte Tomaten"
+            },
+            {
+                "amount": "1",
+                "name": "Zucchini"
+            },
+            {
+                "name": "Salz",
+                "is_optional": true
+            },
+            {
+                "name": "Pfeffer",
+                "is_optional": true
+            },
+            {
+                "name": "Italienische Kräuter",
+                "is_optional": true
+            }
+        ],
+        "steps": [
+            "Butter im Topf heiß machen.",
+            "Knoblauch und Zwiebeln rein und für 2-3 Minuten anschwitzen, glasig soll es sein.",
+            "Tomatenmark rein und 1-2 Minuten anrösten. Nicht zu lange, sonst wird es bitter.",
+            "Passierte Tomaten hinzugeben und weiter köcheln lassen.",
+            "Zucchini schneiden (für mehr Crunch gerne größere Stücke) und in den Topf geben.",
+            "Salz, Pfeffer und italienische Kräuter je nach Gusto.",
+            "Nach 7-10 Minuten ist die Soße fertig."
+        ]
+    },
+    {
+        "title": "Kürbisknödel mit Käsekern",
+        "summary": "Mit brauner Butter, Parmesan und gerösteten Kürbiskernen",
+        "description": "Ein leckeres Wohlfühlgericht! Kürbisknödel mit schmelzendem Käsekern, brauner Butter, Parmesan und gerösteten Kürbiskernen, einfach himmlisch!",
+        "emoji": "🎃",
+        "color": "#e8772e",
+        "servings": 6,
+        "prep_minutes": 35,
+        "cook_minutes": 15,
+        "difficulty": "very_easy",
+        "tags": [
+            "Comfort Food",
+            "Hauptspeise",
+            "Kürbis",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "250",
+                "unit": "g",
+                "name": "Knödelbrot (klein geschnittenes, hartes Weißbrot)"
+            },
+            {
+                "amount": "250",
+                "unit": "g",
+                "name": "Hokkaido-Kürbis"
+            },
+            {
+                "amount": "100",
+                "unit": "ml",
+                "name": "Wasser"
+            },
+            {
+                "amount": "1",
+                "name": "kleine Zwiebel"
+            },
+            {
+                "amount": "1",
+                "name": "Knoblauchzehe"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Butter"
+            },
+            {
+                "amount": "2",
+                "unit": "EL",
+                "name": "Mehl"
+            },
+            {
+                "amount": "150",
+                "unit": "g",
+                "name": "Topfen (Quark)"
+            },
+            {
+                "amount": "3",
+                "name": "Eier"
+            },
+            {
+                "amount": "2",
+                "unit": "TL",
+                "name": "Salz"
+            },
+            {
+                "name": "Käse nach Wahl (z. B. Gorgonzola)"
+            },
+            {
+                "name": "Braune Butter (zum Anrichten)",
+                "is_optional": true
+            },
+            {
+                "name": "Parmesan (zum Anrichten)",
+                "is_optional": true
+            },
+            {
+                "name": "Geröstete Kürbiskerne (zum Anrichten)",
+                "is_optional": true
+            },
+            {
+                "name": "Schnittlauch (zum Anrichten)",
+                "is_optional": true
+            }
+        ],
+        "steps": [
+            "Den Kürbis in dünne Scheiben schneiden und mit dem Wasser bei geschlossenem Deckel weich garen.",
+            "Zwiebel und Knoblauch fein schneiden und in Butter glasig dünsten. Knödelbrot mit Mehl und der Zwiebelmischung vermengen.",
+            "Den weichen Kürbis pürieren, Topfen dazugeben und nochmals mixen. Eier und Salz unterrühren und alles mit dem Knödelbrot gut vermengen. Den Teig mindestens 30 Minuten kalt stellen.",
+            "Käse in Würfel schneiden, jeweils einen Würfel mit Knödelteig umhüllen und mit nassen Händen den Knödel so lange rollen, bis eine glatte und geschlossene Oberfläche entsteht. Dabei den Teig leicht zusammendrücken, damit die Knödel gut zusammenhalten.",
+            "Die Knödel etwa 15 Minuten in kochendem Salzwasser garen. Das Wasser sollte dabei ständig köcheln.",
+            "Mit Parmesan, brauner Butter, gerösteten Kürbiskernen und Schnittlauch servieren."
+        ],
+        "tips": [
+            "Zuerst einen Probeknödel kochen, um zu prüfen, ob der Teig hält!"
+        ],
+        "notes": "Der Teig muss mindestens 30 Minuten kalt gestellt werden."
+    },
+    {
+        "title": "Kürbis-Kartoffelrolle mit Frischkäse",
+        "summary": "Unkompliziertes Mittag- oder Abendessen vom Blech",
+        "description": "Ein super unkompliziertes Mittag- oder Abendessen, das schnell zubereitet ist und einfach köstlich schmeckt!",
+        "emoji": "🎃",
+        "color": "#d9822b",
+        "servings": 4,
+        "prep_minutes": 10,
+        "cook_minutes": 35,
+        "difficulty": "very_easy",
+        "tags": [
+            "Hauptspeise",
+            "Kartoffeln",
+            "Kürbis",
+            "Ofen",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "450",
+                "unit": "g",
+                "name": "Hokkaido-Kürbis"
+            },
+            {
+                "amount": "500",
+                "unit": "g",
+                "name": "Kartoffeln"
+            },
+            {
+                "amount": "150",
+                "unit": "g",
+                "name": "Parmesan, gerieben"
+            },
+            {
+                "amount": "4",
+                "name": "Eier"
+            },
+            {
+                "name": "Salz"
+            },
+            {
+                "name": "Frischkäse (für die Füllung)"
+            },
+            {
+                "name": "Speck (für die Füllung)",
+                "is_optional": true
+            },
+            {
+                "name": "Salat, Rucola oder Grillgemüse nach Geschmack (für die Füllung)"
+            }
+        ],
+        "steps": [
+            "Den Kürbis in Stücke schneiden, die Kartoffeln schälen und beides fein hobeln. Anschließend kräftig mit Salz würzen, den geriebenen Parmesan und die Eier dazugeben und alles gut miteinander vermengen.",
+            "Die Masse auf ein mit Backpapier ausgelegtes Backblech geben, mit den Händen gleichmäßig verteilen und etwas andrücken. Im vorgeheizten Backofen bei 200 °C Ober-/Unterhitze etwa 35 Minuten backen.",
+            "Danach kurz auskühlen lassen, vorsichtig wenden und das Backpapier abziehen.",
+            "Die Kürbis-Kartoffelmasse mit Frischkäse bestreichen und nach Belieben mit Salat, Rucola oder Grillgemüse (oder dem Speck) füllen. Anschließend alles vorsichtig einrollen und in Stücke schneiden."
+        ]
+    },
+    {
+        "title": "Griechischer Bauernsalat",
+        "summary": "Frischer Salat für mediterranen Genuss.",
+        "description": "Griechischer Bauernsalat - Frischer Salat für mediterranen Genuss.",
+        "emoji": "🥗",
+        "color": "#4db96d",
+        "servings": 4,
+        "prep_minutes": 20,
+        "difficulty": "very_easy",
+        "calories": 504,
+        "protein": 11,
+        "source": "https://www.chefkoch.de/rezepte/262751102375096/Griechischer-Bauernsalat.html",
+        "tags": [
+            "Beilage",
+            "Feta",
+            "Griechisch",
+            "Oliven",
+            "Salat",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "1",
+                "name": "Salatgurke"
+            },
+            {
+                "amount": "1",
+                "name": "Paprikaschote, rote"
+            },
+            {
+                "amount": "1",
+                "name": "Paprikaschote, grüne"
+            },
+            {
+                "amount": "500",
+                "unit": "g",
+                "name": "Tomate"
+            },
+            {
+                "amount": "2",
+                "name": "Zwiebel"
+            },
+            {
+                "amount": "200",
+                "unit": "g",
+                "name": "Schafskäse"
+            },
+            {
+                "amount": "1",
+                "unit": "TL",
+                "name": "Oregano (gerebelt)"
+            },
+            {
+                "amount": "1",
+                "unit": "Glas",
+                "name": "Oliven, schwarze (ca. 100 g)"
+            },
+            {
+                "amount": "125",
+                "unit": "ml",
+                "name": "Olivenöl"
+            },
+            {
+                "amount": "1",
+                "name": "Zitrone, Saft davon"
+            },
+            {
+                "name": "Salz und Pfeffer"
+            }
+        ],
+        "steps": [
+            "Gurke waschen und ungeschält in dünne Scheiben oder Stücke schneiden. Paprika waschen, entkernen und in dünne Streifen schneiden. Tomaten waschen, putzen und achteln. Zwiebeln schälen und in feine Ringe schneiden. Schafskäse würfeln und mit Oregano bestreuen.",
+            "Oliven abgießen und mit Gurke, Paprika, Tomaten, Zwiebeln und Schafskäse in eine Schüssel geben.",
+            "Olivenöl, Zitronensaft, Salz und Pfeffer zu einem Dressing verrühren und über den Salat gießen. Umrühren."
+        ],
+        "image": "griechischer-bauernsalat.jpg"
+    },
+    {
+        "title": "Gurkensalat mit Minze",
+        "summary": "mit Ziegenjoghurt.",
+        "description": "mit Ziegenjoghurt.",
+        "emoji": "🥗",
+        "color": "#3acb6d",
+        "servings": 2,
+        "prep_minutes": 20,
+        "difficulty": "very_easy",
+        "calories": 306,
+        "protein": 10,
+        "source": "https://www.chefkoch.de/rezepte/3422071509790659/Gurkensalat-mit-Minze.html",
+        "tags": [
+            "Deutsch",
+            "Einfach",
+            "Gemüse",
+            "Salat"
+        ],
+        "ingredients": [
+            {
+                "amount": "3",
+                "name": "Landgurke"
+            },
+            {
+                "amount": "0,5",
+                "unit": "Bund",
+                "name": "Minze"
+            },
+            {
+                "amount": "500",
+                "unit": "g",
+                "name": "Ziegenjoghurt"
+            },
+            {
+                "amount": "1",
+                "unit": "TL",
+                "name": "Knoblauch (gefriergetrocknet)"
+            },
+            {
+                "amount": "0,5",
+                "unit": "TL",
+                "name": "Kreuzkümmelpulver"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Zitronensaft"
+            },
+            {
+                "name": "n. B. Salz"
+            },
+            {
+                "name": "n. B. Olivenöl"
+            }
+        ],
+        "steps": [
+            "Die Gurken grob schälen und dann würfeln. Die Minze fein hacken und mit Joghurt, Knoblauch, Kreuzkümmelpulver und Zitronensaft mischen. Die Gurkenstücke zugeben, gut vermischen und mindestens eine Stunde im Kühlschrank ziehen lassen. Mit Salz abschmecken. Vor dem Servieren mit Olivenöl beträufeln."
+        ],
+        "image": "gurkensalat-mit-minze.jpg"
+    },
+    {
+        "title": "Spinatknödel mit Gorgonzolasauce",
+        "summary": "vegetarische Hauptspeise.",
+        "description": "vegetarische Hauptspeise.",
+        "emoji": "🥬",
+        "color": "#96d35f",
+        "servings": 2,
+        "prep_minutes": 50,
+        "cook_minutes": 15,
+        "calories": 967,
+        "protein": 27,
+        "source": "https://www.chefkoch.de/rezepte/2016641326730210/Spinatknoedel-mit-Gorgonzolasauce.html?portionen=4",
+        "tags": [
+            "Beilage",
+            "Deutsch",
+            "Gemüse",
+            "Hauptspeise",
+            "Saucen",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "150",
+                "unit": "g",
+                "name": "Semmel ((Dinkelsemmeln) oder Vollkorn-Knödelbrot)"
+            },
+            {
+                "amount": "1",
+                "name": "kleine Zwiebel"
+            },
+            {
+                "amount": "3",
+                "unit": "EL",
+                "name": "Butter"
+            },
+            {
+                "amount": "100",
+                "unit": "ml",
+                "name": "Milch (bei Vollkorn mehr)"
+            },
+            {
+                "amount": "2",
+                "name": "große Ei(er)"
+            },
+            {
+                "amount": "1",
+                "unit": "Päckchen",
+                "name": "Spinat (passierter, TK, ca. 200 g (oder selbst zubereitet))"
+            },
+            {
+                "name": "Salz und Pfeffer"
+            },
+            {
+                "name": "Petersilie (Knoblauch wer mag)"
+            },
+            {
+                "amount": "2",
+                "unit": "EL",
+                "name": "Dinkelmehl (zum Binden)"
+            },
+            {
+                "amount": "1",
+                "unit": "Päckchen",
+                "name": "Gorgonzola (ca. 100 - 125g)"
+            },
+            {
+                "amount": "250",
+                "unit": "ml",
+                "name": "Sahne (Schlagobers)"
+            },
+            {
+                "name": "Tomate (geviertelt, als Dekoration)"
+            }
+        ],
+        "steps": [
+            "Semmeln kleinwürflig schneiden.",
+            "Zwiebel klein schneiden, in Butter anrösten, ein wenig auskühlen lassen.",
+            "Klein geschnittenes Brot in eine Schüssel geben und mit Petersilie und gerösteten Zwiebel vermischen, alles mit Mehl gut verrühren, zuletzt Milch mit Ei, Salz, Pfeffer (Knoblauch) verquirlt darüber geben, ca. 30- 40 Minuten ziehen lassen.",
+            "Aufgetauten Spinat drunter rühren, falls notwendig mit wenig Mehl binden. Mit nassen Händen Knödel formen und ca. 15 Minuten im Salzwasser kochen.",
+            "Gorgonzola klein würfeln. Sahne in einem Topf erhitzen, mit dem Käse vermischen und unter ständigem Rühren einköcheln lassen.",
+            "Knödel mit Sauce und Tomatenviertel servieren."
+        ],
+        "image": "spinatknoedel-mit-gorgonzolasauce.jpg"
+    },
+    {
+        "title": "Kalbsleber Berliner Art",
+        "summary": "gebratene Kalbsleber mit gebratenen Apfelringen und lockerem Püree.",
+        "emoji": "🍽️",
+        "color": "#c8553d",
+        "servings": 4,
+        "prep_minutes": 25,
+        "cook_minutes": 40,
+        "difficulty": "easy",
+        "calories": 336,
+        "protein": 6,
+        "source": "https://www.chefkoch.de/rezepte/1980531321367353/Kalbsleber-Berliner-Art-von-Sarah.html",
+        "tags": [
+            "Deutsch",
+            "Einfach",
+            "Fleisch",
+            "Hauptspeise",
+            "Innereien",
+            "Kartoffeln",
+            "Pfanne",
+            "Schnell"
+        ],
+        "ingredients": [
+            {
+                "amount": "800",
+                "unit": "g",
+                "name": "Kartoffeln, mehligkochende"
+            },
+            {
+                "amount": "150",
+                "unit": "ml",
+                "name": "Milch"
+            },
+            {
+                "amount": "2",
+                "unit": "EL",
+                "name": "Butter"
+            },
+            {
+                "name": "n. B. Salz und Pfeffer"
+            },
+            {
+                "name": "n. B. Muskat"
+            },
+            {
+                "amount": "4",
+                "name": "Scheibe/n Kalbsleber (à ca. 150 g; küchenfertig, ohne Haut)"
+            },
+            {
+                "name": "n. B. Mehl (zum Wenden)"
+            },
+            {
+                "name": "Butterschmalz (zum Braten)"
+            },
+            {
+                "name": "n. B. Salz und Pfeffer"
+            },
+            {
+                "amount": "3",
+                "name": "Äpfel (z. B.: Royal Gala oder Braeburn)"
+            },
+            {
+                "name": "Butter zum Braten"
+            },
+            {
+                "amount": "0,5",
+                "unit": "TL",
+                "name": "Zucker (zum Bestreuen)"
+            },
+            {
+                "amount": "2",
+                "name": "m.-große Zwiebel"
+            },
+            {
+                "name": "n. B. Mehl (zum Bestäuben)"
+            },
+            {
+                "name": "Öl zum Braten"
+            }
+        ],
+        "steps": [
+            "Für das Püree die Kartoffeln schälen, waschen, vierteln und in Salzwasser in etwa 25 Min. weich kochen. Wasser abgießen, Kartoffeln auf dem Herd etwas ausdämpfen lassen, dann mit einem Stampfer grob zerdrücken oder durch die Kartoffelpresse drücken.",
+            "Backofen auf 80 °C Ober-/Unterhitze vorheizen.",
+            "Milch aufkochen und zusammen mit der Butter in Stückchen unter die Kartoffeln rühren, mit Salz, Pfeffer und Muskat würzen. Püree in einer Metallschüssel im Backofen warm halten.",
+            "Die Äpfel waschen, nach Belieben schälen, Kerngehäuse ausstechen, Äpfel in ca. 1 cm dicke Ringe schneiden. Zwiebeln abziehen, in dünne Ringe schneiden, mit etwas Mehl bestäuben. Zwiebeln in etwas heißem Öl goldbraun braten, salzen und pfeffern. Äpfel in etwas Butter goldbraun anbraten, mit Zucker bestreuen und karamellisieren lassen.",
+            "Die Kalbsleberscheiben halbieren, in Mehl wenden, überschüssiges Mehl abklopfen. Leber bei mittlerer Hitze in heißem Butterschmalz auf jeder Seite etwa 2 Min. braten und mit Salz und Pfeffer würzen.",
+            "Leber mit Zwiebelringen, Apfelscheiben sowie Kartoffelpüree anrichten und mit Pfeffer bestreuen."
+        ],
+        "image": "kalbsleber-berliner-art.jpg"
+    },
+    {
+        "title": "Wassermelonen-Feta-Salat",
+        "summary": "Wassermelonensalat mit Feta, Gurke und Tomaten",
+        "description": "Erfrischender und leichter Sommersalat für heiße Tage.",
+        "emoji": "🥗",
+        "color": "#17ae39",
+        "servings": 1,
+        "prep_minutes": 10,
+        "difficulty": "very_easy",
+        "calories": 755,
+        "protein": 21,
+        "source": "https://www.chefkoch.de/rezepte/2819071433929975/Wassermelonensalat-mit-Feta-Gurke-und-Tomaten.html",
+        "tags": [
+            "Deutsch",
+            "Feta",
+            "Gemüse",
+            "Käse",
+            "Salat",
+            "Sommer",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "250",
+                "unit": "g",
+                "name": "Wassermelone"
+            },
+            {
+                "amount": "2",
+                "name": "kleine Tomate"
+            },
+            {
+                "amount": "100",
+                "unit": "g",
+                "name": "Feta-Käse"
+            },
+            {
+                "amount": "1",
+                "name": "kleine Zwiebel, rote"
+            },
+            {
+                "amount": "1",
+                "name": "kleine Gurke (z. B. Minigurke)"
+            },
+            {
+                "name": "Salz und Pfeffer"
+            },
+            {
+                "amount": "2",
+                "unit": "EL",
+                "name": "Olivenöl"
+            },
+            {
+                "amount": "3",
+                "unit": "EL",
+                "name": "Balsamico"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Weißweinessig (oder Zitronensaft)"
+            }
+        ],
+        "steps": [
+            "Die Melone, die Tomaten und den Feta-Käse in kleine Stücke schneiden. Die Zwiebel und die Gurke in feine Scheiben schneiden.",
+            "Die Zutaten vermengen, mit Salz und Pfeffer würzen, Öl und Essig unterrühren und ggf. erneut abschmecken."
+        ],
+        "notes": "Dazu passt geröstetes Weißbrot ganz wunderbar!",
+        "image": "wassermelonen-feta-salat-schnell-einfach.jpg"
+    },
+    {
+        "title": "Kartoffel-Brokkoli-Auflauf",
+        "summary": "unser absolutes Lieblingsrezept.",
+        "description": "unser absolutes Lieblingsrezept.",
+        "emoji": "🍽️",
+        "color": "#c8553d",
+        "servings": 4,
+        "prep_minutes": 30,
+        "cook_minutes": 25,
+        "calories": 389,
+        "protein": 12,
+        "source": "https://www.chefkoch.de/rezepte/2365691375701643/Kartoffel-Brokkoli-Auflauf.html",
+        "tags": [
+            "Auflauf",
+            "Beilage",
+            "Deutsch",
+            "Gemüse",
+            "Hauptspeise",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "name": "n. B. Gemüsebrühepulver"
+            },
+            {
+                "amount": "6",
+                "name": "m.-große Kartoffel"
+            },
+            {
+                "amount": "2",
+                "unit": "Kopf",
+                "name": "Brokkoli"
+            },
+            {
+                "amount": "1",
+                "name": "Zwiebel"
+            },
+            {
+                "amount": "2",
+                "unit": "EL",
+                "name": "Margarine"
+            },
+            {
+                "amount": "2",
+                "unit": "EL",
+                "name": "Mehl"
+            },
+            {
+                "amount": "0,5",
+                "unit": "l",
+                "name": "Kochwasser (von Kartoffeln und Brokkoli)"
+            },
+            {
+                "amount": "1",
+                "unit": "Päckchen",
+                "name": "Sahne (oder Sojasahne, ca. 200 ml)"
+            },
+            {
+                "name": "etwas Muskat"
+            },
+            {
+                "name": "etwas Paprikapulver, edelsüßes"
+            },
+            {
+                "name": "etwas Salz und Pfeffer"
+            },
+            {
+                "name": "etwas Chilipulver"
+            },
+            {
+                "name": "viel Käse, geriebener (oder veganer Käse-Ersatz, ca. 150 - 200 g)"
+            }
+        ],
+        "steps": [
+            "Zuerst ca. 1 l Wasser zum Kochen bringen und die Gemüsebrühe dazugeben.",
+            "Währenddessen die Kartoffeln schälen und den Brokkoli putzen und in Röschen schneiden. Die Kartoffeln in Würfel schneiden in der Brühe gar kochen. Die Kartoffeln mit einem Schaumlöffel aus der Brühe nehmen, dann die Brokkoliröschen in der Brühe kochen. Beides in eine große Auflaufform geben.",
+            "Für die Soße eine Zwiebel würfeln und in der Margarine glasig braten. Dann das Mehl darüber streuen und eine Weile bräunen lassen. Dann einen halben Liter von der Gemüsebrühe, in der Kartoffeln und Brokkoli gekocht wurden, hinzugeben und kurz andicken lassen. Anschließend die Sahne (wir verwenden Sojasahne, hat weniger Kalorien) zufügen und die Soße mit Muskat, Paprikapulver, Salz, Pfeffer und Chili gut würzen. Die Soße in die Auflaufform geben, den Käse darüber streuen.",
+            "Bei 180 °C Ober-/Unterhitze ca. 20 - 25 min. in den heißen Backofen stellen, bis der Käse schön braun ist."
+        ],
+        "image": "kartoffel-brokkoli-auflauf.jpg"
+    },
+    {
+        "title": "Knusprige Ofenkartoffeln",
+        "summary": "Würzige Kartoffelspalten aus dem Ofen.",
+        "description": "Würzige Kartoffelspalten aus dem Ofen.",
+        "emoji": "🥔",
+        "color": "#c8553d",
+        "servings": 3,
+        "prep_minutes": 20,
+        "cook_minutes": 40,
+        "calories": 509,
+        "protein": 8,
+        "source": "https://www.chefkoch.de/rezepte/1064631211795001/Knusprige-Ofenkartoffeln.html",
+        "tags": [
+            "Airfryer",
+            "Beilage",
+            "Deutsch",
+            "Dips",
+            "Einfach",
+            "Kartoffeln",
+            "Ofen",
+            "Saucen",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "10",
+                "name": "m.-große Kartoffeln, festkochende"
+            },
+            {
+                "amount": "1",
+                "unit": "TL",
+                "name": "Meersalz, grobes (bei Bedarf auch mehr)"
+            },
+            {
+                "amount": "1",
+                "unit": "TL",
+                "name": "Paprikapulver, edelsüßes"
+            },
+            {
+                "amount": "1",
+                "unit": "TL",
+                "name": "Currypulver"
+            },
+            {
+                "name": "etwas Chilipulver"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Rosmarin (getrocknet, geschnitten)"
+            },
+            {
+                "name": "etwas Pfeffer (aus der Mühle)"
+            },
+            {
+                "amount": "3",
+                "unit": "EL",
+                "name": "Olivenöl"
+            },
+            {
+                "amount": "1",
+                "unit": "Becher",
+                "name": "saure Sahne"
+            },
+            {
+                "amount": "1",
+                "name": "Zitrone, Saft davon"
+            },
+            {
+                "name": "etwas Salz und Pfeffer"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Kräuter, italienische (nach Wahl)"
+            },
+            {
+                "amount": "1",
+                "name": "Zehe/n Knoblauch (optional)"
+            },
+            {
+                "amount": "1",
+                "unit": "TL",
+                "name": "MSG",
+                "is_optional": true
+            }
+        ],
+        "steps": [
+            "Die Kartoffeln schälen, vierteln und gut mit Küchenkrepp abtrocknen.",
+            "Die Kartoffeln in eine große Schale geben, die Gewürze dazugeben und alles gut mit den Händen durchmengen. Nun das Öl dazugeben und nochmals durchmengen. MSG nach Wunsch.",
+            "Die Kartoffeln auf ein Blech geben. Ich fette das Blech nicht noch zusätzlich ein, da das Öl an den Kartoffeln bereits genügt.",
+            "Im vorgeheizten Backofen bei 200 °C Ober-/Unterhitze auf mittlerer Schiene ca. 30–40 Min. (je nach Größe der Kartoffelspalten) backen. Alternativ geht auch der Airfryer.",
+            "Die Kartoffelspalten alle 10 Min. wenden, damit sie von allen Seiten schön kross werden. Wenn die Spalten anfangs etwas am Blech festbacken - nicht schlimm, einfach mit einem Pfannenwender lösen.",
+            "Nun aus der sauren Sahne, dem Zitronensaft, den Gewürzen und den Kräutern einen Dip anrühren. Der kann bei Bedarf natürlich auch mit etwas Knoblauch verfeinert werden."
+        ],
+        "image": "knusprige-ofenkartoffeln.jpg"
+    },
+    {
+        "title": "Zucchini-Möhren-Puffer mit Kräuter-Joghurt-Creme",
+        "summary": "Zucchini-Möhren-Puffer mit Kräuter-Joghurt-Creme.",
+        "description": "Zucchini-Möhren-Puffer mit Kräuter-Joghurt-Creme.",
+        "emoji": "🍽️",
+        "color": "#c8553d",
+        "servings": 3,
+        "prep_minutes": 20,
+        "cook_minutes": 15,
+        "calories": 332,
+        "protein": 14,
+        "source": "https://www.chefkoch.de/rezepte/356561121031364/Zucchini-Moehren-Puffer-mit-Kraeuter-Joghurt-Creme.html",
+        "tags": [
+            "Deutsch",
+            "Dips",
+            "Fingerfood",
+            "Gemüse",
+            "Hauptspeise",
+            "Vegetarisch"
+        ],
+        "ingredients": [
+            {
+                "amount": "400",
+                "unit": "g",
+                "name": "Karotte"
+            },
+            {
+                "amount": "400",
+                "unit": "g",
+                "name": "Zucchini"
+            },
+            {
+                "amount": "2",
+                "name": "Zwiebel"
+            },
+            {
+                "amount": "2",
+                "name": "Ei(er)"
+            },
+            {
+                "amount": "4",
+                "unit": "EL",
+                "name": "Mehl"
+            },
+            {
+                "amount": "250",
+                "unit": "g",
+                "name": "Joghurt"
+            },
+            {
+                "amount": "100",
+                "unit": "g",
+                "name": "Crème fraîche"
+            },
+            {
+                "amount": "1",
+                "unit": "Bund",
+                "name": "Schnittlauch"
+            },
+            {
+                "amount": "0,5",
+                "unit": "Bund",
+                "name": "Petersilie"
+            },
+            {
+                "name": "Salz und Pfeffer"
+            },
+            {
+                "name": "Kräutersalz"
+            },
+            {
+                "name": "Öl"
+            }
+        ],
+        "steps": [
+            "Zucchini und Karotten grob raspeln. Mit 1 Teelöffel Salz 15 Minuten ziehen lassen. In der Zwischenzeit die Zwiebeln klein hacken und zur Seite stellen.",
+            "Den Joghurt mit der Crème fraîche verrühren, Petersilie und Schnittlauch klein hacken und zur Crème fraîche-Joghurt-Mischung geben. Mit Kräutersalz und etwas Pfeffer abschmecken.",
+            "Die Zucchini und Karotten nun in ein feines Sieb geben und die Flüssigkeit gut ausdrücken. Anschließend in eine Schüssel geben, die Zwiebeln hinzufügen, 2 Eier und 4 EL Mehl unterrühren. Die Masse mit Salz und Pfeffer würzen.",
+            "In einer Pfanne Öl erhitzen, von der Zucchini-Karotten-Masse kleine Puffer ausbacken. Die Puffer sollen von beiden Seiten goldbraun sein.",
+            "Auf Küchenpapier kurz abtropfen lassen, dann mit der Joghurt-Kräuter-Creme servieren."
+        ],
+        "image": "zucchini-moehren-puffer-mit-kraeuter-joghurt-creme.jpg"
+    },
+    {
+        "title": "Essen bestellen",
+        "summary": "Einfach mal nix machen",
+        "description": "Lecker Fraß",
+        "emoji": "💸",
+        "color": "#00ff40",
+        "servings": 5,
+        "prep_minutes": 60,
+        "difficulty": "very_easy",
+        "ingredients": [
+            {
+                "amount": "1",
+                "unit": "Stange",
+                "name": "Geld"
+            }
+        ],
+        "steps": [
+            "Handy raus",
+            "Lieferando App starten",
+            "Warten"
+        ]
+    },
+    {
+        "title": "Döner",
+        "summary": "Eine osmanische Spezialität",
+        "description": "Am besten bei Bulut in Klosterlechfeld",
+        "emoji": "🥙",
+        "color": "#0bffff",
+        "servings": 1,
+        "difficulty": "very_easy",
+        "tags": [
+            "Schnell"
+        ],
+        "ingredients": [
+            {
+                "amount": "7,5",
+                "name": "Euro"
+            }
+        ],
+        "steps": [
+            "Döner bestellen",
+            "Warten",
+            "Essen",
+            "Bezahlen"
+        ],
+        "image": "doener.jpg"
+    },
+    {
+        "title": "Szegediner Gulasch",
+        "summary": "Das beste Rezept für ein sämiges Sauerkraut-Gulasch – mit einem Klecks Crème fraîche aber ohne Kümmel.",
+        "description": "Das beste Rezept für ein sämiges Sauerkraut-Gulasch – mit einem Klecks Crème fraîche aber ohne Kümmel.",
+        "emoji": "🥩",
+        "color": "#c8553d",
+        "servings": 6,
+        "prep_minutes": 30,
+        "cook_minutes": 90,
+        "difficulty": "very_easy",
+        "calories": 345,
+        "protein": 24,
+        "source": "https://www.chefkoch.de/rezepte/605171160293201/Szegediner-Gulasch.html?portionen=6",
+        "tags": [
+            "Deutschland",
+            "Fleisch",
+            "Gemüse",
+            "Hauptspeise",
+            "Rind",
+            "Schwein"
+        ],
+        "ingredients": [
+            {
+                "amount": "250",
+                "unit": "g",
+                "name": "Zwiebel"
+            },
+            {
+                "amount": "100",
+                "unit": "g",
+                "name": "Speck (durchwachsener)"
+            },
+            {
+                "amount": "1",
+                "unit": "TL",
+                "name": "Paprikapulver (rosenscharf)"
+            },
+            {
+                "amount": "1",
+                "unit": "EL",
+                "name": "Tomatenmark"
+            },
+            {
+                "amount": "300",
+                "unit": "g",
+                "name": "Schweinefleisch (z. B. aus der Oberschale oder Kamm)"
+            },
+            {
+                "amount": "300",
+                "unit": "g",
+                "name": "Rindfleisch (z. B. aus der Wade, Schulter oder Hüfte)"
+            },
+            {
+                "name": "Salz und Pfeffer"
+            },
+            {
+                "amount": "500",
+                "unit": "g",
+                "name": "Sauerkraut (frisch oder aus Glas oder Dose)"
+            },
+            {
+                "amount": "500",
+                "unit": "ml",
+                "name": "Fleischbrühe"
+            },
+            {
+                "amount": "150",
+                "unit": "g",
+                "name": "Crème fraîche"
+            },
+            {
+                "amount": "2",
+                "unit": "TL",
+                "name": "Speisestärke"
+            },
+            {
+                "amount": "2",
+                "unit": "EL",
+                "name": "Wasser"
+            }
+        ],
+        "steps": [
+            "Die Zwiebel abziehen und in Scheiben schneiden. Das Fleisch in ca. 2 cm große Würfel schneiden. Hinweis: Aus Sicht der Lebensmittelsicherheit und des Kochhandwerks wird davon abgeraten, Fleisch vor der Zubereitung abzuwaschen.",
+            "Den Speck in Würfel schneiden und in einem großen Topf bei mittelstarker Hitze auslassen. Die Zwiebel zugeben und etwa 5 Min. darin andünsten.",
+            "Das Paprikapulver und das Tomatenmark zugeben und unterrühren.",
+            "Nun das Fleisch hinzufügen und mit Salz und Pfeffer würzen.",
+            "Das Sauerkraut auf das Fleisch geben. Alles mit Brühe übergießen und ca. 1,5 Stunden mit geschlossenem Deckel bei mittlerer Hitze schmoren lassen.",
+            "Danach Crème fraiche unterrühren. Die Speisestärke mit 2 EL Wasser verrühren und das Gulasch damit binden.",
+            "Nochmals mit Salz und Pfeffer abschmecken und heiß mit Kartoffeln, Baguette oder Klößen servieren."
+        ],
+        "image": "szegediner-gulasch.jpg"
+    }
+]
