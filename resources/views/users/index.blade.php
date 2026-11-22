@@ -7,7 +7,7 @@
         <a href="{{ route('users.create') }}" class="btn btn-primary">＋ Mitglied anlegen</a>
     </div>
 
-    <ul class="divide-y divide-line overflow-hidden rounded-3xl border border-line bg-white">
+    <ul class="divide-y divide-line overflow-hidden rounded-3xl border border-line bg-surface">
         @foreach ($users as $user)
             <li class="flex flex-wrap items-center gap-4 p-5 sm:px-6">
                 <span class="grid size-11 shrink-0 place-items-center rounded-full bg-paper-deep font-display font-semibold">

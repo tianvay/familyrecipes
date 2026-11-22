@@ -48,7 +48,7 @@
             @foreach ($week->days() as $day => $date)
                 @php($choice = old("days.{$day}.choice", $currentChoice($day)))
                 @php($title = old("days.{$day}.title", $choice === 't' ? $entries->get($day)?->title : ''))
-                <div class="rounded-3xl border border-line bg-white p-4 sm:p-5" x-data="{ choice: @js($choice) }">
+                <div class="rounded-3xl border border-line bg-surface p-4 sm:p-5" x-data="{ choice: @js($choice) }">
                     <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
                         <label for="day-{{ $day }}" class="w-28 shrink-0">
                             <span class="block font-display text-lg font-semibold">{{ App\Support\Week::dayName($day) }}</span>

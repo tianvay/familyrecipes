@@ -9,7 +9,7 @@
                 Bisher wurden keine Änderungen protokolliert.
             </p>
         @else
-            <ol class="divide-y divide-line overflow-hidden rounded-3xl border border-line bg-white">
+            <ol class="divide-y divide-line overflow-hidden rounded-3xl border border-line bg-surface">
                 @foreach ($revisions as $revision)
                     @include('revisions.partials.entry', ['revision' => $revision, 'showRecipe' => true])
                 @endforeach

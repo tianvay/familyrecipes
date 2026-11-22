@@ -21,7 +21,7 @@
                                 <div class="flex items-center gap-3">
                                     <div class="flex -space-x-2">
                                         @foreach ($recipe->favoritedBy as $member)
-                                            <span class="grid size-8 place-items-center rounded-full border-2 border-white bg-paper-deep text-xs font-semibold" title="{{ $member->name }}">
+                                            <span class="grid size-8 place-items-center rounded-full border-2 border-surface bg-paper-deep text-xs font-semibold" title="{{ $member->name }}">
                                                 {{ $member->initials() }}
                                             </span>
                                         @endforeach
@@ -52,7 +52,7 @@
                                 <div class="flex items-center gap-3">
                                     <div class="flex -space-x-2">
                                         @foreach ($dish['wishers'] as $member)
-                                            <span class="grid size-8 place-items-center rounded-full border-2 border-white bg-paper-deep text-xs font-semibold" title="{{ $member->name }}">
+                                            <span class="grid size-8 place-items-center rounded-full border-2 border-surface bg-paper-deep text-xs font-semibold" title="{{ $member->name }}">
                                                 {{ $member->initials() }}
                                             </span>
                                         @endforeach
@@ -87,7 +87,7 @@
                     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         @foreach ($member->favoriteRecipes as $recipe)
                             <a href="{{ route('recipes.show', $recipe) }}" style="--recipe: {{ $recipe->accent_color }}"
-                               class="group flex items-center gap-3 rounded-2xl border border-line bg-white p-3 transition hover:border-ink-soft">
+                               class="group flex items-center gap-3 rounded-2xl border border-line bg-surface p-3 transition hover:border-ink-soft">
                                 <span class="recipe-tint grid size-12 shrink-0 place-items-center rounded-xl text-2xl" aria-hidden="true">{{ $recipe->emoji ?: '🍽️' }}</span>
                                 <span class="text-sm leading-snug font-semibold group-hover:text-accent-dark">{{ $recipe->title }}</span>
                             </a>

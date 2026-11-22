@@ -19,7 +19,7 @@
                 $plannedOn = $group['plannedOn'];
             @endphp
             <li @class([
-                    'rounded-2xl border bg-white',
+                    'rounded-2xl border bg-surface',
                     'border-herb/40' => $plannedOn,
                     'border-line' => ! $plannedOn,
                     'p-4' => ! $compact,

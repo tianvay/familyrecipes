@@ -1,6 +1,6 @@
 @props(['recipe', 'favorite' => false])
 
-<article class="group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]"
+<article class="group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-surface transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]"
          style="--recipe: {{ $recipe->accent_color }}">
     <div class="recipe-tint relative aspect-[4/3] overflow-hidden">
         @if ($recipe->image_url)
@@ -12,7 +12,7 @@
         @endif
 
         @if ($favorite)
-            <span class="absolute top-3 right-3 grid size-8 place-items-center rounded-full bg-white/90 text-accent shadow-sm" title="Favorit">♥</span>
+            <span class="absolute top-3 right-3 grid size-8 place-items-center rounded-full bg-surface/90 text-accent shadow-sm" title="Favorit">♥</span>
         @endif
     </div>
 

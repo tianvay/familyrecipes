@@ -107,6 +107,19 @@ Knopf, Wischen oder Pfeiltasten. Unter jedem Schritt stehen die Zutaten, die dar
 Zeitangaben („12–15 Minuten“) gibt es einen Timer mit Signalton. Die Zutatenliste lässt sich jederzeit
 einblenden und abhaken. Code: `app/Support/CookingSteps.php`, `resources/js/cooking-mode.js`.
 
+## Design
+
+Unter „Mein Konto“ wählt jedes Familienmitglied sein eigenes Farbdesign (wird sofort gespeichert):
+
+- **Papier (hell)** – Standard, warme Papier- und Terrakottatöne
+- **Catppuccin Mocha (dunkel)** – dunkle Pastellpalette ([catppuccin.com](https://catppuccin.com/palette))
+- **Automatisch** – hell, wenn das Gerät im hellen Modus ist, sonst Mocha
+
+Das Design hängt am Account (`users.theme`) und zusätzlich als Cookie am Gerät, damit auch die
+Anmeldeseite passt. Technik: `<html data-theme="…">` überschreibt die Farb-Variablen aus `@theme`
+in `resources/css/app.css`; Views verwenden nur diese Farben (`bg-surface` statt `bg-white`,
+`text-on-accent` statt `text-white`). Code: `app/Enums/Theme.php`.
+
 ## Benutzer & Rollen
 
 Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.
@@ -123,7 +136,7 @@ Anmeldung mit **Benutzername** und Passwort, keine Selbstregistrierung.
   Favoriten), die Top 5 **am häufigsten gewünscht** (alle Wünsche, auch eingeplante; gleiche Freitexte
   werden zusammengezählt) und die Favoriten jedes Familienmitglieds.
 
-- Jedes Mitglied kann unter „Mein Konto“ das eigene Passwort ändern.
+- Jedes Mitglied kann unter „Mein Konto“ das eigene Passwort und das Design ändern.
 - Der Standard-Admin wird per Migration angelegt; weitere Accounts über „Benutzer verwalten“
   oder `php artisan users:create`.
 

@@ -9,10 +9,10 @@
 
     <div class="flex gap-1 rounded-full bg-paper-deep p-1 text-sm font-medium" role="tablist">
         <button type="button" role="tab" @click="mode = 'recipe'" :aria-selected="mode === 'recipe'"
-                :class="mode === 'recipe' ? 'bg-white shadow-sm text-ink' : 'text-ink-soft'"
+                :class="mode === 'recipe' ? 'bg-surface shadow-sm text-ink' : 'text-ink-soft'"
                 class="flex-1 rounded-full px-3 py-2 whitespace-nowrap transition">Rezept</button>
         <button type="button" role="tab" @click="mode = 'text'" :aria-selected="mode === 'text'"
-                :class="mode === 'text' ? 'bg-white shadow-sm text-ink' : 'text-ink-soft'"
+                :class="mode === 'text' ? 'bg-surface shadow-sm text-ink' : 'text-ink-soft'"
                 class="flex-1 rounded-full px-3 py-2 whitespace-nowrap transition">Eigene Idee</button>
     </div>
 
@@ -40,7 +40,7 @@
                         :class="! onlyFavorites ? 'chip-active' : ''" class="chip">Alle Rezepte</button>
             </div>
 
-            <ul class="max-h-72 divide-y divide-line overflow-y-auto overscroll-contain rounded-2xl border border-line bg-white" role="listbox" aria-label="Rezepte">
+            <ul class="max-h-72 divide-y divide-line overflow-y-auto overscroll-contain rounded-2xl border border-line bg-surface" role="listbox" aria-label="Rezepte">
                 <template x-for="recipe in filtered" :key="recipe.id">
                     <li>
                         <button type="button" @click="select(recipe)" role="option" :aria-selected="selectedId === recipe.id"

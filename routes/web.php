@@ -63,6 +63,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
 
     Route::get('konto', [AccountController::class, 'edit'])->name('account.edit');
     Route::put('konto/passwort', [AccountController::class, 'updatePassword'])->name('account.password');
+    Route::put('konto/design', [AccountController::class, 'updateTheme'])->name('account.theme');
 
     // Nur für Admins – Berechtigung prüfen Policy bzw. Gate in den Controllern.
     Route::get('familie', FamilyFavoritesController::class)->name('family.favorites');

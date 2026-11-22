@@ -1,7 +1,7 @@
 @props(['title' => null])
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="{{ App\Enums\Theme::current(request())->value }}">
 <head>
     @include('partials.head', ['title' => $title])
 </head>
@@ -14,7 +14,7 @@
     <header class="sticky top-0 z-20 border-b border-line/70 bg-paper/90 backdrop-blur">
         <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-4 sm:gap-6 sm:px-6">
             <a href="{{ route('home') }}" class="flex items-center gap-2.5" aria-label="Startseite">
-                <span class="grid size-9 place-items-center rounded-full bg-accent text-lg text-white" aria-hidden="true">🍳</span>
+                <span class="grid size-9 place-items-center rounded-full bg-accent text-lg text-on-accent" aria-hidden="true">🍳</span>
                 <span class="hidden font-display text-xl font-semibold tracking-tight sm:inline">Rezeptbuch</span>
             </a>
 
@@ -58,13 +58,13 @@
                 {{-- Benutzermenü --}}
                 <div class="relative" x-data="{ open: false }" @click.outside="open = false" @keydown.escape.window="open = false">
                     <button type="button" @click="open = ! open" :aria-expanded="open"
-                            class="grid size-10 place-items-center rounded-full border border-line bg-white font-display text-sm font-semibold text-ink hover:border-ink-soft"
+                            class="grid size-10 place-items-center rounded-full border border-line bg-surface font-display text-sm font-semibold text-ink hover:border-ink-soft"
                             aria-label="Menü für {{ auth()->user()->name }}">
                         {{ auth()->user()->initials() }}
                     </button>
 
                     <div x-cloak x-show="open" x-transition.origin.top.right
-                         class="absolute right-0 mt-2 w-60 overflow-hidden rounded-2xl border border-line bg-white py-2 text-sm shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]">
+                         class="absolute right-0 mt-2 w-60 overflow-hidden rounded-2xl border border-line bg-surface py-2 text-sm shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]">
                         <div class="border-b border-line px-4 pt-1 pb-3">
                             <p class="font-semibold">{{ auth()->user()->name }}</p>
                             <p class="text-xs text-ink-soft">{{ '@'.auth()->user()->username }} · {{ auth()->user()->role->label() }}</p>

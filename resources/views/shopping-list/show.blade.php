@@ -29,7 +29,7 @@
                         </button>
 
                         <div x-cloak x-show="menuOpen" x-transition.origin.top.right
-                             class="absolute right-0 z-20 mt-2 w-72 overflow-hidden rounded-2xl border border-line bg-white py-2 text-sm shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]"
+                             class="absolute right-0 z-20 mt-2 w-72 overflow-hidden rounded-2xl border border-line bg-surface py-2 text-sm shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]"
                              role="menu">
                             <p class="px-4 pt-1 pb-2 text-xs text-ink-soft">
                                 <span x-text="remaining">{{ $list->items->count() }}</span> offene Zutaten teilen – abgehakte werden weggelassen.
@@ -96,7 +96,7 @@
                                 <h3 class="mt-8 mb-3 text-sm font-semibold tracking-wider text-ink-soft uppercase">{{ $section['heading'] }}</h3>
                             @endif
 
-                            <ul class="divide-y divide-line overflow-hidden rounded-3xl border border-line bg-white">
+                            <ul class="divide-y divide-line overflow-hidden rounded-3xl border border-line bg-surface">
                                 @foreach ($section['items'] as $id => $item)
                                     <li class="flex items-start transition hover:bg-paper" :class="done.includes('{{ $id }}') && 'opacity-40'">
                                         <label class="flex min-w-0 flex-1 cursor-pointer items-start gap-4 py-3.5 pl-5">
@@ -130,7 +130,7 @@
 
                     {{-- Haben wir immer da --}}
                     @if ($list->pantryItems()->isNotEmpty())
-                        <details class="group mt-8 rounded-3xl border border-line bg-white">
+                        <details class="group mt-8 rounded-3xl border border-line bg-surface">
                             <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold">
                                 <span>🏠 Haben wir immer da ({{ $list->pantryItems()->count() }})</span>
                                 <span class="text-ink-soft transition group-open:rotate-180" aria-hidden="true">⌄</span>
@@ -160,7 +160,7 @@
                     <h2 class="mb-4 font-display text-2xl font-semibold">Berücksichtigte Gerichte</h2>
                     <ol class="space-y-2">
                         @foreach ($list->meals as $meal)
-                            <li class="flex items-center gap-3 rounded-2xl border border-line bg-white px-4 py-3"
+                            <li class="flex items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3"
                                 @if ($meal->recipe) style="--recipe: {{ $meal->recipe->accent_color }}" @endif>
                                 <span class="w-9 shrink-0 text-sm font-semibold text-ink-soft">{{ mb_substr(App\Support\Week::dayName($meal->date->dayOfWeekIso), 0, 2) }}</span>
                                 <span @class([

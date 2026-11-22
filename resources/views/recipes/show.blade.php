@@ -39,7 +39,7 @@
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false">
                             <button type="button" class="btn btn-ghost" @click="open = ! open" :aria-expanded="open">⭐ Wünschen</button>
                             <div x-cloak x-show="open" x-transition.origin.top.left
-                                 class="absolute left-0 z-10 mt-2 w-60 overflow-hidden rounded-2xl border border-line bg-white py-2 text-sm shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]">
+                                 class="absolute left-0 z-10 mt-2 w-60 overflow-hidden rounded-2xl border border-line bg-surface py-2 text-sm shadow-[0_12px_32px_-12px_rgb(43_36_32/0.25)]">
                                 <p class="px-4 pb-1 text-xs text-ink-soft">Auf die Wunschliste setzen:</p>
                                 @foreach ([App\Support\Week::current(), App\Support\Week::current()->next()] as $wishWeek)
                                     <form method="POST" action="{{ route('wishes.store') }}">
@@ -114,7 +114,7 @@
         @endphp
 
         @if ($facts)
-            <dl class="mb-10 grid grid-cols-2 divide-line overflow-hidden rounded-3xl border border-line bg-white sm:grid-cols-3 lg:grid-cols-6 lg:divide-x">
+            <dl class="mb-10 grid grid-cols-2 divide-line overflow-hidden rounded-3xl border border-line bg-surface sm:grid-cols-3 lg:grid-cols-6 lg:divide-x">
                 @foreach ($facts as $label => $value)
                     <div class="p-5">
                         <dt class="text-xs font-semibold tracking-wider text-ink-soft uppercase">{{ $label }}</dt>
@@ -163,7 +163,7 @@
                             <li class="flex gap-4">
                                 <button type="button"
                                         @click="done.includes({{ $loop->iteration }}) ? done.splice(done.indexOf({{ $loop->iteration }}), 1) : done.push({{ $loop->iteration }})"
-                                        :class="done.includes({{ $loop->iteration }}) ? 'bg-herb text-white border-herb' : 'border-line text-accent'"
+                                        :class="done.includes({{ $loop->iteration }}) ? 'bg-herb text-on-accent border-herb' : 'border-line text-accent'"
                                         class="grid size-9 shrink-0 place-items-center rounded-full border-2 font-display font-semibold transition"
                                         aria-label="Schritt {{ $loop->iteration }} als erledigt markieren">
                                     <span x-text="done.includes({{ $loop->iteration }}) ? '✓' : '{{ $loop->iteration }}'">{{ $loop->iteration }}</span>

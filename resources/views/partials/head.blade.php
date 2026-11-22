@@ -11,7 +11,18 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Rezeptbuch">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#fbf7f1">
+{{-- Farbe der Browserleiste passend zum Design (App\Enums\Theme) --}}
+@switch(App\Enums\Theme::current(request()))
+    @case(App\Enums\Theme::Mocha)
+        <meta name="theme-color" content="#181825">
+        @break
+    @case(App\Enums\Theme::Auto)
+        <meta name="theme-color" content="#fbf7f1" media="(prefers-color-scheme: light)">
+        <meta name="theme-color" content="#181825" media="(prefers-color-scheme: dark)">
+        @break
+    @default
+        <meta name="theme-color" content="#fbf7f1">
+@endswitch
 
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=fraunces:500,600,700|inter:400,500,600" rel="stylesheet">

@@ -70,6 +70,8 @@ php artisan users:create    # Account per Konsole; recipes:import = alte recipes
 - Datumsspalten nur mit `whereDate`/`betweenDates` vergleichen (SQLite speichert `Y-m-d H:i:s`).
 - Blade: nach einem einzeiligen `@php(...)` keinen `@php … @endphp`-Block mehr in derselben Datei.
 - `@js(...)` kodiert Umlaute als `\u00fc` – in Tests View-Daten (`assertViewHas`) statt Text prüfen.
+- Zwei Designs (`App\Enums\Theme`: Papier/Mocha/Auto): in Views nur Theme-Farben nutzen
+  (`bg-surface`, `text-on-accent`, `paper`, `ink`, `line`, `accent` …), kein `bg-white`/`text-white`/Grautöne.
 - Route `rezepte/importieren` muss vor `Route::resource('rezepte')` stehen.
 - Bash-Heredocs mit Backslashes (PHP-Namespaces) werden zerschossen → Edit/Write-Tool oder
   Python-Skript als Datei im Scratchpad nutzen.

@@ -27,7 +27,7 @@
                 @php($entry = $entries->get($day))
                 @php($isToday = $date->isToday())
                 <li @class([
-                        'flex items-center gap-4 rounded-3xl border bg-white p-4 sm:p-5',
+                        'flex items-center gap-4 rounded-3xl border bg-surface p-4 sm:p-5',
                         'border-accent ring-2 ring-accent/15' => $isToday,
                         'border-line' => ! $isToday,
                     ])
@@ -37,7 +37,7 @@
                         <p class="text-xs text-ink-soft">
                             {{ $date->format('d.m.') }}
                             @if ($isToday)
-                                <span class="ml-1 rounded-full bg-accent px-1.5 py-0.5 font-semibold text-white">Heute</span>
+                                <span class="ml-1 rounded-full bg-accent px-1.5 py-0.5 font-semibold text-on-accent">Heute</span>
                             @endif
                         </p>
                     </div>

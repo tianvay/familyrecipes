@@ -44,7 +44,7 @@
                     @endif
                 </article>
             @else
-                <article class="flex flex-col items-start gap-4 rounded-[2rem] border border-dashed border-line bg-white p-6 sm:p-8">
+                <article class="flex flex-col items-start gap-4 rounded-[2rem] border border-dashed border-line bg-surface p-6 sm:p-8">
                     <h2 id="heute" class="text-sm font-semibold tracking-widest text-ink-soft uppercase">Heute gibt's</h2>
                     <p class="font-display text-2xl font-semibold">Noch nichts geplant</p>
                     @can('plan-meals', App\Support\Week::current())
@@ -58,14 +58,14 @@
 
         <div class="flex flex-col gap-6">
             {{-- Morgen --}}
-            <section class="rounded-3xl border border-line bg-white p-5" aria-labelledby="morgen">
+            <section class="rounded-3xl border border-line bg-surface p-5" aria-labelledby="morgen">
                 <h2 id="morgen" class="mb-2 text-sm font-semibold tracking-widest text-ink-soft uppercase">Morgen · {{ $dayName($tomorrow) }}</h2>
                 @include('home.partials.entry', ['entry' => $tomorrowEntry, 'large' => true])
             </section>
 
             {{-- Nächste Woche --}}
             {{-- Wunschliste --}}
-            <section class="rounded-3xl border border-line bg-white p-5" aria-labelledby="wunschliste">
+            <section class="rounded-3xl border border-line bg-surface p-5" aria-labelledby="wunschliste">
                 <h2 id="wunschliste" class="mb-1 text-sm font-semibold tracking-widest text-ink-soft uppercase">Wunschliste</h2>
                 <p class="mb-1 text-sm">
                     {{ $openWishes }} {{ $openWishes === 1 ? 'offener Wunsch' : 'offene Wünsche' }}
@@ -94,7 +94,7 @@
             <h2 id="demnaechst" class="font-display text-2xl font-semibold">Demnächst</h2>
             <a href="{{ route('meal-plan.show') }}" class="text-sm font-medium text-ink-soft hover:text-ink">Ganzer Essensplan →</a>
         </div>
-        <ol class="divide-y divide-line overflow-hidden rounded-3xl border border-line bg-white">
+        <ol class="divide-y divide-line overflow-hidden rounded-3xl border border-line bg-surface">
             @foreach ($laterDays as $date)
                 <li class="flex items-center gap-4 px-5 py-3">
                     <span class="w-24 shrink-0 text-sm">
@@ -110,7 +110,7 @@
     {{-- Schnellzugriffe --}}
     <nav class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Schnellzugriff">
         @foreach ($tiles as [$icon, $label, $url])
-            <a href="{{ $url }}" class="flex flex-col items-start gap-2 rounded-3xl border border-line bg-white p-5 font-semibold transition hover:border-ink-soft">
+            <a href="{{ $url }}" class="flex flex-col items-start gap-2 rounded-3xl border border-line bg-surface p-5 font-semibold transition hover:border-ink-soft">
                 <span class="text-2xl" aria-hidden="true">{{ $icon }}</span>
                 {{ $label }}
             </a>

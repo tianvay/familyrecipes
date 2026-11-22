@@ -17,6 +17,44 @@
     --color-accent: #c8553d;
     --color-accent-dark: #a5402b;
     --color-herb: #4f7a4a;
+    --color-surface: #ffffff; /* Karten, Felder, Menüs */
+    --color-on-accent: #ffffff; /* Schrift auf Akzentflächen */
+}
+
+/*
+ * Catppuccin Mocha (https://catppuccin.com/palette) – gewählt über <html data-theme="…">,
+ * siehe App\Enums\Theme. „auto“ nutzt Mocha nur, wenn das Gerät im Dunkelmodus ist.
+ */
+@layer base {
+    [data-theme='mocha'] {
+        --color-paper: #181825; /* mantle */
+        --color-paper-deep: #313244; /* surface0 */
+        --color-surface: #1e1e2e; /* base */
+        --color-ink: #cdd6f4; /* text */
+        --color-ink-soft: #a6adc8; /* subtext0 */
+        --color-line: #313244; /* surface0 */
+        --color-accent: #fab387; /* peach */
+        --color-accent-dark: #eba0ac; /* maroon */
+        --color-herb: #a6e3a1; /* green */
+        --color-on-accent: #11111b; /* crust */
+        color-scheme: dark;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        [data-theme='auto'] {
+            --color-paper: #181825;
+            --color-paper-deep: #313244;
+            --color-surface: #1e1e2e;
+            --color-ink: #cdd6f4;
+            --color-ink-soft: #a6adc8;
+            --color-line: #313244;
+            --color-accent: #fab387;
+            --color-accent-dark: #eba0ac;
+            --color-herb: #a6e3a1;
+            --color-on-accent: #11111b;
+            color-scheme: dark;
+        }
+    }
 }
 
 @layer base {
@@ -44,11 +82,11 @@
     }
 
     .btn-primary {
-        @apply bg-accent text-white hover:bg-accent-dark;
+        @apply bg-accent text-on-accent hover:bg-accent-dark;
     }
 
     .btn-ghost {
-        @apply border border-line bg-white/60 text-ink hover:border-ink-soft;
+        @apply border border-line bg-surface/60 text-ink hover:border-ink-soft;
     }
 
     .btn-danger {
@@ -60,7 +98,7 @@
     }
 
     .field {
-        @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-soft/60 transition focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none;
+        @apply w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-soft/60 transition focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none;
     }
 
     .field-error {
@@ -68,7 +106,7 @@
     }
 
     .chip {
-        @apply inline-flex items-center rounded-full border border-line bg-white/70 px-3 py-1 text-xs font-medium text-ink-soft transition hover:border-ink-soft hover:text-ink;
+        @apply inline-flex items-center rounded-full border border-line bg-surface/70 px-3 py-1 text-xs font-medium text-ink-soft transition hover:border-ink-soft hover:text-ink;
     }
 
     .chip-active {
@@ -76,6 +114,6 @@
     }
 
     .card-section {
-        @apply rounded-3xl border border-line bg-white p-6 sm:p-8;
+        @apply rounded-3xl border border-line bg-surface p-6 sm:p-8;
     }
 }

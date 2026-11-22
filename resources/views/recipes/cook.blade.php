@@ -8,21 +8,21 @@
 
         {{-- Kopfzeile --}}
         <header class="recipe-tint flex items-center gap-3 px-4 py-3 sm:px-6">
-            <a href="{{ route('recipes.show', $recipe) }}" class="grid size-11 shrink-0 place-items-center rounded-full bg-white/70 text-xl hover:bg-white" aria-label="Kochmodus beenden">✕</a>
+            <a href="{{ route('recipes.show', $recipe) }}" class="grid size-11 shrink-0 place-items-center rounded-full bg-surface/70 text-xl hover:bg-surface" aria-label="Kochmodus beenden">✕</a>
             <p class="min-w-0 flex-1 truncate font-display text-lg font-semibold sm:text-xl">
                 <span aria-hidden="true">{{ $recipe->emoji }}</span> {{ $recipe->title }}
             </p>
 
             {{-- Laufender Timer --}}
             <button type="button" x-cloak x-show="timer" @click="timer?.done ? stopTimer() : null"
-                    :class="timer?.done ? 'bg-accent text-white animate-pulse' : 'bg-white/80'"
+                    :class="timer?.done ? 'bg-accent text-on-accent animate-pulse' : 'bg-surface/80'"
                     class="flex shrink-0 items-center gap-2 rounded-full px-4 py-2 font-semibold tabular-nums"
                     :aria-label="timer?.done ? 'Timer abgelaufen, tippen zum Beenden' : 'Timer läuft'">
                 <span aria-hidden="true">⏱</span>
                 <span x-text="timer?.done ? 'Fertig!' : timerDisplay"></span>
             </button>
 
-            <button type="button" @click="showIngredients = true" class="btn btn-ghost shrink-0 bg-white/70">
+            <button type="button" @click="showIngredients = true" class="btn btn-ghost shrink-0 bg-surface/70">
                 <span aria-hidden="true">🥕</span> <span class="hidden sm:inline">Zutaten</span>
             </button>
         </header>
@@ -47,7 +47,7 @@
                                     <p class="mb-2 text-sm font-semibold text-ink-soft">Dafür brauchst du:</p>
                                     <ul class="flex flex-wrap gap-2">
                                         <template x-for="item in step.ingredients" :key="item">
-                                            <li class="rounded-full border border-line bg-white px-4 py-2 text-base sm:text-lg" x-text="item"></li>
+                                            <li class="rounded-full border border-line bg-surface px-4 py-2 text-base sm:text-lg" x-text="item"></li>
                                         </template>
                                     </ul>
                                 </div>
@@ -82,7 +82,7 @@
             </main>
 
             {{-- Navigation --}}
-            <footer class="border-t border-line bg-white/80 px-4 py-4 backdrop-blur sm:px-6">
+            <footer class="border-t border-line bg-surface/80 px-4 py-4 backdrop-blur sm:px-6">
                 <div class="mx-auto flex max-w-4xl items-center gap-4">
                     <button type="button" @click="previous()" :disabled="isFirst && ! finished"
                             class="btn btn-ghost min-w-28 py-4! text-lg disabled:opacity-30">← Zurück</button>
@@ -103,7 +103,7 @@
         @endif
 
         {{-- Zutaten als Overlay --}}
-        <div x-cloak x-show="showIngredients" x-transition.opacity class="fixed inset-0 z-30 flex justify-end bg-ink/40" @click.self="showIngredients = false">
+        <div x-cloak x-show="showIngredients" x-transition.opacity class="fixed inset-0 z-30 flex justify-end bg-black/50" @click.self="showIngredients = false">
             <aside class="flex h-full w-full max-w-md flex-col overflow-y-auto bg-paper p-6 shadow-2xl" role="dialog" aria-label="Zutaten">
                 <div class="mb-4 flex items-center justify-between">
                     <h2 class="font-display text-2xl font-semibold">Zutaten</h2>

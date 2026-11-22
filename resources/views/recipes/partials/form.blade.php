@@ -206,7 +206,7 @@
                 <img x-show="preview" :src="preview" alt="" class="absolute inset-0 size-full object-cover"
                      @if ($imageUrl) src="{{ $imageUrl }}" @else x-cloak @endif>
                 <span x-show="! preview" x-text="emoji" aria-hidden="true">{{ $imageUrl ? '' : (old('emoji', $recipe->emoji) ?: '🍽️') }}</span>
-                <span x-cloak x-show="processing" class="absolute inset-0 grid place-items-center bg-white/70 text-sm font-semibold text-ink">Foto wird verkleinert …</span>
+                <span x-cloak x-show="processing" class="absolute inset-0 grid place-items-center bg-surface/70 text-sm font-semibold text-ink">Foto wird verkleinert …</span>
             </div>
 
             <div class="grid grid-cols-[1fr_auto] gap-4">
@@ -217,7 +217,7 @@
                 </div>
                 <div>
                     <label for="color" class="field-label">Farbe</label>
-                    <input id="color" type="color" name="color" x-model="color" class="h-[42px] w-16 cursor-pointer rounded-xl border border-line bg-white p-1">
+                    <input id="color" type="color" name="color" x-model="color" class="h-[42px] w-16 cursor-pointer rounded-xl border border-line bg-surface p-1">
                     @error('color') <p class="field-error">{{ $message }}</p> @enderror
                 </div>
             </div>
