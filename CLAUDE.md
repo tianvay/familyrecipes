@@ -51,7 +51,7 @@ php artisan users:create    # Account per Konsole; recipes:import = alte recipes
   `WishList` (Wunsch offen bis im Plan; „erfüllt“ wird berechnet), `ShoppingList`/`ShoppingListItem`/
   `Quantity` (Mengen addieren), `CookingSteps` (Zutaten/Timer je Schritt), `LastEaten`,
   `RecipeImport/` (`JsonLdRecipeParser`, `IngredientLineParser`, `UrlGuard` gegen Heimnetz-Abrufe),
-  `RecipeShareCode` (Rezept-Code `RZB1:…` zum Teilen, Import über dieselbe Seite wie Links).
+  `RecipeShareText` (einheitlicher Rezepttext zum Teilen, Import über dieselbe Seite wie Links).
 - Rechte: `App\Enums\Role` (admin/adult/child), Policies `RecipePolicy`, `UserPolicy`,
   `MealSuggestionPolicy`, Gates in `AppServiceProvider` (`make-wishes`, `plan-meals`, `view-shopping-list`,
   `view-family-favorites`, `view-revision-log`). Admin-Account = reine Verwaltung: wünscht nicht,

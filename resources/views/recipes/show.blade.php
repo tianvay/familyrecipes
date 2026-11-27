@@ -6,7 +6,7 @@
 
         {{-- Kopfbereich --}}
         <header class="recipe-tint mb-10 grid overflow-hidden rounded-[2rem] md:grid-cols-[1.1fr_1fr]">
-            {{-- recipeShare: Teilen-Knopf und Teilen-Bereich (lesbarer Text + Rezept-Code, siehe RecipeShareCode) --}}
+            {{-- recipeShare: Teilen-Knopf und Teilen-Bereich (einheitlicher Rezepttext, siehe RecipeShareText) --}}
             <div class="flex min-w-0 flex-col justify-center gap-5 p-8 sm:p-12"
                  x-data="recipeShare({ title: @js($recipe->title), text: @js($shareText) })">
                 @if ($recipe->tags->isNotEmpty())
@@ -83,9 +83,8 @@
                      class="space-y-3 rounded-2xl border border-line bg-surface p-4 text-sm">
                     <div class="flex items-start justify-between gap-4">
                         <p class="text-ink-soft">
-                            Das Rezept als Text mit <strong class="text-ink">Rezept-Code</strong> am Ende.
-                            Jeder kann es lesen – wer ein Familien-Rezeptbuch hat, fügt die Nachricht unter
-                            „Rezept importieren“ ein. Foto und Notizen sind nicht dabei.
+                            Das Rezept als Text – lesbar für alle. Wer ein Familien-Rezeptbuch hat, fügt ihn
+                            unter „Rezept importieren“ ein. Foto und Notizen sind nicht dabei.
                         </p>
                         <button type="button" @click="open = false" class="text-ink-soft hover:text-ink" aria-label="Schließen">✕</button>
                     </div>

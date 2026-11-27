@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\ImportRecipeFromUrl;
 use App\Models\Recipe;
-use App\Support\RecipeShareCode;
+use App\Support\RecipeShareText;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -13,7 +13,7 @@ use InvalidArgumentException;
 use RuntimeException;
 
 /**
- * Rezept per Link oder Rezept-Code importieren: Daten holen und das Rezeptformular damit vorausfüllen.
+ * Rezept per Link oder geteiltem Rezepttext importieren: Daten holen und das Rezeptformular damit vorausfüllen.
  */
 class RecipeImportController extends Controller
 {
@@ -30,13 +30,13 @@ class RecipeImportController extends Controller
 
         $request->validate(
             ['url' => ['required', 'string', 'max:20000']],
-            attributes: ['url' => 'Link oder Rezept-Code'],
+            attributes: ['url' => 'Link oder Rezepttext'],
         );
         $input = trim($request->string('url')->value());
 
         try {
-            $prefill = RecipeShareCode::containsCode($input)
-                ? RecipeShareCode::decode($input)
+            $prefill = RecipeShareText::looksLikeRecipe($input)
+                ? RecipeShareText::parse($input)
                 : $import->handle($this->validatedUrl($input));
         } catch (RuntimeException|InvalidArgumentException $e) {
             return back()->withInput()->withErrors(['url' => $e->getMessage()]);
@@ -56,7 +56,7 @@ class RecipeImportController extends Controller
     private function validatedUrl(string $input): string
     {
         validator(['url' => $input], ['url' => ['url:http,https', 'max:2000']], [
-            'url.url' => 'Bitte einen Link (https://…) oder einen Rezept-Code (RZB1:…) einfügen.',
+            'url.url' => 'Bitte einen Link (https://…) oder ein geteiltes Rezept (mit „Zutaten:“ und „Zubereitung:“) einfügen.',
         ])->validate();
 
         return $input;

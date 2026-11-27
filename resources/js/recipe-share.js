@@ -1,10 +1,8 @@
 import { copyText } from './clipboard';
 
 /**
- * Rezept teilen: lesbarer Text plus Rezept-Code (RecipeShareCode).
- *
- * Wer kein Rezeptbuch hat, liest einfach den Text; wer eins hat, fügt die ganze
- * Nachricht unter „Rezept importieren“ ein. Ohne HTTPS gibt es weder Teilen-Dialog
+ * Rezept teilen als einheitlicher Text (RecipeShareText), den jeder lesen und
+ * jedes Rezeptbuch unter „Rezept importieren“ wieder einlesen kann. Ohne HTTPS gibt es weder Teilen-Dialog
  * noch Clipboard-API – dann helfen Kopierbefehl, WhatsApp-/Mail-Link und das
  * markierbare Textfeld.
  */
