@@ -50,14 +50,17 @@ final class ShoppingListItem
     }
 
     /**
-     * z. B. „Lasagne (Mo, Fr), Gemüsesuppe (Mi)“
+     * z. B. „Lasagne (Mo, Fr), Gemüsesuppe (Mi)“; über zwei Wochen mit Datum („Mo 26.10.“).
      */
     public function sourceLabel(): string
     {
+        $withDate = $this->sources->map(fn (array $use) => Week::containing($use['date'])->iso())->unique()->count() > 1;
+
         return $this->sources
             ->groupBy('title')
             ->map(fn (Collection $uses, string $title) => $title.' ('.$uses->map(
                 fn (array $use) => mb_substr(Week::dayName($use['date']->dayOfWeekIso), 0, 2)
+                    .($withDate ? ' '.$use['date']->format('d.m.') : '')
             )->unique()->join(', ').')')
             ->join(', ');
     }

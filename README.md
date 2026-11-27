@@ -227,6 +227,13 @@ Unter „Essensplan“ (Woche = Montag bis Sonntag, Adresse z. B. `/essensplan/2
 Unter „Einkaufsliste“ (nur Erwachsene) entsteht automatisch eine Liste aus dem Essensplan:
 alle Zutaten der Gerichte von **heute bis Sonntag** der laufenden Woche; vergangene Tage zählen nicht.
 
+- **Einkaufen für …**: Über „Von“ und „Bis einschließlich“ lassen sich die Tage frei wählen – von heute
+  bis Sonntag der nächsten Woche (z. B. Montag: nur bis Mittwoch, Donnerstag: den Rest). Die Auswahl zeigt
+  zu jedem Tag das geplante Gericht; Schnellwahl „Rest dieser Woche“ und „Nächste Woche“. Der Zeitraum
+  steht in der Adresse (`?von=2026-11-30&bis=2026-12-02`), lässt sich also als Lesezeichen speichern;
+  ungültige oder vergangene Tage fallen auf „Rest dieser Woche“ zurück. Über zwei Wochen hinweg tragen
+  Tage ein Datum („Mo 30.11.“), Titel und Dateiname heißen dann z. B. „KW 48–49“.
+
 - Gleiche Zutaten mit gleicher Einheit werden addiert (auch Bereiche wie „500–600 g“ und Kommazahlen),
   doppelt geplante Gerichte zählen doppelt. Bei jeder Zeile steht, für welche Gerichte und Tage sie gebraucht wird.
 - Zutaten, die in allen Gerichten optional sind, stehen getrennt unter „Optional“.

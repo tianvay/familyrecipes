@@ -239,6 +239,68 @@ class ShoppingListTest extends TestCase
         $this->assertTrue($list->from->isSameDay($list->to));
     }
 
+    public function test_days_can_be_chosen(): void
+    {
+        $this->plan('2026-10-14', $this->recipe('Mittwochs-Curry', [['1', 'Dose', 'Kokosmilch']]));
+        $this->plan('2026-10-16', $this->recipe('Freitags-Fisch', [['400', 'g', 'Lachs']]));
+
+        // Montags-/Donnerstagseinkauf: am Mittwoch nur bis Donnerstag
+        $this->actingAs(User::factory()->create())
+            ->get(route('shopping-list.show', ['von' => '2026-10-14', 'bis' => '2026-10-15']))
+            ->assertOk()
+            ->assertSee('Für Mittwoch, 14.10. bis Donnerstag, 15.10.')
+            ->assertSee('Kokosmilch')
+            ->assertDontSee('Lachs')
+            ->assertSee('<option value="2026-10-16"', false)
+            ->assertSee('Fr 16.10. · Freitags-Fisch');
+    }
+
+    public function test_range_can_reach_into_next_week(): void
+    {
+        $this->plan('2026-10-17', $this->recipe('Lasagne', [['250', 'g', 'Hackfleisch']]));
+        $this->plan('2026-10-19', $this->recipe('Lasagne', [['250', 'g', 'Hackfleisch']]));
+        $this->plan('2026-10-26', $this->recipe('Zu weit', [['1', 'Stück', 'Kürbis']])); // nach dem letzten wählbaren Tag
+
+        $this->actingAs(User::factory()->create())
+            ->get(route('shopping-list.show', ['von' => '2026-10-17', 'bis' => '2026-10-25']))
+            ->assertViewHas('list', function (ShoppingList $list) {
+                $export = $list->export();
+
+                return $list->to->toDateString() === '2026-10-25'
+                    && $list->items->pluck('name')->all() === ['Hackfleisch']
+                    && $list->items->sole()->sourceLabel() === 'Lasagne (Sa 17.10., Mo 19.10.)'
+                    && $export['title'] === 'Einkaufsliste KW 42–43'
+                    && $export['filename'] === 'einkaufsliste-kw42-43.txt'
+                    && $export['meals'] === 'Gerichte: Sa 17.10. Lasagne, Mo 19.10. Lasagne';
+            });
+    }
+
+    public function test_invalid_or_past_days_fall_back_to_the_rest_of_the_week(): void
+    {
+        $this->actingAs(User::factory()->create());
+
+        foreach ([['von' => '2026-10-12'], ['von' => 'quatsch', 'bis' => '2026-13-01'], ['von' => ['x']]] as $query) {
+            $this->get(route('shopping-list.show', $query))
+                ->assertOk()
+                ->assertViewHas('list', fn (ShoppingList $list) => $list->from->toDateString() === '2026-10-14'
+                    && $list->to->toDateString() === '2026-10-18');
+        }
+
+        // Vertauschte Reihenfolge wird umgedreht
+        $this->get(route('shopping-list.show', ['von' => '2026-10-17', 'bis' => '2026-10-15']))
+            ->assertViewHas('list', fn (ShoppingList $list) => $list->from->toDateString() === '2026-10-15'
+                && $list->to->toDateString() === '2026-10-17');
+    }
+
+    public function test_selectable_days_run_until_sunday_of_next_week(): void
+    {
+        $days = ShoppingList::selectableDays();
+
+        $this->assertSame('2026-10-14', $days->first()->toDateString());
+        $this->assertSame('2026-10-25', $days->last()->toDateString());
+        $this->assertCount(12, $days);
+    }
+
     /**
      * @param  list<array{0: string, 1: string, 2: string, 3?: bool}>  $ingredients  [Menge, Einheit, Name, optional]
      */

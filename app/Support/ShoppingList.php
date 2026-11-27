@@ -10,8 +10,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
- * Einkaufsliste aus dem festgelegten Essensplan: alle Zutaten der Gerichte
- * von heute bis Sonntag. Vergangene Tage der Woche zählen nicht mit.
+ * Einkaufsliste aus dem festgelegten Essensplan: alle Zutaten der Gerichte in einem
+ * Zeitraum. Standard ist heute bis Sonntag; wer z. B. montags und donnerstags einkauft,
+ * wählt die Tage selbst (siehe selectableDays()).
  * Zutaten, die die Familie „immer da hat“ (PantryItem), stehen getrennt und werden nicht geteilt.
  */
 final class ShoppingList
@@ -30,7 +31,18 @@ final class ShoppingList
     public static function forRestOfWeek(?CarbonImmutable $today = null): self
     {
         $from = ($today ?? CarbonImmutable::today())->startOfDay();
-        $to = Week::containing($from)->end()->startOfDay();
+
+        return self::forDays($from, Week::containing($from)->end());
+    }
+
+    public static function forDays(CarbonImmutable $from, CarbonImmutable $to): self
+    {
+        $from = $from->startOfDay();
+        $to = $to->startOfDay();
+
+        if ($to->lessThan($from)) {
+            [$from, $to] = [$to, $from];
+        }
 
         $meals = MealPlanEntry::query()
             ->betweenDates($from, $to)
@@ -41,6 +53,48 @@ final class ShoppingList
         $pantry = PantryItem::query()->pluck('id', 'key');
 
         return new self($from, $to, $meals, self::collectItems($meals, $pantry));
+    }
+
+    /**
+     * Wählbare Einkaufstage: heute bis Sonntag der nächsten Woche (weiter wird nicht geplant).
+     *
+     * @return Collection<int, CarbonImmutable>
+     */
+    public static function selectableDays(?CarbonImmutable $today = null): Collection
+    {
+        $from = ($today ?? CarbonImmutable::today())->startOfDay();
+        $last = Week::containing($from)->next()->end()->startOfDay();
+
+        return collect(range(0, (int) round($from->diffInDays($last))))->map(fn (int $offset) => $from->addDays($offset));
+    }
+
+    /**
+     * Umfasst der Zeitraum mehr als eine Kalenderwoche? Dann brauchen Tage ein Datum („Mo 26.10.“).
+     */
+    public function spansWeeks(): bool
+    {
+        return ! Week::containing($this->from)->equals(Week::containing($this->to));
+    }
+
+    /**
+     * z. B. „KW 42“ oder „KW 42–43“
+     */
+    public function weekLabel(): string
+    {
+        $first = Week::containing($this->from)->number();
+        $last = Week::containing($this->to)->number();
+
+        return $first === $last ? "KW {$first}" : "KW {$first}–{$last}";
+    }
+
+    /**
+     * Kurzname eines Tages: „Mo“, bei mehreren Wochen „Mo 26.10.“.
+     */
+    public function dayLabel(CarbonImmutable $date): string
+    {
+        $name = mb_substr(Week::dayName($date->dayOfWeekIso), 0, 2);
+
+        return $this->spansWeeks() ? $name.' '.$date->format('d.m.') : $name;
     }
 
     public function isEmpty(): bool
@@ -102,11 +156,10 @@ final class ShoppingList
      */
     public function export(): array
     {
-        $week = Week::containing($this->from);
         $day = fn (CarbonImmutable $date) => mb_substr(Week::dayName($date->dayOfWeekIso), 0, 2).' '.$date->format('d.m.');
 
         return [
-            'title' => "Einkaufsliste KW {$week->number()}",
+            'title' => 'Einkaufsliste '.$this->weekLabel(),
             'period' => $this->from->isSameDay($this->to) ? $day($this->from) : $day($this->from).' – '.$day($this->to),
             'sections' => array_map(fn (array $section) => [
                 'heading' => $section['heading'],
@@ -116,9 +169,9 @@ final class ShoppingList
                     ->all(),
             ], $this->sections()),
             'meals' => 'Gerichte: '.$this->meals
-                ->map(fn (MealPlanEntry $meal) => mb_substr(Week::dayName($meal->date->dayOfWeekIso), 0, 2).' '.$meal->displayTitle())
+                ->map(fn (MealPlanEntry $meal) => $this->dayLabel($meal->date).' '.$meal->displayTitle())
                 ->join(', '),
-            'filename' => "einkaufsliste-kw{$week->number()}.txt",
+            'filename' => 'einkaufsliste-'.str_replace(['KW ', '–'], ['kw', '-'], $this->weekLabel()).'.txt',
         ];
     }
 

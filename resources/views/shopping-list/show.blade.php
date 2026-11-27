@@ -6,7 +6,7 @@
     <div x-data="shoppingList(@js($list->export()))">
         <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-                <p class="mb-2 text-sm font-semibold tracking-widest text-accent uppercase">KW {{ $week->number() }}</p>
+                <p class="mb-2 text-sm font-semibold tracking-widest text-accent uppercase">{{ $list->weekLabel() }}</p>
                 <h1 class="font-display text-4xl font-semibold tracking-tight sm:text-5xl">Einkaufsliste</h1>
                 <p class="mt-2 text-ink-soft">
                     @if ($list->from->isSameDay($list->to))
@@ -14,7 +14,6 @@
                     @else
                         Für {{ $dateLabel($list->from) }} bis {{ $dateLabel($list->to) }}
                     @endif
-                    · vergangene Tage sind nicht enthalten
                 </p>
             </div>
 
@@ -53,6 +52,33 @@
             </div>
         </div>
 
+        {{-- Für welche Tage wird eingekauft? Ändern lädt die Liste sofort neu. --}}
+        <form method="GET" action="{{ route('shopping-list.show') }}" class="card-section mb-8 space-y-4 p-5! sm:p-6!">
+            <div class="flex flex-wrap items-center gap-2">
+                <span class="mr-1 text-sm font-semibold">Einkaufen für</span>
+                @foreach ($presets as $preset)
+                    <a href="{{ route('shopping-list.show', ['von' => $preset['range'][0]->toDateString(), 'bis' => $preset['range'][1]->toDateString()]) }}"
+                       @class(['chip', 'chip-active' => $list->from->isSameDay($preset['range'][0]) && $list->to->isSameDay($preset['range'][1])])>{{ $preset['label'] }}</a>
+                @endforeach
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 sm:max-w-xl">
+                @foreach (['von' => ['Von', $list->from], 'bis' => ['Bis einschließlich', $list->to]] as $name => [$label, $selected])
+                    <label class="block">
+                        <span class="field-label">{{ $label }}</span>
+                        <select name="{{ $name }}" class="field" onchange="this.form.requestSubmit()">
+                            @foreach ($days as $day)
+                                <option value="{{ $day->toDateString() }}" @selected($day->isSameDay($selected))>
+                                    {{ mb_substr(App\Support\Week::dayName($day->dayOfWeekIso), 0, 2) }} {{ $day->format('d.m.') }}{{ isset($mealsByDay[$day->toDateString()]) ? ' · '.$mealsByDay[$day->toDateString()] : '' }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </label>
+                @endforeach
+            </div>
+            <noscript><button type="submit" class="btn btn-primary">Anzeigen</button></noscript>
+        </form>
+
         {{-- Letzte Rückfallebene, wenn das Gerät nicht automatisch kopieren kann --}}
         <div x-cloak x-show="manualCopy" class="card-section mb-8 space-y-3">
             <div class="flex items-start justify-between gap-4">
@@ -69,7 +95,7 @@
             <div class="card-section flex flex-col items-center gap-4 py-14 text-center">
                 <span class="text-5xl" aria-hidden="true">🛒</span>
                 <h2 class="font-display text-2xl font-semibold">Nichts einzukaufen</h2>
-                <p class="max-w-sm text-ink-soft">Für den Rest dieser Woche ist noch kein Gericht geplant.</p>
+                <p class="max-w-sm text-ink-soft">Für die gewählten Tage ist noch kein Gericht geplant.</p>
                 @can('plan-meals', $week)
                     <a href="{{ route('meal-plan.edit', $week) }}" class="btn btn-primary">Plan festlegen</a>
                 @endcan
@@ -162,7 +188,10 @@
                         @foreach ($list->meals as $meal)
                             <li class="flex items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3"
                                 @if ($meal->recipe) style="--recipe: {{ $meal->recipe->accent_color }}" @endif>
-                                <span class="w-9 shrink-0 text-sm font-semibold text-ink-soft">{{ mb_substr(App\Support\Week::dayName($meal->date->dayOfWeekIso), 0, 2) }}</span>
+                                <span class="w-9 shrink-0 text-sm leading-tight font-semibold text-ink-soft">
+                                    {{ mb_substr(App\Support\Week::dayName($meal->date->dayOfWeekIso), 0, 2) }}
+                                    <span class="block text-[0.65rem] font-normal">{{ $meal->date->format('d.m.') }}</span>
+                                </span>
                                 <span @class([
                                     'grid size-9 shrink-0 place-items-center rounded-xl text-lg',
                                     'recipe-tint' => $meal->recipe,
