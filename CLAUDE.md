@@ -50,7 +50,8 @@ php artisan users:create    # Account per Konsole; recipes:import = alte recipes
 - `app/Support/` – Domänenlogik: `Week` (ISO-Woche, Route-Binding `{week}` = `2026-W43`),
   `WishList` (Wunsch offen bis im Plan; „erfüllt“ wird berechnet), `ShoppingList`/`ShoppingListItem`/
   `Quantity` (Mengen addieren), `CookingSteps` (Zutaten/Timer je Schritt), `LastEaten`,
-  `RecipeImport/` (`JsonLdRecipeParser`, `IngredientLineParser`, `UrlGuard` gegen Heimnetz-Abrufe).
+  `RecipeImport/` (`JsonLdRecipeParser`, `IngredientLineParser`, `UrlGuard` gegen Heimnetz-Abrufe),
+  `RecipeShareCode` (Rezept-Code `RZB1:…` zum Teilen, Import über dieselbe Seite wie Links).
 - Rechte: `App\Enums\Role` (admin/adult/child), Policies `RecipePolicy`, `UserPolicy`,
   `MealSuggestionPolicy`, Gates in `AppServiceProvider` (`make-wishes`, `plan-meals`, `view-shopping-list`,
   `view-family-favorites`, `view-revision-log`). Admin-Account = reine Verwaltung: wünscht nicht,
@@ -58,7 +59,7 @@ php artisan users:create    # Account per Konsole; recipes:import = alte recipes
   Rezepte löschen, Benutzerverwaltung und Änderungsprotokoll: nur Admin.
 - Model `MealSuggestion` = ein **Wunsch** (UI sagt „Wunsch/wünschen“, Tabelle heißt `meal_suggestions`).
 - Frontend: Alpine-Komponenten in `resources/js/*.js`, registriert in `app.js` (`shoppingList`,
-  `cookingMode`, `recipePicker`, `recipeAppearance`). Layouts: `components/layouts/{app,guest,focus}`,
+  `cookingMode`, `recipePicker`, `recipeAppearance`, `recipeShare`; Kopieren mit Fallback in `clipboard.js`). Layouts: `components/layouts/{app,guest,focus}`,
   gemeinsamer `<head>` in `partials/head.blade.php`.
 - Tests: `travelTo('2026-10-14 18:00')` (Mittwoch, KW 42) für Wochenlogik; Factory-States
   `User::factory()->admin()/child()`, `Recipe::factory()->complete()`.

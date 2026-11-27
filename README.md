@@ -87,7 +87,7 @@ speichert sie dauerhaft zwischen. Voraussetzung: In der MariaDB muss `max_allowe
   laufen, weil jede nur ihre eigenen Dateien findet. Bis dahin werden diese Fotos weiter als Datei angezeigt.
 - Die Dateien bleiben als Sicherung liegen und können danach gelöscht werden.
 
-## Rezept per Link importieren
+## Rezept per Link oder Rezept-Code importieren
 
 „🔗 Aus Link importieren“ (Rezeptübersicht oder „Neues Rezept“, für Erwachsene): Link z. B. von Chefkoch
 einfügen → Titel, Beschreibung, Portionen, Zeiten, Kalorien, Zutaten (in Menge/Einheit/Name zerlegt),
@@ -99,6 +99,23 @@ Schritte, Tags und Foto landen im Rezeptformular und werden erst beim Speichern 
 - Aus Sicherheitsgründen werden nur öffentliche Adressen abgerufen (auch nach Weiterleitungen),
   keine Geräte im Heimnetz. Nicht gespeicherte Import-Fotos werden nach einem Tag gelöscht.
 - Code: `app/Actions/ImportRecipeFromUrl.php`, `app/Support/RecipeImport/`.
+
+## Rezepte teilen (Rezept-Code)
+
+„↗ Teilen“ auf jeder Rezeptseite (alle, auch Kinder) zeigt eine Nachricht zum Verschicken: das Rezept
+lesbar (Zutaten, Schritte, Tipps) und am Ende ein **Rezept-Code** (`RZB1:…`). Verschicken per
+Teilen-Dialog (nur HTTPS), „Kopieren“, WhatsApp oder E-Mail; klappt Kopieren nicht, ist der Text im
+Feld markiert zum Selbstkopieren.
+
+- Wer kein Rezeptbuch hat, liest einfach den Text. Wer eins hat (z. B. die zweite Installation),
+  fügt die **ganze Nachricht** unter „Rezept importieren“ ins Feld „Link oder Rezept-Code“ ein –
+  Text davor/danach und Zeilenumbrüche im Code stören nicht. Das Formular wird vorausgefüllt und
+  erst beim Speichern übernommen; gibt es den Titel schon, erscheint ein Hinweis.
+- Enthalten: Titel, Beschreibungen, Emoji, Farbe, Eckdaten, Quelle, Tags, Tipps, Zutaten, Schritte
+  (inkl. „gleichzeitig“). **Nicht** enthalten: Foto (zu groß), Notizen (familienintern), Favoriten, Verlauf.
+- Format: `RZB1:` + base64url(deflate(JSON mit kurzen Schlüsseln)) + `.` als Endzeichen; ein langes
+  Rezept ergibt rund 1.500 Zeichen. Neue Formate bekämen ein neues Präfix (`RZB2:`).
+- Code: `app/Support/RecipeShareCode.php`, Frontend `resources/js/recipe-share.js`.
 
 ## Kochmodus
 

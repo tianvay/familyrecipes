@@ -6,7 +6,9 @@
 
         {{-- Kopfbereich --}}
         <header class="recipe-tint mb-10 grid overflow-hidden rounded-[2rem] md:grid-cols-[1.1fr_1fr]">
-            <div class="flex flex-col justify-center gap-5 p-8 sm:p-12">
+            {{-- recipeShare: Teilen-Knopf und Teilen-Bereich (lesbarer Text + Rezept-Code, siehe RecipeShareCode) --}}
+            <div class="flex min-w-0 flex-col justify-center gap-5 p-8 sm:p-12"
+                 x-data="recipeShare({ title: @js($recipe->title), text: @js($shareText) })">
                 @if ($recipe->tags->isNotEmpty())
                     <div class="flex flex-wrap gap-2">
                         @foreach ($recipe->tags as $tag)
@@ -56,6 +58,10 @@
                         </div>
                     @endcan
 
+                    <button type="button" class="btn btn-ghost" @click="open = ! open" :aria-expanded="open" aria-controls="share-panel">
+                        <span aria-hidden="true">↗</span> Teilen
+                    </button>
+
                     @can('update', $recipe)
                         <a href="{{ route('recipes.edit', $recipe) }}" class="btn btn-ghost">Bearbeiten</a>
                     @endcan
@@ -72,6 +78,34 @@
                 @error('recipe_id')
                     <p class="field-error" role="alert">{{ $message }}</p>
                 @enderror
+
+                <div id="share-panel" x-cloak x-show="open" x-transition @keydown.escape.window="open = false"
+                     class="space-y-3 rounded-2xl border border-line bg-surface p-4 text-sm">
+                    <div class="flex items-start justify-between gap-4">
+                        <p class="text-ink-soft">
+                            Das Rezept als Text mit <strong class="text-ink">Rezept-Code</strong> am Ende.
+                            Jeder kann es lesen – wer ein Familien-Rezeptbuch hat, fügt die Nachricht unter
+                            „Rezept importieren“ ein. Foto und Notizen sind nicht dabei.
+                        </p>
+                        <button type="button" @click="open = false" class="text-ink-soft hover:text-ink" aria-label="Schließen">✕</button>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <template x-if="canUseShareSheet">
+                            <button type="button" class="btn btn-primary" @click="shareSheet()">↗ Teilen …</button>
+                        </template>
+                        <button type="button" class="btn btn-ghost" @click="copy()">
+                            📋 <span x-text="copied ? 'Kopiert!' : 'Kopieren'">Kopieren</span>
+                        </button>
+                        <a :href="whatsAppUrl" target="_blank" rel="noopener" class="btn btn-ghost">💬 WhatsApp</a>
+                        <a :href="mailUrl" class="btn btn-ghost">✉️ E-Mail</a>
+                    </div>
+
+                    <p x-cloak x-show="copyFailed" class="text-xs">
+                        Automatisches Kopieren geht auf diesem Gerät nicht – der Text ist markiert, bitte selbst kopieren.
+                    </p>
+                    <textarea x-ref="shareText" readonly rows="5" class="field font-mono text-xs" @focus="selectAll()">{{ $shareText }}</textarea>
+                </div>
 
                 <p class="text-sm text-ink/80">
                     🍽 Zuletzt gegessen:

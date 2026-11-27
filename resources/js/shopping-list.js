@@ -1,3 +1,5 @@
+import { copyText } from './clipboard';
+
 /**
  * Einkaufsliste: Abhaken und Teilen.
  *
@@ -70,23 +72,18 @@ export default (data) => ({
     },
 
     /**
-     * Kopieren in drei Stufen: Clipboard-API (nur HTTPS) → klassischer Kopierbefehl
-     * (geht auch über http://) → Text auf der Seite markiert anzeigen zum Selbstkopieren.
+     * Kopieren; klappt es gar nicht, wird der Text markiert zum Selbstkopieren angezeigt.
      */
     async copy() {
         const text = this.text();
         this.manualCopy = false;
 
         try {
-            await copyWithClipboardApi(text);
+            await copyText(text);
         } catch {
-            try {
-                copyWithTextarea(text);
-            } catch {
-                this.showManualCopy();
+            this.showManualCopy();
 
-                return;
-            }
+            return;
         }
 
         this.copied = true;
@@ -126,31 +123,3 @@ export default (data) => ({
         setTimeout(() => URL.revokeObjectURL(url), 1000);
     },
 });
-
-async function copyWithClipboardApi(text) {
-    if (!window.isSecureContext || !navigator.clipboard) {
-        throw new Error('Clipboard-API nicht verfügbar');
-    }
-
-    await navigator.clipboard.writeText(text);
-}
-
-/**
- * Kopieren ohne Clipboard-API (funktioniert auch über http:// im Heimnetz).
- */
-function copyWithTextarea(text) {
-    const textarea = Object.assign(document.createElement('textarea'), { value: text, readOnly: true });
-    textarea.style.position = 'fixed';
-    textarea.style.opacity = '0';
-
-    document.body.append(textarea);
-    textarea.select();
-    textarea.setSelectionRange(0, text.length); // iOS
-
-    const ok = document.execCommand('copy');
-    textarea.remove();
-
-    if (!ok) {
-        throw new Error('Kopieren nicht möglich');
-    }
-}

@@ -5,7 +5,8 @@
         </a>
         <h1 class="mb-2 font-display text-4xl font-semibold tracking-tight">Rezept importieren</h1>
         <p class="mb-8 text-ink-soft">
-            Link zu einem Rezept einfügen, z. B. von Chefkoch, Lecker oder einem Food-Blog.
+            Link zu einem Rezept einfügen, z. B. von Chefkoch, Lecker oder einem Food-Blog –
+            oder einen Rezept-Code, den dir jemand geschickt hat.
             Die Daten landen im Rezeptformular – dort prüfst du alles und speicherst.
         </p>
 
@@ -14,9 +15,10 @@
             @csrf
 
             <div>
-                <label for="url" class="field-label">Link zum Rezept</label>
-                <input id="url" type="url" name="url" value="{{ old('url') }}" required autofocus inputmode="url"
-                       class="field" placeholder="https://www.chefkoch.de/rezepte/…">
+                <label for="url" class="field-label">Link oder Rezept-Code</label>
+                {{-- Textfeld statt type="url", damit auch ein ganzer Code (oder eine weitergeleitete Nachricht) passt --}}
+                <textarea id="url" name="url" rows="3" required autofocus autocapitalize="off" autocorrect="off" spellcheck="false"
+                          class="field break-all" placeholder="https://www.chefkoch.de/rezepte/…  oder  RZB1:…">{{ old('url') }}</textarea>
                 @error('url') <p class="field-error">{{ $message }}</p> @enderror
             </div>
 
@@ -27,6 +29,8 @@
 
             <p class="text-xs text-ink-soft">
                 Tipp am iPhone/iPad: Auf der Rezeptseite über „Teilen → Kopieren“ den Link kopieren und hier einfügen.
+                Einen Rezept-Code bekommst du im Rezeptbuch über „Teilen“ auf einer Rezeptseite – ganz einfügen,
+                gern auch mit dem Text drumherum.
             </p>
         </form>
     </div>

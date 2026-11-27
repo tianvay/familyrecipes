@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateRecipeRequest;
 use App\Models\Recipe;
 use App\Models\Tag;
 use App\Support\LastEaten;
+use App\Support\RecipeShareCode;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -69,6 +70,7 @@ class RecipeController extends Controller
             'recipe' => $recipe,
             'isFavorite' => $request->user()->hasFavorited($recipe),
             'lastEaten' => LastEaten::forRecipe($recipe->id),
+            'shareText' => RecipeShareCode::message($recipe),
         ]);
     }
 
