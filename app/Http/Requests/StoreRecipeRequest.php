@@ -28,9 +28,14 @@ class StoreRecipeRequest extends FormRequest
             ->values()
             ->all();
 
+        // Schritte einheitlich als ['body' => …, 'parallel' => …]; reiner Text ist auch erlaubt.
         $steps = collect($this->input('steps', []))
-            ->filter(fn ($step) => filled($step))
+            ->map(fn ($step) => is_array($step)
+                ? ['body' => $step['body'] ?? null, 'parallel' => (bool) ($step['parallel'] ?? false)]
+                : ['body' => $step, 'parallel' => false])
+            ->filter(fn (array $step) => filled($step['body']))
             ->values()
+            ->map(fn (array $step, int $i) => [...$step, 'parallel' => $i > 0 && $step['parallel']])
             ->all();
 
         $this->merge([
@@ -78,7 +83,8 @@ class StoreRecipeRequest extends FormRequest
             'ingredients.*.is_optional' => ['boolean'],
 
             'steps' => ['required', 'array', 'min:1', 'max:100'],
-            'steps.*' => ['required', 'string', 'max:2000'],
+            'steps.*.body' => ['required', 'string', 'max:2000'],
+            'steps.*.parallel' => ['boolean'],
         ];
     }
 
@@ -105,7 +111,7 @@ class StoreRecipeRequest extends FormRequest
             'ingredients.*.unit' => 'Einheit',
             'ingredients.*.name' => 'Zutat',
             'steps' => 'Zubereitungsschritte',
-            'steps.*' => 'Zubereitungsschritt',
+            'steps.*.body' => 'Zubereitungsschritt',
         ];
     }
 

@@ -6,10 +6,15 @@
         ->values()
         ->map(fn (array $row, int $i) => [...$row, 'key' => $i]);
 
-    $stepRows = old('steps', $recipe->exists ? $recipe->steps->pluck('body')->all() : []);
+    // Schritte kommen aus dem Rezept, aus old() (Arrays) oder aus dem Import (reiner Text).
+    $stepRows = old('steps', $recipe->exists ? $recipe->steps->map->only('body', 'parallel')->all() : []);
     $stepRows = collect($stepRows ?: ['', ''])
         ->values()
-        ->map(fn (string $body, int $i) => ['body' => $body, 'key' => $i]);
+        ->map(fn (string|array $step, int $i) => [
+            'body' => (string) (is_array($step) ? ($step['body'] ?? '') : $step),
+            'parallel' => is_array($step) && (bool) ($step['parallel'] ?? false),
+            'key' => $i,
+        ]);
 
     $tags = old('tags', $recipe->exists ? $recipe->tags->pluck('name')->all() : []);
     $tips = old('tips', $recipe->tips ?? []);
@@ -98,7 +103,7 @@
         <section class="card-section"
                  x-data="{
                      rows: @js($stepRows),
-                     add() { this.rows.push({ body: '', key: Date.now() }) },
+                     add() { this.rows.push({ body: '', parallel: false, key: Date.now() }) },
                      remove(index) { this.rows.splice(index, 1) },
                  }">
             <div class="mb-5 flex items-center justify-between">
@@ -110,15 +115,23 @@
 
             <ol class="space-y-3">
                 <template x-for="(row, index) in rows" :key="row.key">
-                    <li class="flex items-start gap-3">
+                    {{-- Gleichzeitige Schritte rücken an den vorigen heran und bekommen eine Linie links --}}
+                    <li class="flex items-start gap-3" :class="index > 0 && row.parallel && '-mt-1 ml-3 border-l-2 border-accent/40 pl-3'">
                         <span class="mt-2 grid size-7 shrink-0 place-items-center rounded-full bg-paper-deep font-display text-sm font-semibold text-accent" x-text="index + 1"></span>
-                        <textarea :name="`steps[${index}]`" x-model="row.body" rows="2" class="field" :aria-label="`Schritt ${index + 1}`"></textarea>
+                        <div class="min-w-0 flex-1">
+                            <textarea :name="`steps[${index}][body]`" x-model="row.body" rows="2" class="field" :aria-label="`Schritt ${index + 1}`"></textarea>
+                            <label x-show="index > 0" class="mt-1.5 flex w-fit cursor-pointer items-center gap-2 text-sm text-ink-soft">
+                                <input type="checkbox" :name="`steps[${index}][parallel]`" value="1" x-model="row.parallel" class="size-4 accent-accent">
+                                <span>⇉ gleichzeitig mit Schritt <span x-text="index"></span></span>
+                            </label>
+                        </div>
                         <button type="button" @click="remove(index)" class="mt-1.5 grid size-8 shrink-0 place-items-center rounded-full text-ink-soft hover:bg-paper-deep hover:text-accent-dark" aria-label="Schritt entfernen">✕</button>
                     </li>
                 </template>
             </ol>
+            <p class="mt-3 text-xs text-ink-soft">Gleichzeitige Schritte zeigt der Kochmodus nebeneinander auf einer Seite, jeder mit eigenem Timer.</p>
 
-            @foreach ($errors->get('steps.*') as $messages)
+            @foreach ($errors->get('steps.*.body') as $messages)
                 <p class="field-error">{{ $messages[0] }}</p>
             @endforeach
         </section>

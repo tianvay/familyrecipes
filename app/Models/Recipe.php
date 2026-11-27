@@ -182,7 +182,7 @@ class Recipe extends Model
             'notes' => $this->notes,
             'tags' => $this->tags->pluck('name')->sort()->values()->all(),
             'ingredients' => $this->ingredients->map->label()->all(),
-            'steps' => $this->steps->pluck('body')->all(),
+            'steps' => $this->steps->map(fn (Step $step) => ($step->parallel ? '(gleichzeitig) ' : '').$step->body)->all(),
             'tips' => $this->tips ?? [],
         ];
     }

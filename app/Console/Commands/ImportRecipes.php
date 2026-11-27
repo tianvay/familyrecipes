@@ -97,7 +97,10 @@ class ImportRecipes extends Command
             'notes' => $this->blankToNull($raw['notes'] ?? null),
             'tags' => array_values(array_filter($raw['tags'] ?? [], 'filled')),
             'ingredients' => array_map($this->ingredient(...), $raw['ingredients'] ?? []),
-            'steps' => array_values(array_filter($raw['instructions'] ?? [], 'filled')),
+            'steps' => array_map(
+                fn (string $body) => ['body' => $body, 'parallel' => false],
+                array_values(array_filter($raw['instructions'] ?? [], 'filled')),
+            ),
             'tips' => array_values(array_filter([
                 ...($raw['tips'] ?? []),
                 ...($raw['variations'] ?? []),

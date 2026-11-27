@@ -26,7 +26,7 @@ final class CookingSteps
     ];
 
     /**
-     * @return list<array{number: int, text: string, ingredients: list<string>, timer: array{seconds: int, label: string}|null}>
+     * @return list<array{number: int, text: string, parallel: bool, ingredients: list<string>, timer: array{seconds: int, label: string}|null}>
      */
     public static function for(Recipe $recipe): array
     {
@@ -37,10 +37,35 @@ final class CookingSteps
             ->map(fn (Step $step, int $index) => [
                 'number' => $index + 1,
                 'text' => $step->body,
+                'parallel' => $index > 0 && $step->parallel,
                 'ingredients' => self::ingredientsIn($step->body, $recipe->ingredients),
                 'timer' => self::timerIn($step->body),
             ])
             ->all();
+    }
+
+    /**
+     * Fasst gleichzeitige Schritte zusammen: Ein Schritt mit „parallel“ kommt in die Gruppe
+     * des vorigen Schritts. Schlüssel bleiben erhalten (Index im Rezept → Nummer = Index + 1).
+     *
+     * @template T of array{parallel: bool}|Step
+     *
+     * @param  iterable<int, T>  $steps
+     * @return list<array<int, T>>
+     */
+    public static function groups(iterable $steps): array
+    {
+        $groups = [];
+
+        foreach ($steps as $index => $step) {
+            if ($groups !== [] && $step['parallel']) {
+                $groups[array_key_last($groups)][$index] = $step;
+            } else {
+                $groups[] = [$index => $step];
+            }
+        }
+
+        return $groups;
     }
 
     /**

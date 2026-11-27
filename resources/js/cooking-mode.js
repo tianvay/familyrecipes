@@ -1,15 +1,16 @@
 /**
- * Kochmodus: Schritte blättern (Knöpfe, Wischen, Pfeiltasten), Zutatenliste einblenden,
+ * Kochmodus: Seiten blättern (Knöpfe, Wischen, Pfeiltasten), Zutatenliste einblenden,
  * Timer für Zeitangaben wie „12–15 Minuten“ mit Signalton.
+ * Eine Seite enthält einen Schritt oder mehrere gleichzeitige Schritte; deren Timer laufen parallel.
  */
-export default ({ steps }) => ({
-    steps,
+export default ({ pages }) => ({
+    pages,
     index: 0,
     finished: false,
     showIngredients: false,
     checked: [],
 
-    timer: null, // { label, total, remaining, step, done }
+    timers: [], // [{ step, label, total, remaining, endsAt, done }]
     timerHandle: null,
     touchStartX: null,
 
@@ -22,8 +23,8 @@ export default ({ steps }) => ({
         });
     },
 
-    get step() {
-        return this.steps[this.index];
+    get page() {
+        return this.pages[this.index];
     },
 
     get isFirst() {
@@ -31,7 +32,7 @@ export default ({ steps }) => ({
     },
 
     get isLast() {
-        return this.index === this.steps.length - 1;
+        return this.index === this.pages.length - 1;
     },
 
     next() {
@@ -58,6 +59,17 @@ export default ({ steps }) => ({
         if (!this.isFirst) {
             this.index--;
         }
+    },
+
+    // Timer in der Kopfzeile antippen: abgelaufen → beenden, sonst zur Seite des Schritts springen
+    tapTimer(timer) {
+        if (timer.done) {
+            this.stopTimer(timer.step);
+
+            return;
+        }
+
+        this.goTo(this.pages.findIndex((page) => page.some((step) => step.number === timer.step)));
     },
 
     goTo(index) {
@@ -96,39 +108,60 @@ export default ({ steps }) => ({
         distance < 0 ? this.next() : this.previous();
     },
 
-    // --- Timer ---------------------------------------------------------------
+    // --- Timer (einer je Schritt, mehrere gleichzeitig) ------------------------
+
+    timerFor(stepNumber) {
+        return this.timers.find((timer) => timer.step === stepNumber) ?? null;
+    },
 
     startTimer(step) {
-        this.stopTimer();
+        this.stopTimer(step.number);
         unlockAudio();
 
-        this.timer = { label: step.timer.label, total: step.timer.seconds, remaining: step.timer.seconds, step: step.number, done: false };
-        const endsAt = Date.now() + step.timer.seconds * 1000;
+        this.timers.push({
+            step: step.number,
+            label: step.timer.label,
+            total: step.timer.seconds,
+            remaining: step.timer.seconds,
+            endsAt: Date.now() + step.timer.seconds * 1000,
+            done: false,
+        });
 
-        // Restzeit aus der Uhrzeit berechnen – bleibt korrekt, auch wenn das iPad den Tab pausiert
-        this.timerHandle = setInterval(() => {
-            this.timer.remaining = Math.max(0, Math.round((endsAt - Date.now()) / 1000));
+        this.timerHandle ??= setInterval(() => this.tick(), 250);
+    },
 
-            if (this.timer.remaining === 0) {
-                clearInterval(this.timerHandle);
-                this.timer.done = true;
+    // Restzeit aus der Uhrzeit berechnen – bleibt korrekt, auch wenn das iPad den Tab pausiert
+    tick() {
+        for (const timer of this.timers) {
+            if (timer.done) {
+                continue;
+            }
+
+            timer.remaining = Math.max(0, Math.round((timer.endsAt - Date.now()) / 1000));
+
+            if (timer.remaining === 0) {
+                timer.done = true;
                 ring();
             }
-        }, 250);
+        }
+
+        if (this.timers.every((timer) => timer.done)) {
+            clearInterval(this.timerHandle);
+            this.timerHandle = null;
+        }
     },
 
-    stopTimer() {
-        clearInterval(this.timerHandle);
-        this.timer = null;
+    stopTimer(stepNumber) {
+        this.timers = this.timers.filter((timer) => timer.step !== stepNumber);
     },
 
-    get timerDisplay() {
-        if (!this.timer) {
+    display(timer) {
+        if (!timer) {
             return '';
         }
 
-        const minutes = Math.floor(this.timer.remaining / 60);
-        const seconds = String(this.timer.remaining % 60).padStart(2, '0');
+        const minutes = Math.floor(timer.remaining / 60);
+        const seconds = String(timer.remaining % 60).padStart(2, '0');
 
         return `${minutes}:${seconds}`;
     },

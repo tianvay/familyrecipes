@@ -159,18 +159,25 @@
                 <section class="card-section" x-data="{ done: [] }">
                     <h2 class="mb-6 font-display text-2xl font-semibold">Zubereitung</h2>
                     <ol class="space-y-5">
-                        @foreach ($recipe->steps as $step)
-                            <li class="flex gap-4">
-                                <button type="button"
-                                        @click="done.includes({{ $loop->iteration }}) ? done.splice(done.indexOf({{ $loop->iteration }}), 1) : done.push({{ $loop->iteration }})"
-                                        :class="done.includes({{ $loop->iteration }}) ? 'bg-herb text-on-accent border-herb' : 'border-line text-accent'"
-                                        class="grid size-9 shrink-0 place-items-center rounded-full border-2 font-display font-semibold transition"
-                                        aria-label="Schritt {{ $loop->iteration }} als erledigt markieren">
-                                    <span x-text="done.includes({{ $loop->iteration }}) ? '✓' : '{{ $loop->iteration }}'">{{ $loop->iteration }}</span>
-                                </button>
-                                <p class="pt-1.5 leading-relaxed" :class="done.includes({{ $loop->iteration }}) && 'text-ink-soft'">
-                                    {{ $step->body }}
-                                </p>
+                        @foreach (\App\Support\CookingSteps::groups($recipe->steps) as $group)
+                            <li @class(['space-y-4', 'rounded-2xl border border-accent/30 bg-accent/5 p-4' => count($group) > 1])>
+                                @if (count($group) > 1)
+                                    <p class="text-xs font-semibold tracking-widest text-accent uppercase">⇉ Gleichzeitig</p>
+                                @endif
+                                @foreach ($group as $index => $step)
+                                    <div class="flex gap-4">
+                                        <button type="button"
+                                                @click="done.includes({{ $index + 1 }}) ? done.splice(done.indexOf({{ $index + 1 }}), 1) : done.push({{ $index + 1 }})"
+                                                :class="done.includes({{ $index + 1 }}) ? 'bg-herb text-on-accent border-herb' : 'border-line text-accent'"
+                                                class="grid size-9 shrink-0 place-items-center rounded-full border-2 font-display font-semibold transition"
+                                                aria-label="Schritt {{ $index + 1 }} als erledigt markieren">
+                                            <span x-text="done.includes({{ $index + 1 }}) ? '✓' : '{{ $index + 1 }}'">{{ $index + 1 }}</span>
+                                        </button>
+                                        <p class="pt-1.5 leading-relaxed" :class="done.includes({{ $index + 1 }}) && 'text-ink-soft'">
+                                            {{ $step->body }}
+                                        </p>
+                                    </div>
+                                @endforeach
                             </li>
                         @endforeach
                     </ol>

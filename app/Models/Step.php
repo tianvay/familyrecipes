@@ -14,12 +14,17 @@ class Step extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['position', 'body'];
+    protected $fillable = ['position', 'body', 'parallel'];
+
+    protected $attributes = [
+        'parallel' => false,
+    ];
 
     protected function casts(): array
     {
         return [
             'position' => 'integer',
+            'parallel' => 'boolean',
         ];
     }
 

@@ -1,5 +1,5 @@
 <x-layouts.focus :title="'Kochmodus: ' . $recipe->title">
-    <div x-data="cookingMode({ steps: @js($steps) })"
+    <div x-data="cookingMode({ pages: @js($pages) })"
          @keydown.window="onKey($event)"
          @touchstart.passive="onTouchStart($event)"
          @touchend.passive="onTouchEnd($event)"
@@ -13,14 +13,19 @@
                 <span aria-hidden="true">{{ $recipe->emoji }}</span> {{ $recipe->title }}
             </p>
 
-            {{-- Laufender Timer --}}
-            <button type="button" x-cloak x-show="timer" @click="timer?.done ? stopTimer() : null"
-                    :class="timer?.done ? 'bg-accent text-on-accent animate-pulse' : 'bg-surface/80'"
-                    class="flex shrink-0 items-center gap-2 rounded-full px-4 py-2 font-semibold tabular-nums"
-                    :aria-label="timer?.done ? 'Timer abgelaufen, tippen zum Beenden' : 'Timer läuft'">
-                <span aria-hidden="true">⏱</span>
-                <span x-text="timer?.done ? 'Fertig!' : timerDisplay"></span>
-            </button>
+            {{-- Laufende Timer (auch von anderen Seiten); bei mehreren mit Schrittnummer --}}
+            <div class="flex min-w-0 flex-wrap justify-end gap-2">
+                <template x-for="timer in timers" :key="timer.step">
+                    <button type="button" @click="tapTimer(timer)"
+                            :class="timer.done ? 'bg-accent text-on-accent animate-pulse' : 'bg-surface/80'"
+                            class="flex items-center gap-1.5 rounded-full px-3 py-2 font-semibold tabular-nums sm:px-4"
+                            :aria-label="timer.done ? `Timer von Schritt ${timer.step} abgelaufen, tippen zum Beenden` : `Timer von Schritt ${timer.step} läuft, tippen zum Anzeigen`">
+                        <span aria-hidden="true">⏱</span>
+                        <span x-show="timers.length > 1" class="text-xs opacity-70" x-text="`S${timer.step}`"></span>
+                        <span x-text="timer.done ? 'Fertig!' : display(timer)"></span>
+                    </button>
+                </template>
+            </div>
 
             <button type="button" @click="showIngredients = true" class="btn btn-ghost shrink-0 bg-surface/70">
                 <span aria-hidden="true">🥕</span> <span class="hidden sm:inline">Zutaten</span>
@@ -35,33 +40,46 @@
             {{-- Schritt --}}
             <main class="flex flex-1 flex-col justify-center px-6 py-8 sm:px-12 lg:px-24">
                 <template x-if="! finished">
-                    <div class="mx-auto w-full max-w-4xl">
+                    <div class="mx-auto w-full" :class="page.length > 1 ? 'max-w-6xl' : 'max-w-4xl'">
                         <p class="mb-4 text-sm font-semibold tracking-widest text-accent uppercase">
-                            Schritt <span x-text="step.number"></span> von {{ count($steps) }}
+                            <span x-text="page.length > 1 ? `Schritte ${page.map((step) => step.number).join(' + ')}` : `Schritt ${page[0].number}`"></span>
+                            von {{ count($steps) }}
+                            <span x-show="page.length > 1"> · ⇉ gleichzeitig</span>
                         </p>
-                        <p class="font-display text-3xl leading-snug font-medium sm:text-4xl lg:text-5xl lg:leading-tight" x-text="step.text" aria-live="polite"></p>
 
-                        <div class="mt-8 flex flex-col gap-4">
-                            <template x-if="step.ingredients.length">
-                                <div>
-                                    <p class="mb-2 text-sm font-semibold text-ink-soft">Dafür brauchst du:</p>
-                                    <ul class="flex flex-wrap gap-2">
-                                        <template x-for="item in step.ingredients" :key="item">
-                                            <li class="rounded-full border border-line bg-surface px-4 py-2 text-base sm:text-lg" x-text="item"></li>
+                        {{-- Gleichzeitige Schritte: iPhone untereinander, iPad/Desktop nebeneinander --}}
+                        <div :class="page.length > 1 && 'grid gap-4 md:grid-cols-2 md:gap-6'" aria-live="polite">
+                            <template x-for="step in page" :key="step.number">
+                                <div :class="page.length > 1 && 'rounded-3xl border border-line bg-surface p-5 sm:p-6'">
+                                    <p x-show="page.length > 1" class="mb-2 text-xs font-semibold tracking-widest text-ink-soft uppercase" x-text="`Schritt ${step.number}`"></p>
+                                    <p class="font-display leading-snug font-medium"
+                                       :class="page.length > 1 ? 'text-2xl lg:text-3xl' : 'text-3xl sm:text-4xl lg:text-5xl lg:leading-tight'"
+                                       x-text="step.text"></p>
+
+                                    <div class="mt-6 flex flex-col gap-4">
+                                        <template x-if="step.ingredients.length">
+                                            <div>
+                                                <p class="mb-2 text-sm font-semibold text-ink-soft">Dafür brauchst du:</p>
+                                                <ul class="flex flex-wrap gap-2">
+                                                    <template x-for="item in step.ingredients" :key="item">
+                                                        <li class="rounded-full border border-line bg-surface px-4 py-2 text-base sm:text-lg" x-text="item"></li>
+                                                    </template>
+                                                </ul>
+                                            </div>
                                         </template>
-                                    </ul>
-                                </div>
-                            </template>
 
-                            <template x-if="step.timer">
-                                <div>
-                                    <button type="button" @click="startTimer(step)" x-show="timer?.step !== step.number || timer?.done"
-                                            class="btn btn-primary px-6! py-3! text-lg">
-                                        ⏱ Timer starten (<span x-text="step.timer.label"></span>)
-                                    </button>
-                                    <div x-show="timer?.step === step.number && ! timer?.done" class="flex items-center gap-4">
-                                        <span class="font-display text-5xl font-semibold tabular-nums" x-text="timerDisplay"></span>
-                                        <button type="button" @click="stopTimer()" class="btn btn-ghost">Timer abbrechen</button>
+                                        <template x-if="step.timer">
+                                            <div>
+                                                <button type="button" @click="startTimer(step)" x-show="! timerFor(step.number) || timerFor(step.number).done"
+                                                        class="btn btn-primary px-6! py-3! text-lg">
+                                                    ⏱ Timer starten (<span x-text="step.timer.label"></span>)
+                                                </button>
+                                                <div x-show="timerFor(step.number) && ! timerFor(step.number).done" class="flex flex-wrap items-center gap-4">
+                                                    <span class="font-display font-semibold tabular-nums" :class="page.length > 1 ? 'text-4xl' : 'text-5xl'" x-text="display(timerFor(step.number))"></span>
+                                                    <button type="button" @click="stopTimer(step.number)" class="btn btn-ghost">Timer abbrechen</button>
+                                                </div>
+                                            </div>
+                                        </template>
                                     </div>
                                 </div>
                             </template>
@@ -88,10 +106,11 @@
                             class="btn btn-ghost min-w-28 py-4! text-lg disabled:opacity-30">← Zurück</button>
 
                     <nav class="flex flex-1 flex-wrap justify-center gap-2" aria-label="Schritte">
-                        @foreach ($steps as $i => $step)
+                        @foreach ($pages as $i => $page)
                             <button type="button" @click="goTo({{ $i }})"
                                     :class="index === {{ $i }} && ! finished ? 'bg-accent w-6' : (index > {{ $i }} || finished ? 'bg-ink-soft/50 w-2.5' : 'bg-line w-2.5')"
-                                    class="h-2.5 rounded-full transition-all" aria-label="Schritt {{ $i + 1 }}"></button>
+                                    class="h-2.5 rounded-full transition-all"
+                                    aria-label="{{ count($page) > 1 ? 'Schritte '.implode(' + ', array_column($page, 'number')) : 'Schritt '.$page[0]['number'] }}"></button>
                         @endforeach
                     </nav>
 

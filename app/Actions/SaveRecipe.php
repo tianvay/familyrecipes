@@ -56,10 +56,13 @@ class SaveRecipe
             );
 
             $recipe->steps()->delete();
+            // Schritte kommen als Text (Seeder, Import) oder als ['body' => …, 'parallel' => …] (Formular).
             $recipe->steps()->createMany(
-                collect($data['steps'])->values()->map(fn (string $body, int $i) => [
+                collect($data['steps'])->values()->map(fn (string|array $step, int $i) => [
                     'position' => $i + 1,
-                    'body' => $body,
+                    'body' => is_array($step) ? $step['body'] : $step,
+                    // Der erste Schritt kann mit nichts gleichzeitig laufen.
+                    'parallel' => $i > 0 && is_array($step) && ($step['parallel'] ?? false),
                 ])->all()
             );
 

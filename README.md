@@ -107,6 +107,13 @@ Knopf, Wischen oder Pfeiltasten. Unter jedem Schritt stehen die Zutaten, die dar
 Zeitangaben („12–15 Minuten“) gibt es einen Timer mit Signalton. Die Zutatenliste lässt sich jederzeit
 einblenden und abhaken. Code: `app/Support/CookingSteps.php`, `resources/js/cooking-mode.js`.
 
+**Gleichzeitige Schritte:** Im Rezeptformular hat jeder Schritt ab dem zweiten das Häkchen
+„⇉ gleichzeitig mit Schritt …“ (Spalte `steps.parallel`). Aufeinanderfolgende Schritte mit Häkchen bilden
+eine Gruppe (`CookingSteps::groups()`). Die Rezeptseite rahmt sie als „Gleichzeitig“ ein; der Kochmodus zeigt
+sie auf einer Seite – iPhone untereinander, iPad/Desktop nebeneinander. Jeder Schritt hat seinen eigenen
+Timer, mehrere laufen parallel und bleiben beim Blättern in der Kopfzeile sichtbar (antippen springt zum
+Schritt bzw. beendet einen abgelaufenen Timer).
+
 ## Design
 
 Unter „Mein Konto“ wählt jedes Familienmitglied sein eigenes Farbdesign (wird sofort gespeichert):

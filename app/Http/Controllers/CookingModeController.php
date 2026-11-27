@@ -7,7 +7,7 @@ use App\Support\CookingSteps;
 use Illuminate\View\View;
 
 /**
- * Kochmodus: ein Schritt pro Bildschirm, gedacht fürs iPad in der Küche.
+ * Kochmodus: ein Schritt pro Bildschirm (gleichzeitige Schritte zusammen), gedacht fürs iPad in der Küche.
  */
 class CookingModeController extends Controller
 {
@@ -15,9 +15,12 @@ class CookingModeController extends Controller
     {
         $recipe->load(['ingredients', 'steps']);
 
+        $steps = CookingSteps::for($recipe);
+
         return view('recipes.cook', [
             'recipe' => $recipe,
-            'steps' => CookingSteps::for($recipe),
+            'steps' => $steps,
+            'pages' => array_map(array_values(...), CookingSteps::groups($steps)),
         ]);
     }
 }
